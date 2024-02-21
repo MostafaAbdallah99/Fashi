@@ -78,7 +78,7 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("entities.Employee");
+        return List.of("entities.User", "entities.Address");
 
     }
 
@@ -100,8 +100,10 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
     @Override
     public Properties getProperties() {
         Properties properties = new Properties();
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.put("hibernate.show_sql", "true");
+
         return properties;
     }
 

@@ -1,9 +1,14 @@
 package entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
+
 @Table(name = "address")
+@Getter
+@Setter
+@Entity
 public class Address {
 
     @Id
