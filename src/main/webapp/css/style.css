@@ -4310,3 +4310,34 @@ ol {
 		padding-right: 15px;
 	}
 }
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+	margin-left: 150px;
+}
+
+.pagination a {
+    margin: 0 10px;
+    padding: 5px 10px;
+}
+
+.pagination a {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+.pagination a.active {
+    border: 1px solid #4CAF50;
+    background-color: #e19a27;
+    color: white;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination a {
+    color: black;
+    font-size: 17px;
+}
