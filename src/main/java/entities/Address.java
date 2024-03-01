@@ -1,22 +1,29 @@
 package entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Table(name = "address")
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @Entity
+@Table(name = "address")
 public class Address {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
-    private String street;
+    private int id;
+
     private String city;
-    private String governorate;
+
     private String country;
+
+    private String streetNo;
+
+    private String streetName;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 }
