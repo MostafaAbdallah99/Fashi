@@ -1,4 +1,4 @@
-package entities;
+package persistence.entities;
 
 import jakarta.persistence.*;
 

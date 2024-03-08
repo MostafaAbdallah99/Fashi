@@ -105,7 +105,7 @@
                   <username>admin</username>
                   <password>admin</password>
                   <url>http://localhost:9090/manager/text</url>
-                  <path>/e_commerce</path>
+                  <path>/iti_ecommerce_app</path>
                 </configuration>
               </plugin>
         </plugins>

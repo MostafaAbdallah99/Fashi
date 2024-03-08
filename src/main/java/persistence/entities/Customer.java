@@ -1,6 +1,5 @@
-package entities;
+package persistence.entities;
 
-import entities.Address;
 import jakarta.persistence.*;
 
 import lombok.Data;

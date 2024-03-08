@@ -1,4 +1,4 @@
-package utils;
+package persistence;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;
@@ -79,7 +79,7 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("entities.User", "entities.Address", "entities.Product"
+        return List.of("persistence.entities.User", "persistence.entities.Address", "persistence.entities.Product"
         );
     }
 
