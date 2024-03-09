@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,6 +42,12 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProductSize size;
 
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="product")
+    Set<CartItem> cartItems=new HashSet<>();
+
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="product")
+    Set<OrderItem> orderItems=new HashSet<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id", nullable = false)
     private Category category;
@@ -47,4 +55,6 @@ public class Product implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id", referencedColumnName = "tag_id", nullable = false)
     private Tag tag;
+
+
 }

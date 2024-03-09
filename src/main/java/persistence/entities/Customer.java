@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -33,5 +35,13 @@ public class Customer {
     private Address address;
 
     private String interests;
+
+
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+    private Set<Order> orders=new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", nullable = false)
+    private Cart cart;
 
 }
