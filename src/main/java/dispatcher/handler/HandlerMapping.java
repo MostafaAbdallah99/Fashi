@@ -1,6 +1,6 @@
 package dispatcher.handler;
 
-import dispatcher.Controller;
+import dispatcher.interfaces.Controller;
 
 import java.util.HashMap;
 import java.util.Map;

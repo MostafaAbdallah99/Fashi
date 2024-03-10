@@ -1,4 +1,4 @@
-package dispatcher;
+package dispatcher.interfaces;
 
 import dispatcher.ModelAndView;
 import jakarta.servlet.ServletException;

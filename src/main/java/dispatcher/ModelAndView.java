@@ -10,11 +10,11 @@ import java.util.Map;
 public class ModelAndView {
 
     @Setter
-    private String viewName;
+    private String viewType;
     private final Map<String, Object> model;
 
-    public ModelAndView(String viewName) {
-        this.viewName = viewName;
+    public ModelAndView(String viewType) {
+        this.viewType = viewType;
         this.model = new HashMap<>();
     }
 
