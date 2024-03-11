@@ -1,35 +1,33 @@
 package persistence.entities;
-import java.io.Serializable;
-import java.math.BigDecimal;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "cart_item")
+@Table(name = "cart_items")
 public class CartItem {
     @EmbeddedId
-    private CartItemPK id;
+    private CartItemId id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="product_id", nullable=false, insertable=false, updatable=false)
+    @MapsId("cartId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cart_id", nullable = false)
+    private Cart cart;
+
+    @MapsId("productId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @Column(name = "quantity", nullable = false)
-    private int quantity;
+    private Integer quantity;
 
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount", nullable = false, precision = 15, scale = 2)
     private BigDecimal amount;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="cart_id", nullable=false, insertable=false, updatable=false)
-    Cart cart;
-
-
-
 }
-

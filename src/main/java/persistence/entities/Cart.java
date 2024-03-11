@@ -1,31 +1,27 @@
 package persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
-
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
-    private int cartId;
+    @Column(name = "cart_id", nullable = false)
+    private Integer id;
 
-    @OneToOne(mappedBy = "cart")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="cart")
-    Set<CartItem> cartItems;
+    @OneToMany(mappedBy = "cart")
+    private Set<CartItem> cartItems = new LinkedHashSet<>();
 
 }

@@ -1,47 +1,61 @@
 package persistence.entities;
 
 import jakarta.persistence.*;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(name = "customer", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customerId;
+    @Column(name = "customer_id", nullable = false)
+    private Integer id;
 
+    @Column(name = "customer_name", nullable = false)
     private String customerName;
 
-    private Date birthday;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "job", nullable = false)
     private String job;
 
+    @Column(name = "email", nullable = false)
     private String email;
 
-    private BigDecimal creditLimit = BigDecimal.ZERO;
+    @Column(name = "credit_limit", precision = 15, scale = 2)
+    private BigDecimal creditLimit;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Address address;
+    @Column(name = "city", nullable = false)
+    private String city;
 
+    @Column(name = "country", nullable = false)
+    private String country;
+
+    @Column(name = "street_no", nullable = false)
+    private String streetNo;
+
+    @Column(name = "street_name", nullable = false)
+    private String streetName;
+
+    @Column(name = "interests", nullable = false)
     private String interests;
 
-
-    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
-    private Set<Order> orders=new HashSet<>();
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id", nullable = false)
+    @OneToOne(mappedBy = "customer")
     private Cart cart;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new LinkedHashSet<>();
 
 }

@@ -1,41 +1,29 @@
 package persistence.entities;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-@Table(name = "tag")
-public class Tag implements Serializable {
+@Table(name = "tags")
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tag_id", nullable = false, updatable = false)
-    @Setter(AccessLevel.NONE)
-    private Long id;
+    @Column(name = "tag_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "tag_name" , nullable = false, length = 50 , unique = true)
-    private String name;
+    @Column(name = "tag_name", nullable = false)
+    private String tagName;
 
     @ManyToMany(mappedBy = "tags")
-    private Set<Category> categories;
+    private Set<Category> categories = new LinkedHashSet<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Tag)) return false;
-        return id != null && id.equals(((Tag) o).getId());
-    }
+    @OneToMany(mappedBy = "tag")
+    private Set<Product> products = new LinkedHashSet<>();
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

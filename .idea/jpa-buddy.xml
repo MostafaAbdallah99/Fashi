@@ -2,5 +2,8 @@
 <project version="4">
   <component name="JpaBuddyIdeaProjectConfig">
     <option name="defaultUnitInitialized" value="true" />
+    <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="e0d205f9-30ea-4f7f-b9bf-ad3e46c83b0e__iti_ecommerce" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/persistence/entities" />
   </component>
 </project>

@@ -1,31 +1,31 @@
 package persistence.entities;
 
-import java.util.Date;
-import java.util.List;
-
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private int orderId;
+    @Column(name = "order_id", nullable = false)
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "ordered_at", nullable = false, columnDefinition = "TIMESTAMP default current_timestamp")
-    private Date orderedAt;
+    @Column(name = "ordered_at", nullable = false)
+    private Instant orderedAt;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="orders")
-    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order")
+    private Set<OrderItem> orderItems = new LinkedHashSet<>();
+
 }
