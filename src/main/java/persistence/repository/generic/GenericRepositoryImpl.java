@@ -1,8 +1,8 @@
-package persistence.repository;
+package persistence.repository.generic;
 
 import jakarta.persistence.*;
-import persistence.CustomEntityManagerFactory;
-import persistence.CustomPersistenceUnit;
+import persistence.repository.utils.CustomEntityManagerFactory;
+import persistence.repository.utils.CustomPersistenceUnit;
 
 import java.io.Serializable;
 import java.util.List;

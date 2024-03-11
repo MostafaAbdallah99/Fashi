@@ -1,7 +1,7 @@
 package controllers;
 
 import dispatcher.ModelAndView;
-import dispatcher.Controller;
+import dispatcher.interfaces.Controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

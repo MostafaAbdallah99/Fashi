@@ -1,6 +1,4 @@
--- noinspection SqlNoDataSourceInspectionForFile
 
--- noinspection SqlDialectInspectionForFile
 
 create table customer (
                           customer_id int primary key AUTO_INCREMENT,

@@ -1,7 +1,7 @@
 package persistence.repository.repositories;
 
 import persistence.entities.Product;
-import persistence.repository.GenericRepositoryImpl;
+import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.interfaces.ProductRepository;
 
 

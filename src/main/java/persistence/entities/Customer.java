@@ -55,7 +55,7 @@ public class Customer {
     @OneToOne(mappedBy = "customer")
     private Cart cart;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders = new LinkedHashSet<>();
 
 }
