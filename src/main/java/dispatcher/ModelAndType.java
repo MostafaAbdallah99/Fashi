@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public class ModelAndView {
+public class ModelAndType {
 
     @Setter
     private String viewType;
     private final Map<String, Object> model;
 
-    public ModelAndView(String viewType) {
+    public ModelAndType(String viewType) {
         this.viewType = viewType;
         this.model = new HashMap<>();
     }
@@ -22,7 +22,4 @@ public class ModelAndView {
         model.put(attributeName, attributeValue);
     }
 
-    public Object getAttribute(String attributeName) {
-        return model.get(attributeName);
-    }
 }

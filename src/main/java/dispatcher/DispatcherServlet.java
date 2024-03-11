@@ -3,6 +3,10 @@ package dispatcher;
 import dispatcher.handler.HandlerMapping;
 import dispatcher.handler.HandlerMappingConfig;
 import dispatcher.interfaces.Controller;
+import dispatcher.resolver.Contents;
+import dispatcher.resolver.ViewResolver;
+import dispatcher.resolver.types.HtmlResolver;
+import dispatcher.resolver.types.JsonResolver;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -21,14 +25,21 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
-        System.out.println(requestURI);
+        System.out.println("requestURI = " + requestURI);
         Controller controller = handlerMapping.getController(requestURI);
+        ViewResolver viewResolver = new ViewResolver();
         if(controller != null) {
             try {
-                ModelAndView modelAndView = controller.handleRequest(request, response);
-                if (modelAndView != null) {
-                    ViewResolver.renderJSON(modelAndView, request, response);
+                ModelAndType modelAndType = controller.handleRequest(request, response);
+                if (modelAndType != null) {
+                    if (modelAndType.getViewType().equals(Contents.JSON.getViewName())) {
+                        viewResolver.setResolver(new JsonResolver());
+                    }
+                    else {
+                        viewResolver.setResolver(new HtmlResolver());
+                    }
                 }
+                viewResolver.render(modelAndType, request, response);
             } catch (Exception e) {
 
 
@@ -39,13 +50,7 @@ public class DispatcherServlet extends HttpServlet {
                 RequestDispatcher dispatcher = request.getServletContext().getNamedDispatcher("default");
                 dispatcher.forward(request, response);
             }
-            else if(requestURI.equals("/iti_ecommerce_app/")) {
-                try {
-                    ViewResolver.renderView("main", request, response);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
+
         }
     }
 

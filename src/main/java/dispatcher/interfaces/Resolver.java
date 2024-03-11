@@ -7,6 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public interface Controller {
-    ModelAndType handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+public interface Resolver {
+    void render(ModelAndType modelAndType, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 }
