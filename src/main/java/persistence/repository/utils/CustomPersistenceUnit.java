@@ -1,4 +1,4 @@
-package persistence;
+package persistence.repository.utils;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;
@@ -79,8 +79,22 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("persistence.entities.User", "persistence.entities.Address", "persistence.entities.Product"
+        return List.of(
+                "persistence.entities.Customer",
+                "persistence.entities.Cart",
+                "persistence.entities.Order",
+                "persistence.entities.Product",
+                "persistence.entities.OrderItem",
+                "persistence.entities.OrderItemId",
+                "persistence.entities.Category",
+                "persistence.entities.Tag",
+                "persistence.entities.CategoryTag",
+                "persistence.entities.CartItem"
+
+
+
         );
+
     }
 
     @Override

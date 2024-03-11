@@ -1,4 +1,4 @@
-package persistence.repository;
+package persistence.repository.generic;
 
 import java.util.List;
 
