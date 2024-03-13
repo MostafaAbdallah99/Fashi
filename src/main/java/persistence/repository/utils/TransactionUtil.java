@@ -1,8 +1,6 @@
 package persistence.repository.utils;
 
 import jakarta.persistence.EntityManager;
-import persistence.repository.utils.CustomEntityManagerFactory;
-import persistence.repository.utils.CustomPersistenceUnit;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -47,7 +45,4 @@ public class TransactionUtil {
         }
     }
 
-    public static void close() {
-       // emf.close();
-    }
 }

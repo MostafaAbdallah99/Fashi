@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -23,7 +24,17 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private Set<Category> categories = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "tag")
-    private Set<Product> products = new LinkedHashSet<>();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(tagName, tag.tagName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tagName);
+    }
 
 }

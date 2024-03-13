@@ -1,5 +1,7 @@
 package persistence.dto;
 
+import persistence.entities.ProductSize;
+
 import java.math.BigDecimal;
 
 public record ProductDTO(
@@ -9,6 +11,8 @@ public record ProductDTO(
         Integer stockQuantity,
         String productDescription,
         BigDecimal productPrice,
+        ProductSize productSize,
         CategoryDTO category,
         TagDTO tag
-) {}
+) {
+}

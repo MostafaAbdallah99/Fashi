@@ -21,7 +21,7 @@ public class Product {
     @Column(name = "product_name", nullable = false)
     private String productName;
 
-    @Column(name = "product_image", nullable = false)
+    @Column(name = "product_image", nullable = false, length = 500)
     private String productImage;
 
     @Column(name = "stock_quantity", nullable = false)
@@ -29,6 +29,10 @@ public class Product {
 
     @Column(name = "product_description")
     private String productDescription;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_size", nullable = false)
+    private ProductSize productSize;
 
     @Column(name = "product_price", nullable = false, precision = 15, scale = 2)
     private BigDecimal productPrice;

@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class CustomPersistenceUnit implements PersistenceUnitInfo {
 
-    private Properties dbProperties;
+    private final Properties dbProperties;
 
     public CustomPersistenceUnit() {
         dbProperties = new Properties();
@@ -88,11 +88,8 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
                 "persistence.entities.OrderItemId",
                 "persistence.entities.Category",
                 "persistence.entities.Tag",
-                "persistence.entities.CategoryTag",
-                "persistence.entities.CartItem"
-
-
-
+                "persistence.entities.CartItem",
+                "persistence.entities.CartItemId"
         );
 
     }

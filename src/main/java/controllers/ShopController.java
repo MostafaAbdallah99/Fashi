@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopController implements Controller {
-    private final ProductRepository productRepository = new ProductRepositoryImpl(Product.class);
+    private final ProductRepositoryImpl productRepository = new ProductRepositoryImpl(Product.class);
 
     @Override
     public ModelAndType handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Product> products = TransactionUtil.doInTransaction(entityManager -> productRepository.findAll());
+        List<Product> products = productRepository.findAll();
         List<ProductDTO> productDTOS = new ArrayList<>();
 
         for (Product product : products) {
