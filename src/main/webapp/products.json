@@ -1,0 +1,56 @@
+[
+  {
+    "image": "img/products/product-1.jpg",
+    "category": "Towel",
+    "name": "Pure Pineapple",
+    "price": "14.00"
+  },
+  {
+    "image": "img/products/product-2.jpg",
+    "category": "Coat",
+    "name": "Guangzhou sweater",
+    "price": "13.00"
+  },
+  {
+    "image": "img/products/product-3.jpg",
+    "category": "Shoes",
+    "name": "Guangzhou sweater",
+    "price": "34.00"
+  },
+  {
+    "image": "img/products/product-4.jpg",
+    "category": "Coat",
+    "name": "Microfiber Wool Scarf",
+    "price": "64.00"
+  },
+  {
+    "image": "img/products/product-5.jpg",
+    "category": "Shoes",
+    "name": "Men's Painted Hat",
+    "price": "44.00"
+  },
+  {
+    "image": "img/products/product-6.jpg",
+    "category": "Shoes",
+    "name": "Converse Shoes",
+    "price": "34.00"
+  },
+  {
+    "image": "img/products/product-7.jpg",
+    "category": "Towel",
+    "name": "Pure Pineapple",
+    "price": "64.00"
+  },
+  {
+    "image": "img/products/product-8.jpg",
+    "category": "Coat",
+    "name": "2 Layer Windbreaker",
+    "price": "44.00"
+  },
+  {
+    "image": "img/products/product-9.jpg",
+    "category": "Shoes",
+    "name": "Converse Shoes",
+    "price": "34.00"
+  }
+]
