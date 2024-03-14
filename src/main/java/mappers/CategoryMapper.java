@@ -1,6 +1,7 @@
 package mappers;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import persistence.dto.CategoryDTO;
 import persistence.entities.Category;
@@ -11,6 +12,7 @@ public interface CategoryMapper {
 
     CategoryDTO categoryToCategoryDTO(Category category);
 
+    @Mapping(target = "tags", ignore = true)
     Category categoryDTOToCategory(CategoryDTO categoryDTO);
 
 }

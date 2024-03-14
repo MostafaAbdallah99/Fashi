@@ -1,8 +1,11 @@
 package persistence.dto;
 
 
+import java.util.Set;
+
 public record TagDTO(
         Integer id,
-        String tagName
+        String tagName,
+        Set<CategoryDTO> categories
 ) {
 }

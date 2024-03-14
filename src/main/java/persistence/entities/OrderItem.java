@@ -2,6 +2,7 @@ package persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @Table(name = "order_items")
+@NoArgsConstructor
 public class OrderItem {
     @EmbeddedId
     private OrderItemId id;
@@ -30,4 +32,11 @@ public class OrderItem {
     @Column(name = "amount", nullable = false, precision = 15, scale = 2)
     private BigDecimal amount;
 
+    public OrderItem(Order order, Product product, Integer quantity, BigDecimal amount) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.amount = amount;
+        this.id = new OrderItemId(order.getId(), product.getId());
+    }
 }

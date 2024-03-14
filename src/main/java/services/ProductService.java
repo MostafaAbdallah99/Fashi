@@ -14,6 +14,7 @@ import persistence.repository.repositories.ProductRepositoryImpl;
 import persistence.repository.repositories.TagRepositoryImpl;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductService {
 
@@ -41,27 +42,6 @@ public class ProductService {
                 .toList();
     }
 
-    public List<ProductDTO> getProductsByCategory(String categoryName) {
-        return productRepository.getProductsByCategory(categoryName)
-                .stream()
-                .map(ProductMapper.INSTANCE::productToProductDTO)
-                .toList();
-    }
-
-    public List<ProductDTO> getProductsByTag(String tagName) {
-        return productRepository.getProductsByTag(tagName)
-                .stream()
-                .map(ProductMapper.INSTANCE::productToProductDTO)
-                .toList();
-    }
-
-    public List<ProductDTO> getProductsByCategoryAndTag(String categoryName, String tagName) {
-        return productRepository.getProductsByCategoryAndTag(categoryName, tagName)
-                .stream()
-                .map(ProductMapper.INSTANCE::productToProductDTO)
-                .toList();
-    }
-
     public List<ProductDTO> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max) {
         return productRepository.getProductsByCategoryAndTagAndPriceRange(categoryName, tagName, min, max)
                 .stream()
@@ -69,17 +49,24 @@ public class ProductService {
                 .toList();
     }
 
-    public void addProduct(ProductDTO productDTO) {
+    public boolean addProduct(ProductDTO productDTO) {
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
-    public void updateProduct(ProductDTO productDTO) {
+    public boolean updateProduct(ProductDTO productDTO) {
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
-        productRepository.update(product);
+        return productRepository.update(product);
     }
-    public void deleteProduct(ProductDTO productDTO) {
+    public boolean deleteProduct(ProductDTO productDTO) {
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
-        productRepository.delete(product);
+        return productRepository.delete(product);
+    }
+
+    public List<ProductDTO> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(ProductMapper.INSTANCE::productToProductDTO)
+                .toList();
     }
 }

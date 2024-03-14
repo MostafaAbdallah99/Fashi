@@ -29,4 +29,8 @@ public class CustomEntityManagerFactory {
     public EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
+
+    public void close() {
+        entityManagerFactory.close();
+    }
 }

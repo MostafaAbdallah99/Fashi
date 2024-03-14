@@ -3,6 +3,7 @@ package persistence.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -12,13 +13,19 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
+@NoArgsConstructor
 public class CartItemId implements Serializable {
-    private static final long serialVersionUID = -2393440063377980782L;
+
     @Column(name = "cart_id", nullable = false)
     private Integer cartId;
 
     @Column(name = "product_id", nullable = false)
     private Integer productId;
+
+    public CartItemId(Integer cartId, Integer productId) {
+        this.cartId = cartId;
+        this.productId = productId;
+    }
 
     @Override
     public boolean equals(Object o) {
