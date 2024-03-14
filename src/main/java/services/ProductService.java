@@ -82,4 +82,11 @@ public class ProductService {
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
         productRepository.delete(product);
     }
+
+    public List<ProductDTO> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(ProductMapper.INSTANCE::productToProductDTO)
+                .toList();
+    }
 }

@@ -24,4 +24,17 @@ public class JsonResolver implements Resolver {
         out.print(json);
         out.flush();
     }
+
+    public void render(Object obj, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String json = gson.toJson(obj);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        PrintWriter out = response.getWriter();
+        out.print(json);
+        out.flush();
+    }
+
+
 }
