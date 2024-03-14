@@ -1,9 +1,10 @@
 package listeners;
 
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
-import com.zaxxer.hikari.HikariDataSource;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import persistence.repository.utils.CustomEntityManagerFactory;
+import persistence.repository.utils.CustomPersistenceUnit;
 
 public class AppContextListener implements ServletContextListener {
     @Override
@@ -14,13 +15,7 @@ public class AppContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        // Get your HikariDataSource instance
-        HikariDataSource ds = (HikariDataSource) sce.getServletContext().getAttribute("myDataSource");
-
-        // Close the HikariDataSource
-        if (ds != null) {
-            ds.close();
-        }
+        CustomEntityManagerFactory.getInstance(new CustomPersistenceUnit()).close();
         AbandonedConnectionCleanupThread.checkedShutdown();
     }
 }

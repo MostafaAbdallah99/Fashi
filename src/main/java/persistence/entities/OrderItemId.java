@@ -3,6 +3,7 @@ package persistence.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -12,14 +13,19 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
+@NoArgsConstructor
 public class OrderItemId implements Serializable {
-    private static final long serialVersionUID = -1239611932902544593L;
+
     @Column(name = "order_id", nullable = false)
     private Integer orderId;
 
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
+    public OrderItemId(Integer orderId, Integer productId) {
+        this.orderId = orderId;
+        this.productId = productId;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

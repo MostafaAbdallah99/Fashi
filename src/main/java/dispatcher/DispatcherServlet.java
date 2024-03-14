@@ -28,14 +28,13 @@ public class DispatcherServlet extends HttpServlet {
         System.out.println("requestURI = " + requestURI);
         Controller controller = handlerMapping.getController(requestURI);
         ViewResolver viewResolver = new ViewResolver();
-        if(controller != null) {
+        if (controller != null) {
             try {
                 ModelAndType modelAndType = controller.handleRequest(request, response);
                 if (modelAndType != null) {
                     if (modelAndType.getViewType().equals(Contents.JSON.getViewName())) {
                         viewResolver.setResolver(new JsonResolver());
-                    }
-                    else {
+                    } else {
                         viewResolver.setResolver(new HtmlResolver());
                     }
                 }
@@ -44,9 +43,8 @@ public class DispatcherServlet extends HttpServlet {
 
 
             }
-        }
-        else {
-            if(requestURI.contains("html")) {
+        } else {
+            if (requestURI.contains("html")) {
                 RequestDispatcher dispatcher = request.getServletContext().getNamedDispatcher("default");
                 dispatcher.forward(request, response);
             }

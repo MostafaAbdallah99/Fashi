@@ -34,22 +34,33 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
     }
 
     @Override
-    public void save(T entity) {
-        TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.persist(entity));
+    public boolean save(T entity) {
+        try {
+            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.persist(entity));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public void update(T entity) {
-        TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.merge(entity));
+    public boolean update(T entity) {
+        try {
+            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.merge(entity));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public void delete(T entity) {
-        TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.remove(entity));
+    public boolean delete(T entity) {
+        try {
+            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.remove(entity));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    @Override
-    public void refresh(T entity) {
-        TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.refresh(entity));
-    }
 }
