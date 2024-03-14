@@ -120,6 +120,12 @@ ol {
 .section-title p {
 	color: #6e6e6e;
 }
+.logo-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px;
+}
 
 .set-bg {
 	background-repeat: no-repeat;
