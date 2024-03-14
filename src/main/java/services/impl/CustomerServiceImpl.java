@@ -19,14 +19,15 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-//    public signUp(CustomerDTO) {
-//
-//    }
 
 
-    public static void main(String[] args) {
 
-        CustomerServiceImpl customerService = new CustomerServiceImpl();
+    public CustomerDTO signUp(CustomerDTO customerDTO) {
+        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(customerDTO);
+        userRepository.addCustomer(customer);
+        return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
     }
+
+
 
 }
