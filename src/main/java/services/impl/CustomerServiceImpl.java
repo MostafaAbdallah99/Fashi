@@ -8,6 +8,10 @@ import persistence.repository.interfaces.UserRepository;
 import persistence.repository.repositories.UserRepositoryImpl;
 import services.interfaces.CustomerService;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+
 public class CustomerServiceImpl implements CustomerService {
 
     private final UserRepository userRepository = new UserRepositoryImpl();
@@ -44,5 +48,37 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(hashedCustomerDTO);
         userRepository.addCustomer(customer);
         return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
+    }
+
+    public  boolean isEmailExists(String email) {
+        return userRepository.isEmailExists(email);
+    }
+    public boolean isUsernameExists(String userName) {
+        return userRepository.isUsernameExists(userName);
+    }
+
+    public boolean updateCustomer(CustomerDTO customerDTO) {
+        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(customerDTO);
+        return userRepository.updateCustomer(customer);
+    }
+
+    public static void main(String[] args) {
+CustomerServiceImpl customerService = new CustomerServiceImpl();
+        CustomerDTO customerDTO = new CustomerDTO(
+                1,
+                "ana test",
+                LocalDate.now(),
+                "password",
+                "job",
+                "email",
+                new BigDecimal(1000),
+                "city",
+                "country",
+                "streetNo",
+                "streetName",
+                "interests",
+                null
+        );
+        customerService.updateCustomer(customerDTO);
     }
 }

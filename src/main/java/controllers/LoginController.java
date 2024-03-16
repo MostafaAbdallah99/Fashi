@@ -8,17 +8,19 @@ import jakarta.servlet.http.HttpSession;
 import persistence.dto.CustomerDTO;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
-
 import java.io.IOException;
 
+@WebServlet("/login")
 public class LoginController extends HttpServlet {
     private final CustomerService customerService = new CustomerServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("LoginController doGet");
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("customer") != null) {
-            response.sendRedirect(request.getContextPath() + "/home.jsp");
+        if (session != null) {
+
+            response.sendRedirect(request.getContextPath() + "/home.html");
         } else {
             response.sendRedirect("login.jsp");
         }
@@ -33,9 +35,9 @@ public class LoginController extends HttpServlet {
         if (customerDTO != null) {
             HttpSession session = request.getSession(true);
             session.setAttribute("customer", customerDTO);
-            response.sendRedirect(request.getContextPath() + "/home.jsp");
+            response.sendRedirect("home.html");
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp?message=wrong");
+            response.sendRedirect("/login.jsp?message=wrong");
         }
     }
 }

@@ -117,6 +117,11 @@ ol {
 	margin: 0 auto;
 }
 
+ .error-message {
+	 color: red;
+	 font-weight: bold;
+	 font-size: medium;
+ }
 .section-title p {
 	color: #6e6e6e;
 }

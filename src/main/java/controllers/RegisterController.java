@@ -21,9 +21,10 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("customer") != null) {
-            response.sendRedirect(request.getContextPath() + "/home.jsp");
+            response.sendRedirect(request.getContextPath() + "/home.html");
         } else {
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
@@ -54,7 +55,7 @@ public class RegisterController extends HttpServlet {
             if (createdCustomer != null) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("customer", createdCustomer);
-                response.sendRedirect(request.getContextPath() + "/home.jsp");
+                response.sendRedirect(request.getContextPath() + "/home.html");
             } else {
                 request.setAttribute("registerFailed", true);
                 request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -65,4 +66,5 @@ public class RegisterController extends HttpServlet {
         }
     }
 
-    }
+
+}
