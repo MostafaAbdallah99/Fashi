@@ -18,7 +18,7 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ShopServlet: doGet");
-        req.getRequestDispatcher("/shop.html").forward(req, resp);
+        req.getRequestDispatcher("/shop.jsp").forward(req, resp);
     }
 
     @Override

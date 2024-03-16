@@ -13,7 +13,10 @@ import services.interfaces.CustomerService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 @WebServlet("/register")
 public class RegisterController extends HttpServlet {
@@ -35,7 +38,15 @@ public class RegisterController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        LocalDate birthday = LocalDate.parse(request.getParameter("birthday"));
+        String birthdayStr = request.getParameter("birthday");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this pattern to match the format of the input date string
+        Date birthday = null;
+//        Date birthday = Date.parse(request.getParameter("birthday"));
+        try {
+            birthday = formatter.parse(birthdayStr);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         String job = request.getParameter("job");
         String city = request.getParameter("city");
         String country = request.getParameter("country");

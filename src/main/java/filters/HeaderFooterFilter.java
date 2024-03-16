@@ -27,7 +27,7 @@ public class HeaderFooterFilter implements Filter {
         } else {
             PrintWriter out = response.getWriter();
             // Include the header
-            RequestDispatcher rq = request.getRequestDispatcher("/header.html");
+            RequestDispatcher rq = request.getRequestDispatcher("/header.jsp");
             rq.include(request, response);
 //        out.println("<!DOCTYPE html>");
 //        out.println("<html>");
@@ -46,7 +46,7 @@ public class HeaderFooterFilter implements Filter {
             chain.doFilter(request, response);
 
             // Include the footer after processing
-            RequestDispatcher rs = request.getRequestDispatcher("/footer.html");
+            RequestDispatcher rs = request.getRequestDispatcher("/footer.jsp");
             rs.include(request, response);
         }
     }

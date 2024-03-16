@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -23,7 +24,8 @@ public class Customer {
     private String customerName;
 
     @Column(name = "birthday", nullable = false)
-    private LocalDate birthday;
+    @Temporal(TemporalType.DATE)
+    private Date birthday;
 
     @Column(name = "password", nullable = false)
     private String password;

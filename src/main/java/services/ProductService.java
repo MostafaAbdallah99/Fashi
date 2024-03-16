@@ -69,4 +69,8 @@ public class ProductService {
                 .map(ProductMapper.INSTANCE::productToProductDTO)
                 .toList();
     }
+
+    public ProductDTO getProductById(int id) {
+        return ProductMapper.INSTANCE.productToProductDTO(productRepository.findById((long) id));
+    }
 }

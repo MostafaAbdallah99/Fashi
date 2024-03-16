@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <!DOCTYPE html>
     <html lang="zxx">
@@ -88,9 +89,9 @@
                                     </a>
                                 </li>
                                 <li class="cart-icon">
-                                    <a href="./shopping-cart.jsp">
+                                    <a href="shopping-cart.jsp">
                                         <i class="icon_bag_alt"></i>
-                                        <span>3</span>
+                                        <span id="quant">3</span>
                                     </a>
                                     <div class="cart-hover">
                                         <div class="select-items">
@@ -130,7 +131,7 @@
                                             <h5>$120.00</h5>
                                         </div>
                                         <div class="select-button">
-                                            <a href="./shopping-cart.jsp" class="primary-btn view-card">VIEW CART</a>
+                                            <a href="shopping-cart.jsp" class="primary-btn view-card">VIEW CART</a>
                                             <a href="./check-out.jsp" class="primary-btn checkout-btn">CHECK OUT</a>
                                         </div>
                                     </div>
@@ -157,13 +158,13 @@
                     </div>
                     <nav class="nav-menu mobile-menu">
                         <ul>
-                            <li class="active"><a href="./home.html">Home</a></li>
+                            <li class="active"><a href="./home.jsp">Home</a></li>
                             <li><a href="shop">Shop</a></li>
                             <li><a href="./contact.jsp">Contact Us</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
                                     <li><a href="./blog-details.html">Blog Details</a></li>
-                                    <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
+                                    <li><a href="shopping-cart.jsp">Shopping Cart</a></li>
                                     <li><a href="./check-out.jsp">Checkout</a></li>
                                     <li><a href="./faq.jsp">Faq</a></li>
                                     <li><a href="./register.jsp">Register</a></li>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp" />
+<!-- Header End -->
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
         <div class="container">
@@ -88,7 +89,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="cart-buttons">
-                                <a href="#" class="primary-btn continue-shop">Continue shopping</a>
+                                <a href="shop" class="primary-btn continue-shop">Continue shopping</a>
                                 <a href="#" class="primary-btn up-cart">Update cart</a>
                             </div>
                             <div class="discount-coupon">
@@ -115,4 +116,15 @@
     </section>
     <!-- Shopping Cart Section End -->
 
-<jsp:include page="footer.jsp" />
+
+
+    <!-- Footer Section Begin -->
+    <jsp:include page="footer.jsp" />
+    <!-- Footer Section End -->
+    <script src="js/shopping-cart.js"></script>
+
+
+
+</body>
+
+</html>

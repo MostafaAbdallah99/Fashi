@@ -3,12 +3,13 @@ package persistence.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 public record CustomerDTO(
         Integer id,
         String customerName,
-        LocalDate birthday,
+        Date birthday,
         String password,
         String job,
         String email,

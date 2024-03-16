@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
-    @ManyToMany(cascade = {
+    @ManyToMany(fetch=FetchType.EAGER,cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })

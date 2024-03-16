@@ -1,18 +1,27 @@
-    $.ajax({
-        url: 'shop',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            json: 'true'
-        },
-        success: loadProducts,
-        error: function(error) {
-            console.log('Error: ', error);
+//sending the request to get the data bafore the page loads
+$.ajax({
+    url: 'shop',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        json: 'true'
+    },
+    success: function (products) {
+        loadProducts(products);
+    },
+    error: function (error) {
+        console.log('Error: ', error);
 
-        }
-    });
-$(document).ready(function() {
-$('#filter-btn').click(function(e) {
+    }
+});
+
+
+
+
+
+
+$(document).ready(function () {
+    $('#filter-btn').click(function (e) {
         e.preventDefault();
 
         // Get the selected filters
@@ -20,31 +29,13 @@ $('#filter-btn').click(function(e) {
         var selectedPriceMin = $('#minamount').val();
         var selectedPriceMax = $('#maxamount').val();
         var selectedTag = $('input[name="tag"]:checked').next().text();
-        console.log(selectedCategory+"this is the selected category");
+        console.log(selectedCategory + "this is the selected category");
         filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag);
-        });
-    $.ajax({
-        url: 'shop',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            json: 'true'
-        },
-        success: loadProducts,
-
-        error: function(error) {
-            console.log('Error: ', error);
-
-        }
     });
-        $('.quick-view').click(function(e) {
-            e.preventDefault(); // Prevent the default action (navigation)
-            var productId = $(this).data('product-id'); // Get the product ID from a data attribute
-            $.post('product', { productId: productId }, function(response) {
-                console.log(response);
-            });
-        });
-    document.getElementById('clear-filter').addEventListener('click', function() {
+
+
+
+    document.getElementById('clear-filter').addEventListener('click', function () {
         // Clear category filter
         var categoryInputs = document.querySelectorAll('input[name="category"]');
         for (var i = 0; i < categoryInputs.length; i++) {
@@ -67,13 +58,19 @@ $('#filter-btn').click(function(e) {
     });
 });
 
+
+
+
+
+
+//loading products on html
 function loadProducts(data) {
     var productHTML = '';
     var count = 0;
     console.log(data);
     length = data.length;
-    $('#NumberOfProducts').text("Show 01- " + length+" Of "+length+" Products");
-    $.each(data, function(key, item) {
+    $('#NumberOfProducts').text("Show 01- " + length + " Of " + length + " Products");
+    $.each(data, function (key, item) {
         console.log(item);
         console.log(count);
         var tagName = item.tag ? item.tag.tagName : '';
@@ -85,11 +82,12 @@ function loadProducts(data) {
         console.log(item.productImage);
         productHTML += '<div class="icon"><i class="icon_heart_alt"></i></div>';
         productHTML += '<ul><li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>';
-        productHTML += '<li class="quick-view"><a href="" data-product-id="' + item.id + '">+ Quick View</a></li>';
+        productHTML += '<li class="quick-view"><a href="product?product=prdct-' + item.id + '">+ Quick View</a></li>';
+        console.log(item.id);
         productHTML += '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li></ul>';
         productHTML += '</div>';
         productHTML += '<div class="pi-text">';
-        productHTML += '<div class="catagory-name">' + tagName+ '</div>';
+        productHTML += '<div class="catagory-name">' + tagName + '</div>';
         productHTML += '<a href="#"><h5>' + item.productName + '</h5></a>';
         productHTML += '<div class="product-price">$' + item.productPrice + '</div>';
         productHTML += '</div></div></div>';
@@ -97,6 +95,12 @@ function loadProducts(data) {
     });
     $('.product-list .row').html(productHTML);
 }
+
+
+
+
+
+
 
 function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag) {
     $.ajax({
@@ -111,7 +115,7 @@ function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTa
 
         },
         success: loadProducts,
-        error: function(error) {
+        error: function (error) {
             console.log('Error in filtering:  ', error);
         }
     });

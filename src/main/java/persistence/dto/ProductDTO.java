@@ -12,7 +12,8 @@ public record ProductDTO(
         String productDescription,
         BigDecimal productPrice,
         ProductSize productSize,
-        CategoryDTO category,
-        TagDTO tag
+//        CategoryDTO category,
+        TagDTO tag,
+        String categoryName
 ) {
 }

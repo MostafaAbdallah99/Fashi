@@ -1,30 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<%--<jsp:include page="header.html" />--%>
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Fashi Template">
-    <meta name="keywords" content="Fashi, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fashi | Where Fashion Meets Convenience!</title>
+<jsp:include page="header.jsp" />
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-          rel="stylesheet">
-
-    <!-- Css Styles -->
-
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/themify-icons.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/iti_ecommerce_app/css/style.css" type="text/css">
-</head>
 <!-- Header End -->
 
 <!-- Breadcrumb Section Begin -->
@@ -85,4 +62,7 @@
 <!-- Register Form Section End -->
 
 <!-- Footer Section Begin -->
-<jsp:include page="footer.html" />
+<jsp:include page="footer.jsp" />
+</body>
+
+</html>

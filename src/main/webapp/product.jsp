@@ -1,183 +1,5 @@
-
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Fashi Template">
-    <meta name="keywords" content="Fashi, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fashi | Where Fashion Meets Convenience!</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap"
-          rel="stylesheet">
-
-    <!-- Css Styles -->
-
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/themify-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-</head>
-
-<body>
-<!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
-
-<!-- Header Section Begin -->
-<header class="header-section">
-    <div class="header-top">
-
-
-
-        <div class="container">
-            <div class="ht-left">
-                <div class="mail-service">
-                    <i class="fa fa-globe"> Where Fashion Meets Convenience</i>
-                </div>
-
-            </div>
-            <div class="ht-right">
-                <a href="./login.jsp" class="login-panel"><i class="fa fa-user"></i>Login</a>
-                <div class="lan-selector">
-                    <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                        <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
-                                data-title="English">English</option>
-                        <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
-                                data-title="Bangladesh">German </option>
-                    </select>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="inner-header">
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
-                    <div class="logo">
-                        <a href="./index.jsp">
-                            <img src="img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-7">
-                    <div class="advanced-search">
-                        <button type="button" class="category-btn">All Categories</button>
-                        <div class="input-group">
-                            <input type="text" placeholder="What do you need?">
-                            <button type="button"><i class="ti-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 text-right col-md-3">
-                    <ul class="nav-right">
-                        <li class="heart-icon">
-                            <a href="#">
-                                <i class="icon_heart_alt"></i>
-                                <span>1</span>
-                            </a>
-                        </li>
-                        <li class="cart-icon">
-                            <a href="./shopping-cart.jsp">
-                                <i class="icon_bag_alt"></i>
-                                <span>3</span>
-                            </a>
-                            <div class="cart-hover">
-                                <div class="select-items">
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td class="si-pic"><img src="img/select-product-1.jpg" alt="">
-                                            </td>
-                                            <td class="si-text">
-                                                <div class="product-selected">
-                                                    <p>$60.00 x 1</p>
-                                                    <h6>Kabino Bedside Table</h6>
-                                                </div>
-                                            </td>
-                                            <td class="si-close">
-                                                <i class="ti-close"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="si-pic"><img src="img/select-product-2.jpg" alt="">
-                                            </td>
-                                            <td class="si-text">
-                                                <div class="product-selected">
-                                                    <p>$60.00 x 1</p>
-                                                    <h6>Kabino Bedside Table</h6>
-                                                </div>
-                                            </td>
-                                            <td class="si-close">
-                                                <i class="ti-close"></i>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="select-total">
-                                    <span>total:</span>
-                                    <h5>$120.00</h5>
-                                </div>
-                                <div class="select-button">
-                                    <a href="./shopping-cart.jsp" class="primary-btn view-card">VIEW CART</a>
-                                    <a href="./check-out.jsp" class="primary-btn checkout-btn">CHECK OUT</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cart-price">$150.00</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="nav-item">
-        <div class="container">
-            <div class="nav-depart">
-                <div class="depart-btn">
-                    <i class="ti-menu"></i>
-                    <span>All departments</span>
-                    <ul class="depart-hover">
-                        <li class="active"><a href="#">Women's Clothing</a></li>
-                        <li><a href="#">Men’s Clothing</a></li>
-                        <li><a href="#">Kid's Clothing</a></li>
-
-                    </ul>
-                </div>
-            </div>
-            <nav class="nav-menu mobile-menu">
-                <ul>
-                    <li class="active"><a href="./home.html">Home</a></li>
-                    <li><a href="shop">Shop</a></li>
-                    <li><a href="./contact.jsp">Contact Us</a></li>
-                    <li><a href="#">Pages</a>
-                        <ul class="dropdown">
-                            <li><a href="./blog-details.html">Blog Details</a></li>
-                            <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
-                            <li><a href="./check-out.jsp">Checkout</a></li>
-                            <li><a href="./faq.jsp">Faq</a></li>
-                            <li><a href="./register.jsp">Register</a></li>
-                            <li><a href="./login.jsp">Login</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="./faq.jsp">FAQ</a></li>
-                </ul>
-            </nav>
-            <div id="mobile-menu-wrap"></div>
-        </div>
-    </div>
-</header>
-<!-- Header End -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:include page="header.jsp" />
     <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
@@ -186,8 +8,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./home.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./shop.html">Shop</a>
+                        <a href="home.jsp"><i class="fa fa-home"></i> Home</a>
+                        <a href="shop.jsp">Shop</a>
                         <span>Detail</span>
                     </div>
                 </div>
@@ -200,69 +22,7 @@
     <section class="product-shop spad page-details">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Categories</h4>
-                        <ul class="filter-catagories">
-                            <li><a href="#">Men</a></li>
-                            <li><a href="#">Women</a></li>
-                            <li><a href="#">Kids</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Price</h4>
-                        <div class="filter-range-wrap">
-                            <div class="range-slider">
-                                <div class="price-input">
-                                    <input type="text" id="minamount">
-                                    <input type="text" id="maxamount">
-                                </div>
-                            </div>
-                            <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                data-min="33" data-max="98">
-                                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                            </div>
-                        </div>
-                        <a href="#" class="filter-btn">Filter</a>
-                    </div>
-        
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Size</h4>
-                        <div class="fw-size-choose">
-                            <div class="sc-item">
-                                <input type="radio" id="s-size">
-                                <label for="s-size">s</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" id="m-size">
-                                <label for="m-size">m</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" id="l-size">
-                                <label for="l-size">l</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" id="xs-size">
-                                <label for="xs-size">xs</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Tags</h4>
-                        <div class="fw-tags">
-                            <a href="#">Towel</a>
-                            <a href="#">Shoes</a>
-                            <a href="#">Coat</a>
-                            <a href="#">Dresses</a>
-                            <a href="#">Trousers</a>
-                            <a href="#">Men's hats</a>
-                            <a href="#">Backpack</a>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-lg-6">
@@ -333,13 +93,7 @@
                                     <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>
                                     <li><span>TAGS</span>: Clothing, T-shirt, Woman</li>
                                 </ul>
-                                <div class="pd-share">
-                                    <div class="p-code">Sku : 00012</div>
-                                    <div class="pd-social">
-                                        <a href="#"><i class="ti-facebook"></i></a>
-                                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                                        <a href="#"><i class="ti-linkedin"></i></a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -363,7 +117,7 @@
                                 <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
                                     <div class="product-content">
                                         <div class="row">
-                                            <div class="col-lg-7">
+                                            <div class="col-lg-13">
                                                 <h5>Introduction</h5>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -374,9 +128,6 @@
                                                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
                                                     ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                                                     aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <img src="img/product-single/tab-desc.jpg" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -630,103 +381,11 @@
     <!-- Related Products Section End -->
 
 
-<!-- Partner Logo Section Begin -->
-<div class="partner-logo">
-    <div class="container">
-        <div class="logo-carousel owl-carousel">
-
-        </div>
-    </div>
-</div>
-</div>
-<!-- Partner Logo Section End -->
-
-<!-- Footer Section Begin -->
-<footer class="footer-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="footer-left">
-                    <div class="footer-logo">
-                        <a href="#"><img src="img/footer-logo.png" alt=""></a>
-                    </div>
-                    <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello.colorlib@gmail.com</li>
-                    </ul>
-                    <div class="footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 offset-lg-1">
-                <div class="footer-widget">
-                    <h5>Information</h5>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="./check-out.jsp">Checkout</a></li>
-                        <li><a href="./contact.jsp">Contact Us</a></li>
-
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="footer-widget">
-                    <h5>My Account</h5>
-                    <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="./contact.jsp">Contact</a></li>
-                        <li><a href="./shopping-cart.jsp">Shopping Cart</a></li>
-                        <li><a href="shop.html">Shop</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="newslatter-item">
-                    <h5>Join Our Newsletter Now</h5>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#" class="subscribe-form">
-                        <input type="text" placeholder="Enter Your Mail">
-                        <button type="button">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="copyright-reserved">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </div>
-                    <div class="payment-pic">
-                        <img src="img/payment-method.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+<!-- footer section but without the js scripts -->
+<jsp:include page="footer.jsp" />
 <!-- Footer Section End -->
 
-<!-- Js Plugins -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
-<script src="js/jquery.dd.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
+<script src="js/product.js"></script>
 </body>
 
 </html>
