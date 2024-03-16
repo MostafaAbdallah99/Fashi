@@ -26,7 +26,7 @@
 <!-- import the js file -->
 <<script src="js/register_validation.js"></script>
 
-
+J
 
 
 </head>

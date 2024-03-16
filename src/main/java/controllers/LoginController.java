@@ -19,7 +19,6 @@ public class LoginController extends HttpServlet {
         System.out.println("LoginController doGet");
         HttpSession session = request.getSession(false);
         if (session != null) {
-
             response.sendRedirect(request.getContextPath() + "/home.html");
         } else {
             response.sendRedirect("login.jsp");

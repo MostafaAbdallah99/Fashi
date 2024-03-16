@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/login.jsp"})
+@WebFilter(urlPatterns = {"/login"})
 public class UserFilter implements Filter {
 
     @Override
@@ -18,4 +18,5 @@ public class UserFilter implements Filter {
             chain.doFilter(request, response);
         }
     }
+
 }
