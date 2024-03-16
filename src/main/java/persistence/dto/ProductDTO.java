@@ -12,7 +12,7 @@ public record ProductDTO(
         String productDescription,
         BigDecimal productPrice,
         ProductSize productSize,
-//        CategoryDTO category,
+        CategoryDTO category,
         TagDTO tag,
         String categoryName
 ) {

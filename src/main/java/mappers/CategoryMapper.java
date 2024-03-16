@@ -12,7 +12,6 @@ public interface CategoryMapper {
 
     CategoryDTO categoryToCategoryDTO(Category category);
 
-    @Mapping(target = "tags", ignore = true)
     Category categoryDTOToCategory(CategoryDTO categoryDTO);
 
 }

@@ -14,7 +14,6 @@ import persistence.repository.repositories.ProductRepositoryImpl;
 import persistence.repository.repositories.TagRepositoryImpl;
 
 import java.util.List;
-import java.util.Map;
 
 public class ProductService {
 
@@ -58,9 +57,14 @@ public class ProductService {
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
         return productRepository.update(product);
     }
-    public boolean deleteProduct(ProductDTO productDTO) {
-        Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
+    public boolean deleteProduct(Long productId) {
+        Product product = productRepository.findReferenceById(productId);
         return productRepository.delete(product);
+    }
+
+    public ProductDTO getProductById(Long productId) {
+        Product product = productRepository.findById(productId);
+        return ProductMapper.INSTANCE.productToProductDTO(product);
     }
 
     public List<ProductDTO> getAllProducts() {

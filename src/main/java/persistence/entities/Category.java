@@ -20,25 +20,6 @@ public class Category {
     @Column(name = "category_name", nullable = false)
     private String categoryName;
 
-    @ManyToMany(fetch=FetchType.EAGER,cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "category_tags",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags = new LinkedHashSet<>();
-
-    public void addTag(Tag tag) {
-        tags.add(tag);
-        tag.getCategories().add(this);
-    }
-
-    public void removeTag(Tag tag) {
-        tags.remove(tag);
-        tag.getCategories().remove(this);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -21,9 +21,6 @@ public class Tag {
     @Column(name = "tag_name", nullable = false)
     private String tagName;
 
-    @ManyToMany(mappedBy = "tags")
-    private Set<Category> categories = new LinkedHashSet<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

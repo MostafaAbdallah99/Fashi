@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     // Get the product ID from the URL parameters
     var urlParams = new URLSearchParams(window.location.search);

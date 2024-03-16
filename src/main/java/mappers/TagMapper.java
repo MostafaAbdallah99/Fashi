@@ -12,6 +12,5 @@ public interface TagMapper {
 
     TagDTO tagToTagDTO(Tag tag);
 
-    @Mapping(target = "categories", ignore = true)
     Tag tagDTOToTag(TagDTO tagDTO);
 }
