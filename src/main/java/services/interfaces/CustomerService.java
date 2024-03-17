@@ -3,10 +3,19 @@ package services.interfaces;
 import persistence.dto.CustomerDTO;
 
 public interface CustomerService {
-    public CustomerDTO login(String email, String password);
-    public CustomerDTO signUp (CustomerDTO customerDTO) ;
+     CustomerDTO login(String email, String password);
 
-    public boolean isEmailExists(String email);
+     CustomerDTO signUp(CustomerDTO customerDTO);
+
+     boolean isEmailExists(String email);
 
     boolean isUsernameExists(String userName);
+
+     CustomerDTO getCustomerById(Integer id);
+
+    boolean updateCustomer(CustomerDTO updatedCustomer);
+
+     boolean comparePassword(String email, String password);
+
+     boolean changePassword(String email, String oldPassword, String newPassword);
 }

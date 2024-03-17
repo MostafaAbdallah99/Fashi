@@ -16,15 +16,14 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("LoginController doGet");
         HttpSession session = request.getSession(false);
         if (session != null) {
-            response.sendRedirect(request.getContextPath() + "/home.html");
+            System.out.println(session.getAttribute("customer"));
+            response.sendRedirect("home.html");
         } else {
             response.sendRedirect("login.jsp");
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,7 +35,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("customer", customerDTO);
             response.sendRedirect("home.html");
         } else {
-            response.sendRedirect("/login.jsp?message=wrong");
+            response.sendRedirect("login.jsp?message=wrong");
         }
     }
 }

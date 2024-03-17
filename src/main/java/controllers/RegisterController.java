@@ -53,18 +53,19 @@ public class RegisterController extends HttpServlet {
             CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart);
             CustomerDTO createdCustomer = customerService.signUp(customerDTO);
             if (createdCustomer != null) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("customer", createdCustomer);
+                HttpSession oldSession = request.getSession(false);
+                if (oldSession != null) {
+                    oldSession.invalidate();
+                }
+                HttpSession newSession = request.getSession(true);
+                newSession.setAttribute("customer", createdCustomer);
                 response.sendRedirect(request.getContextPath() + "/home.html");
             } else {
                 request.setAttribute("registerFailed", true);
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             }
-        } else {
-            request.setAttribute("registerFailed", true);
-            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
+
+
     }
-
-
 }

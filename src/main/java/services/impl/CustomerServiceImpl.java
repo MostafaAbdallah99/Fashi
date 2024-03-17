@@ -10,7 +10,7 @@ import services.interfaces.CustomerService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
+
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -50,9 +50,10 @@ public class CustomerServiceImpl implements CustomerService {
         return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
     }
 
-    public  boolean isEmailExists(String email) {
+    public boolean isEmailExists(String email) {
         return userRepository.isEmailExists(email);
     }
+
     public boolean isUsernameExists(String userName) {
         return userRepository.isUsernameExists(userName);
     }
@@ -62,23 +63,21 @@ public class CustomerServiceImpl implements CustomerService {
         return userRepository.updateCustomer(customer);
     }
 
-    public static void main(String[] args) {
-CustomerServiceImpl customerService = new CustomerServiceImpl();
-        CustomerDTO customerDTO = new CustomerDTO(
-                1,
-                "ana test",
-                LocalDate.now(),
-                "password",
-                "job",
-                "email",
-                new BigDecimal(1000),
-                "city",
-                "country",
-                "streetNo",
-                "streetName",
-                "interests",
-                null
-        );
-        customerService.updateCustomer(customerDTO);
+
+    public boolean comparePassword(String email, String password) {
+        Customer customer = userRepository.findUserByEmail(email);
+        if (customer != null) {
+            return BCrypt.checkpw(password, customer.getPassword());
+        }
+        return false;
+    }
+
+    public CustomerDTO getCustomerById(Integer id) {
+        Customer customer = userRepository.findUserById(id);
+        return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
+    }
+
+    public boolean changePassword(String email, String oldPassword, String newPassword) {
+       return userRepository.changePassword(email, oldPassword, newPassword);
     }
 }
