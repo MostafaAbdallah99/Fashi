@@ -87,7 +87,10 @@ public class UserRepositoryImpl implements UserRepository {
             if (customer.getCreditLimit() != null) {
                 existingCustomer.setCreditLimit(customer.getCreditLimit());
             }
-            entityManager.merge(existingCustomer);
+            if (customer.getResetPasswordToken() != null) {
+                existingCustomer.setResetPasswordToken(customer.getResetPasswordToken());
+            }
+            entityManager.persist(existingCustomer);
             return true;
         });
     }
@@ -123,10 +126,22 @@ public class UserRepositoryImpl implements UserRepository {
             }
         });
     }
+
     @Override
     public Customer findUserById(Integer id) {
         return TransactionUtil.doInTransaction(entityManager -> {
             return entityManager.find(Customer.class, id);
+        });
+    }
+
+
+
+    public Customer findUserByResetPasswordToken(String token) {
+        return TransactionUtil.doInTransaction(entityManager -> {
+            TypedQuery<Customer> query = entityManager.createQuery("SELECT u FROM Customer u WHERE u.resetPasswordToken = :token", Customer.class);
+            query.setParameter("token", token);
+            List<Customer> customers = query.getResultList();
+            return customers.isEmpty() ? null : customers.get(0);
         });
     }
 

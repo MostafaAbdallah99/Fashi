@@ -20,4 +20,6 @@ public interface UserRepository {
 
 
     Customer findUserById(Integer id);
+
+    Customer findUserByResetPasswordToken(String token);
 }

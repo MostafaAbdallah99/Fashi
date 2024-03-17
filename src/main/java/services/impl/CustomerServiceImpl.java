@@ -26,6 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
+
+
     public CustomerDTO signUp(CustomerDTO customerDTO) {
         String hashedPassword = BCrypt.hashpw(customerDTO.password(), BCrypt.gensalt());
 
@@ -58,6 +60,10 @@ public class CustomerServiceImpl implements CustomerService {
         return userRepository.isUsernameExists(userName);
     }
 
+    public CustomerDTO findUserByEmail(String email) {
+        Customer customer = userRepository.findUserByEmail(email);
+        return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
+    }
     public boolean updateCustomer(CustomerDTO customerDTO) {
         Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(customerDTO);
         return userRepository.updateCustomer(customer);
@@ -79,5 +85,39 @@ public class CustomerServiceImpl implements CustomerService {
 
     public boolean changePassword(String email, String oldPassword, String newPassword) {
        return userRepository.changePassword(email, oldPassword, newPassword);
+    }
+
+    @Override
+    public void storeResetPasswordToken(String email, String token) {
+        Customer customer = userRepository.findUserByEmail(email);
+        if (customer != null) {
+            customer.setResetPasswordToken(token);
+            userRepository.updateCustomer(customer);
+        }
+    }
+
+    @Override
+    public boolean resetPassword(String token, String newPassword) {
+        Customer customer = userRepository.findUserByResetPasswordToken(token);
+        if (customer != null) {
+            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            customer.setPassword(hashedPassword);
+            customer.setResetPasswordToken(null);
+            userRepository.updateCustomer(customer);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Customer getUserByResetPasswordToken(String token) {
+        return userRepository.findUserByResetPasswordToken(token);
+    }
+
+    public static void main(String[] args) {
+        CustomerServiceImpl customerService = new CustomerServiceImpl();
+        customerService.storeResetPasswordToken(
+               "AhmedHassan@yahoo.com", "token1234");
+
     }
 }
