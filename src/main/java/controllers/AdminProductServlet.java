@@ -12,13 +12,13 @@ import persistence.dto.CategoryDTO;
 import persistence.dto.ProductDTO;
 import persistence.dto.TagDTO;
 import persistence.entities.ProductSize;
-import services.ImageService;
 import services.ProductService;
+import utils.ByteStreamConverter;
+import utils.FireStorageManager;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +36,7 @@ public class AdminProductServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        System.out.println("AdminProductServlet doPost");
         ProductService productService = new ProductService();
-        ImageService imageService = new ImageService(request.getServletContext());
         Part filePart = request.getPart("fileInput");
         String fileName = filePart.getSubmittedFileName();
         InputStream fileContent = filePart.getInputStream();
@@ -49,10 +47,11 @@ public class AdminProductServlet extends HttpServlet {
         ProductSize productSize = ProductSize.valueOf(request.getParameter("productSize"));
         String category = request.getParameter("category");
         String tag = request.getParameter("tag");
-        String imagePath = null;
+        String imagePath;
 
         if(fileContent.available() != 0) {
-          imagePath = imageService.saveImage(fileContent, fileName);
+            byte[] fileBytes = ByteStreamConverter.getInstance().convertToByteArray(fileContent);
+            imagePath = FireStorageManager.getInstance().uploadFileToStorage(fileBytes, fileName);
         }
         else {
             ProductDTO product = productService.getProductById(Long.parseLong(request.getParameter("productID")));
@@ -70,9 +69,8 @@ public class AdminProductServlet extends HttpServlet {
         }
         else {
             ProductDTO productDTO = new ProductDTO(null, productName, imagePath, stockQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName());
-
             if(productService.addProduct(productDTO)) {
-                response.sendRedirect(getServletContext().getContextPath() + "/add-product.html");
+                response.sendRedirect(getServletContext().getContextPath() + "/admin?action=add");
             }
         }
     }
