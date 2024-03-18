@@ -1,8 +1,7 @@
 package persistence.repository.generic;
 
 
-import persistence.repository.utils.TransactionUtil;
-
+import jakarta.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,29 +13,25 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
     }
 
     @Override
-    public T findById(ID id) {
-        return TransactionUtil.doInTransaction(entityManager -> entityManager.find(entityClass, id));
+    public T findById(ID id, EntityManager entityManager) {
+        return entityManager.find(entityClass, id);
     }
 
     @Override
-    public T findReferenceById(ID id) {
-        return TransactionUtil.doInTransaction(entityManager -> entityManager.getReference(entityClass, id));
+    public T findReferenceById(ID id, EntityManager entityManager) {
+        return entityManager.getReference(entityClass, id);
     }
 
     @Override
-    public List<T> findAll() {
-        return TransactionUtil.doInTransaction(
-                entityManager -> {
-                    String query = String.format("SELECT t FROM %s t", entityClass.getSimpleName());
-                    return entityManager.createQuery(query, entityClass).getResultList();
-                }
-        );
+    public List<T> findAll(EntityManager entityManager) {
+        String query = String.format("SELECT t FROM %s t", entityClass.getSimpleName());
+        return entityManager.createQuery(query, entityClass).getResultList();
     }
 
     @Override
-    public boolean save(T entity) {
+    public boolean save(T entity, EntityManager entityManager) {
         try {
-            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.persist(entity));
+            entityManager.persist(entity);
             return true;
         } catch (Exception e) {
             return false;
@@ -44,9 +39,9 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
     }
 
     @Override
-    public boolean update(T entity) {
+    public boolean update(T entity, EntityManager entityManager) {
         try {
-            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.merge(entity));
+            entityManager.merge(entity);
             return true;
         } catch (Exception e) {
             return false;
@@ -54,9 +49,9 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
     }
 
     @Override
-    public boolean delete(T entity) {
+    public boolean delete(T entity, EntityManager entityManager) {
         try {
-            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.remove(entity));
+            entityManager.remove(entity);
             return true;
         } catch (Exception e) {
             return false;

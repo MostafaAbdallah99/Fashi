@@ -3,8 +3,14 @@ package listeners;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
+import persistence.repository.utils.CustomEntityManagerFactory;
+import persistence.repository.utils.CustomPersistenceUnit;
 
 
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.Map;
 
 public class AppContextListener implements ServletContextListener {
@@ -18,9 +24,10 @@ public class AppContextListener implements ServletContextListener {
             "Shirt", 1,
             "Pants", 2,
             "Bag", 3,
-            "Dress", 4,
-            "Blouse", 5
+            "Hat", 4,
+            "Sweater", 5
     );
+    private final static CustomEntityManagerFactory customEntityManagerFactory = CustomEntityManagerFactory.getInstance(new CustomPersistenceUnit());
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         sce.getServletContext().setAttribute("categoryMap", categoryMap);
@@ -29,6 +36,7 @@ public class AppContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
+        customEntityManagerFactory.close();
         AbandonedConnectionCleanupThread.checkedShutdown();
     }
 }

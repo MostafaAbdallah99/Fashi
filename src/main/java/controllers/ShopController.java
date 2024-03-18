@@ -22,7 +22,7 @@ public class ShopController implements Controller {
     @Override
     public ModelAndType handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Product> products = productRepository.findAll();
+        /*List<Product> products = productRepository.findAll();
         List<ProductDTO> productDTOS = new ArrayList<>();
 
         for (Product product : products) {
@@ -50,6 +50,7 @@ public class ShopController implements Controller {
         modelAndType.addAttribute("products", productDTOS);
 
         // Return the ModelAndType object
-        return modelAndType;
+        return modelAndType;*/
+        return null;
     }
 }

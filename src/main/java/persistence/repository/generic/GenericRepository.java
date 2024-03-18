@@ -1,17 +1,19 @@
 package persistence.repository.generic;
 
+import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 public interface GenericRepository<T, ID> {
-    T findById(ID id);
+    T findById(ID id, EntityManager entityManager);
 
-    T findReferenceById(ID id);
+    T findReferenceById(ID id, EntityManager entityManager);
 
-    List<T> findAll();
+    List<T> findAll(EntityManager entityManager);
 
-    boolean save(T entity);
+    boolean save(T entity, EntityManager entityManager);
 
-    boolean update(T entity);
+    boolean update(T entity, EntityManager entityManager);
 
-    boolean delete(T entity);
+    boolean delete(T entity, EntityManager entityManager);
 }

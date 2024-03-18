@@ -64,13 +64,13 @@ public class AdminProductServlet extends HttpServlet {
         if(request.getParameter("action") != null) {
             ProductDTO productDTO = new ProductDTO(Integer.parseInt(request.getParameter("productID")), productName, imagePath, stockQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName());
             if(productService.updateProduct(productDTO)) {
-                response.sendRedirect(getServletContext().getContextPath() + "/edit-product.html");
+                response.sendRedirect(getServletContext().getContextPath() + "/admin");
             }
         }
         else {
             ProductDTO productDTO = new ProductDTO(null, productName, imagePath, stockQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName());
             if(productService.addProduct(productDTO)) {
-                response.sendRedirect(getServletContext().getContextPath() + "/admin?action=add");
+                response.sendRedirect(getServletContext().getContextPath() + "/admin");
             }
         }
     }

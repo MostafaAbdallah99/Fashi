@@ -8,7 +8,7 @@ window.onload = async function() {
             let productID = row.querySelector('.product-id').textContent;
 
             let response = await fetch(`admin/product/?productID=${productID}`, {
-                method: 'POST',
+                method: 'GET',
             });
 
             if (response.ok) {

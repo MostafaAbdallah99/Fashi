@@ -28,7 +28,7 @@ public class ProductServlet extends HttpServlet {
         String p = req.getParameter("productId");
         p=p.split("prdct-")[1];
         System.out.println("this is the data after the split "+p);
-        int productId = Integer.parseInt(p);
+        long productId = Long.parseLong(p);
         ProductDTO product = new ProductService().getProductById(productId);
         new JsonResolver().render(product, req, resp);
 
