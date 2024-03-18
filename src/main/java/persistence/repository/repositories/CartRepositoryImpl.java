@@ -7,6 +7,7 @@ import persistence.entities.CartItemId;
 import persistence.entities.Product;
 import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.interfaces.CartRepository;
+import persistence.repository.utils.TransactionUtil;
 
 import java.util.List;
 
@@ -35,8 +36,8 @@ public class CartRepositoryImpl extends GenericRepositoryImpl<Cart, Integer> imp
         }
     }
 
-    public CartItem findCartItemById(CartItemId id) {
-        return TransactionUtil.doInTransaction(entityManager -> entityManager.find(CartItem.class, id));
+    public CartItem findCartItemById(CartItemId id, EntityManager entityManager) {
+        return entityManager.find(CartItem.class, id);
     }
 
     public boolean addToCart(int cartID, int productID, int quantity) {
@@ -44,7 +45,7 @@ public class CartRepositoryImpl extends GenericRepositoryImpl<Cart, Integer> imp
             TransactionUtil.doInTransactionWithoutResult(entityManager -> {
                 Cart cart = entityManager.find(Cart.class, cartID);
                 CartItemId cartItemId = new CartItemId(cartID, productID);
-                CartItem cartItem = findCartItemById(cartItemId);
+                CartItem cartItem = TransactionUtil.doInTransaction(entityManager1 -> findCartItemById(cartItemId, entityManager1));
 
                 if (cartItem == null) {
                     cartItem = new CartItem();

@@ -50,7 +50,8 @@ public class CustomerServiceImpl implements CustomerService {
         Cart cart = new Cart();
         cart.setCustomer(customer);
         cart.setId(customer.getId());
-        new CartRepositoryImpl(Cart.class).save(cart); // save the cart to the database
+        TransactionUtil.doInTransaction(entityManager -> new CartRepositoryImpl(Cart.class).save(cart, entityManager)); // persist the cart
+         // save the cart to the database
 
 
         return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);

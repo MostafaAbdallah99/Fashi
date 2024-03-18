@@ -1,9 +1,6 @@
 package services;
 
-import mappers.CartItemMapper;
-import mappers.CartMapper;
-import mappers.CustomerMapperImpl;
-import mappers.ProductMapper;
+import mappers.*;
 import persistence.dto.*;
 import persistence.entities.Cart;
 import persistence.entities.CartItem;
@@ -24,9 +21,11 @@ import java.util.stream.Collectors;
 public class CartService {
 
     private final CartRepositoryImpl cartRepository;
+    private final ProductRepositoryImpl productRepository;
 
     public CartService() {
         this.cartRepository = new CartRepositoryImpl(Cart.class);
+        this.productRepository = new ProductRepositoryImpl(Product.class);
     }
 
 
@@ -45,31 +44,29 @@ public class CartService {
         Cart cart = CartMapper.INSTANCE.cartDTOToCart(cartDTO);
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
         cart.removeProduct(product);
-        return cartRepository.update(cart);
+        return TransactionUtil.doInTransaction(entityManager -> cartRepository.update(cart, entityManager));
     }
 
     public List<CartItemDTO> getCartItems(int cartId) {
-        return cartRepository.getCartItems(cartId)
+        return TransactionUtil.doInTransaction(entityManager -> cartRepository.getCartItems(cartId, entityManager))
                 .stream()
                 .map(CartItemMapper.INSTANCE::cartItemToCartItemDTO)
                 .collect(Collectors.toList());
     }
 
     public boolean cartReset(int cartId) {
-        return cartRepository.cartReset(cartId);
+        return TransactionUtil.doInTransaction(entityManager -> cartRepository.cartReset(cartId, entityManager));
     }
 
     public boolean checkProductQuantity(int productId, int quantity) {
-        ProductRepositoryImpl productRepository = new ProductRepositoryImpl(Product.class);
-        Product product = productRepository.findById((long) productId);
+        Product product = TransactionUtil.doInTransaction(entityManager -> productRepository.findById((long) productId, entityManager));
         return product.getStockQuantity() >= quantity;
 
     }
 
-
     public CartItemDTO createCartItemForGuest(int productId, int quantity) {
         ProductService productService = new ProductService();
-        ProductDTO productDTO = productService.getProductById(productId);
+        ProductDTO productDTO = productService.getProductById((long) productId);
 
         BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
 
@@ -82,16 +79,16 @@ public class CartService {
 
     public CartDTO createCartForCustomer(CustomerDTO customerDTO) {
         Cart cart = new Cart();
-        Customer customer = new CustomerMapperImpl().customerDTOToCustomer(customerDTO);
+        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(customerDTO);
         cart.setCustomer(customer);
-        cartRepository.save(cart);
+        TransactionUtil.doInTransaction(entityManager -> cartRepository.save(cart, entityManager));
         return CartMapper.INSTANCE.cartToCartDTO(cart);
 
     }
 
     public CartItemDTO createCartItemForCustomer(Customer customer, int productId, int quantity) {
         ProductService productService = new ProductService();
-        ProductDTO productDTO = productService.getProductById(productId);
+        ProductDTO productDTO = productService.getProductById((long) productId);
         BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
 //
 //        Cart cart = cartRepository.findById(customer.getId());
