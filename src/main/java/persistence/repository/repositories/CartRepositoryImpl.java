@@ -2,6 +2,8 @@ package persistence.repository.repositories;
 
 import persistence.entities.Cart;
 import persistence.entities.CartItem;
+import persistence.entities.CartItemId;
+import persistence.entities.Product;
 import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.interfaces.CartRepository;
 import persistence.repository.utils.TransactionUtil;
@@ -29,6 +31,41 @@ public class CartRepositoryImpl extends GenericRepositoryImpl<Cart, Integer> imp
                     .executeUpdate());
             return true;
         } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public CartItem findCartItemById(CartItemId id) {
+        return TransactionUtil.doInTransaction(entityManager -> entityManager.find(CartItem.class, id));
+    }
+
+    public boolean addToCart(int cartID, int productID, int quantity) {
+        try {
+            TransactionUtil.doInTransactionWithoutResult(entityManager -> {
+                Cart cart = entityManager.find(Cart.class, cartID);
+                CartItemId cartItemId = new CartItemId(cartID, productID);
+                CartItem cartItem = findCartItemById(cartItemId);
+
+                if (cartItem == null) {
+                    cartItem = new CartItem();
+                    cartItem.setId(cartItemId);
+                    cartItem.setCart(cart);
+                    cartItem.setProduct(entityManager.find(Product.class, productID));
+                    cartItem.setQuantity(quantity);
+                    cartItem.setAmount(cartItem.getProduct().getProductPrice().multiply(new java.math.BigDecimal(quantity)));
+                    entityManager.persist(cartItem);
+                    cart.getCartItems().add(cartItem);
+                } else {
+                    cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                    cartItem.setAmount(cartItem.getProduct().getProductPrice().multiply(new java.math.BigDecimal(cartItem.getQuantity())));
+                    entityManager.merge(cartItem);
+                }
+
+                entityManager.merge(cart);
+            });
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

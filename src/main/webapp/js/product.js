@@ -34,29 +34,8 @@ $(document).ready(function () {
         console.log(productId);
         console.log(quantity);
 
-        // Make the AJAX POST request to the cart servlet
-        $.ajax({
-            url: 'cart',  // Update this to the URL of your cart servlet
-            type: 'POST',
-            data: {
-                productId: productId,
-                quantity: quantity
-
-            },
-            success: function (response) {
-                // Handle success - update the cart UI, show a success message, etc.
-                console.log('Product added to cart successfully:', response);
-                var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-                cartItems.push(response);
-                var event = new Event('cartUpdated');
-                window.dispatchEvent(event);
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            },
-            error: function (error) {
-                // Handle error - show an error message, etc.
-                console.log('Error adding product to cart:', error);
-            }
-        });
+        // Call the new function
+        addToCart(productId, quantity);
     });
 
 });

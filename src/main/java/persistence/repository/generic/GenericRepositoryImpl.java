@@ -39,6 +39,7 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
             TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.persist(entity));
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -49,6 +50,7 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
             TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.merge(entity));
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

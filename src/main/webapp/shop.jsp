@@ -100,8 +100,8 @@
                         <input type="radio" name="tag" id="bag-tag">
                         <label for="bag-tag">Bag</label>
 
-                        <input type="radio" name="tag" id="dress-tag">
-                        <label for="dress-tag">Dress</label>
+                        <input type="radio" name="tag" id="hat-tag">
+                        <label for="hat-tag">Hat</label>
 
                         <input type="radio" name="tag" id="blouse-tag">
                         <label for="blouse-tag">Blouse</label>

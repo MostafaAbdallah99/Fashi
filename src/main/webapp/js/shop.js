@@ -81,8 +81,7 @@ function loadProducts(data) {
         productHTML += '<img src="' + item.productImage + '" alt="">';
         console.log(item.productImage);
         productHTML += '<div class="icon"><i class="icon_heart_alt"></i></div>';
-        productHTML += '<ul><li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>';
-        productHTML += '<li class="quick-view"><a href="product?product=prdct-' + item.id + '">+ Quick View</a></li>';
+        productHTML += '<ul><li class="w-icon active"><a href="#" onclick="handleBagIconClick(' + item.id + '); return false;"><i class="icon_bag_alt"></i></a></li>'; productHTML += '<li class="quick-view"><a href="product?product=prdct-' + item.id + '" id="quick-view-' + item.id + '">+ Quick View</a></li>';
         console.log(item.id);
         productHTML += '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li></ul>';
         productHTML += '</div>';
@@ -119,4 +118,11 @@ function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTa
             console.log('Error in filtering:  ', error);
         }
     });
+}
+
+
+function handleBagIconClick(productId) {
+    var quantity = 1;
+    product_id = "prdct-" + productId;
+    addToCart(product_id, quantity);
 }

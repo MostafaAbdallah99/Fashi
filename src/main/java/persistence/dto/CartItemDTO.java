@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public record CartItemDTO(
         CartItemIdDTO id,
-        CartDTO cart,
+//        CartDTO cart,
         ProductDTO product,
         Integer quantity,
         BigDecimal amount
