@@ -2,16 +2,20 @@ package services;
 
 import mappers.CartItemMapper;
 import mappers.CartMapper;
+import mappers.CustomerMapperImpl;
 import mappers.ProductMapper;
-import persistence.dto.CartDTO;
-import persistence.dto.CartItemDTO;
-import persistence.dto.CartItemIdDTO;
-import persistence.dto.ProductDTO;
+import persistence.dto.*;
 import persistence.entities.Cart;
+import persistence.entities.CartItem;
+import persistence.entities.Customer;
 import persistence.entities.Product;
+import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.repositories.CartRepositoryImpl;
 import persistence.repository.repositories.ProductRepositoryImpl;
+import persistence.repository.repositories.UserRepositoryImpl;
 import persistence.repository.utils.TransactionUtil;
+import services.impl.CustomerServiceImpl;
+import services.interfaces.CustomerService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,52 +24,84 @@ import java.util.stream.Collectors;
 public class CartService {
 
     private final CartRepositoryImpl cartRepository;
-    private final ProductRepositoryImpl productRepository;
 
     public CartService() {
         this.cartRepository = new CartRepositoryImpl(Cart.class);
-        this.productRepository = new ProductRepositoryImpl(Product.class);
     }
-    public boolean addOrUpdateProductToCart(CartDTO cartDTO, ProductDTO productDTO, int quantity) {
-        Cart cart = CartMapper.INSTANCE.cartDTOToCart(cartDTO);
-        Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
-        cart.addProduct(product, quantity, product.getProductPrice());
-        return TransactionUtil.doInTransaction(entityManager -> cartRepository.update(cart, entityManager));
+
+
+    private int checkProductQuantityInCart(Cart cart, Product product, int quantity) {
+        for (CartItem cartItem : cart.getCartItems()) {
+            if (cartItem.getProduct().getId().equals(product.getId())) {
+                return cartItem.getQuantity() + quantity;
+
+            }
+
+        }
+        return quantity;
     }
 
     public boolean removeProductFromCart(CartDTO cartDTO, ProductDTO productDTO) {
         Cart cart = CartMapper.INSTANCE.cartDTOToCart(cartDTO);
         Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
         cart.removeProduct(product);
-        return TransactionUtil.doInTransaction(entityManager -> cartRepository.update(cart, entityManager));
+        return cartRepository.update(cart);
     }
 
     public List<CartItemDTO> getCartItems(int cartId) {
-        return TransactionUtil.doInTransaction(entityManager -> cartRepository.getCartItems(cartId, entityManager)
+        return cartRepository.getCartItems(cartId)
                 .stream()
                 .map(CartItemMapper.INSTANCE::cartItemToCartItemDTO)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
     public boolean cartReset(int cartId) {
-        return TransactionUtil.doInTransaction(entityManager -> cartRepository.cartReset(cartId, entityManager));
+        return cartRepository.cartReset(cartId);
     }
 
-    public boolean checkProductQuantity(Long productId, int quantity) {
-        Product product = TransactionUtil.doInTransaction(entityManager -> productRepository.findById(productId, entityManager));
+    public boolean checkProductQuantity(int productId, int quantity) {
+        ProductRepositoryImpl productRepository = new ProductRepositoryImpl(Product.class);
+        Product product = productRepository.findById((long) productId);
         return product.getStockQuantity() >= quantity;
 
     }
 
-    public CartItemDTO createCartItemForGuest(Long productId, int quantity) {
-        return TransactionUtil.doInTransaction(entityManager -> {
-            Product product = productRepository.findById(productId, entityManager);
-            BigDecimal totalPrice = product.getProductPrice().multiply(new BigDecimal(quantity));
-            CartItemIdDTO cartItemIdDTO = new CartItemIdDTO(null, Math.toIntExact(productId));
-            ProductDTO productDTO = ProductMapper.INSTANCE.productToProductDTO(product);
-            return new CartItemDTO(cartItemIdDTO, null, productDTO, quantity, totalPrice);
 
-        });
+    public CartItemDTO createCartItemForGuest(int productId, int quantity) {
+        ProductService productService = new ProductService();
+        ProductDTO productDTO = productService.getProductById(productId);
+
+        BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
+
+        CartItemIdDTO cartItemIdDTO = new CartItemIdDTO(null, productId);
+        CartItemDTO cartItemDTO = new CartItemDTO(cartItemIdDTO, productDTO, quantity, totalPrice);
+
+        return cartItemDTO;
     }
 
+
+    public CartDTO createCartForCustomer(CustomerDTO customerDTO) {
+        Cart cart = new Cart();
+        Customer customer = new CustomerMapperImpl().customerDTOToCustomer(customerDTO);
+        cart.setCustomer(customer);
+        cartRepository.save(cart);
+        return CartMapper.INSTANCE.cartToCartDTO(cart);
+
+    }
+
+    public CartItemDTO createCartItemForCustomer(Customer customer, int productId, int quantity) {
+        ProductService productService = new ProductService();
+        ProductDTO productDTO = productService.getProductById(productId);
+        BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
+//
+//        Cart cart = cartRepository.findById(customer.getId());
+//        System.out.println("**************************************************************************");
+//        System.out.println("this is the customer in the cart");
+//        cart.setCustomer(customer);
+//        System.out.println("Cart: " + cart.getCustomer().getId());
+//        addOrUpdateProductToCart(cart, ProductMapper.INSTANCE.productDTOToProduct(productDTO), quantity);
+        cartRepository.addToCart(customer.getId(), productId, quantity);
+        return new CartItemDTO(new CartItemIdDTO(customer.getId(), productId), productDTO, quantity, totalPrice);
+
+    }
 }

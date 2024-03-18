@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "carts")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 
@@ -26,7 +26,8 @@ public class Cart {
     @OneToMany(
             mappedBy = "cart",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     private Set<CartItem> cartItems = new LinkedHashSet<>();
 

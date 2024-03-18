@@ -22,7 +22,7 @@ public class CartItem {
     private Cart cart;
 
     @MapsId("productId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -40,4 +40,11 @@ public class CartItem {
         this.id = new CartItemId(cart.getId(), product.getId());
     }
 
+    public CartItem(CartItemId id, Cart cart, Product product, Integer quantity, BigDecimal amount) {
+        this.id = id;
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
+        this.amount = amount;
+    }
 }
