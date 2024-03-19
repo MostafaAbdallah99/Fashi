@@ -87,8 +87,10 @@ public class AdminProductServlet extends HttpServlet {
             response.getWriter().write(new Gson().toJson(product));
         }
         else if (productID != null) {
+            ProductDTO productDTO = productService.getProductById(Long.parseLong(productID));
             if(productService.deleteProduct(Long.parseLong(productID))) {
-                response.setStatus(200);
+                FireStorageManager.getInstance().deleteFileFromStorage(productDTO.productImage());
+                response.sendRedirect(getServletContext().getContextPath() + "/admin");
             }
         } else {
             List<ProductDTO> products = productService.getAllProducts();

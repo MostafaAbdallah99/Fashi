@@ -55,5 +55,23 @@ public class FireStorageManager {
         URL url = blob.signUrl(100,TimeUnit.DAYS, Storage.SignUrlOption.signWith((ServiceAccountSigner) GoogleCredentials.fromStream(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream(JSON_KEY)))));
         return url.getProtocol() + "://" + url.getHost() + url.getFile();
     }
+
+    public void deleteFileFromStorage(String filename) {
+        filename = getImageNameFromURL(filename);
+        Bucket bucket = StorageClient.getInstance(firebaseApp).bucket();
+        BlobId blobId = BlobId.of(bucket.getName(), filename);
+        Blob blob = storage.get(blobId);
+
+        if (blob != null) {
+            blob.delete();
+        }
+    }
+    public void close() {
+        firebaseApp.delete();
+    }
+
+    private String getImageNameFromURL(String url) {
+        return url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
+    }
 }
 

@@ -5,6 +5,7 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import persistence.repository.utils.CustomEntityManagerFactory;
 import persistence.repository.utils.CustomPersistenceUnit;
+import utils.FireStorageManager;
 
 
 import java.sql.Driver;
@@ -37,6 +38,7 @@ public class AppContextListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         customEntityManagerFactory.close();
+        FireStorageManager.getInstance().close();
         AbandonedConnectionCleanupThread.checkedShutdown();
     }
 }
