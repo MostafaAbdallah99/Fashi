@@ -3,6 +3,8 @@ package persistence.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import persistence.repository.interfaces.UserRepository;
+import persistence.repository.repositories.UserRepositoryImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +15,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "customers")
+@Table(name = "customers", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "customer_name")
+})
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,5 +64,10 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders = new LinkedHashSet<>();
+
+
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
 
 }
