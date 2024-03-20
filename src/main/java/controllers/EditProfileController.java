@@ -12,7 +12,10 @@ import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 @WebServlet("/edit-profile")
 public class EditProfileController extends HttpServlet {
@@ -40,9 +43,14 @@ public class EditProfileController extends HttpServlet {
         String email = req.getParameter("email");
         String job = req.getParameter("job");
         String birthdayParam = req.getParameter("birthday");
-        LocalDate birthday = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthday = null;
         if (birthdayParam != null && !birthdayParam.isEmpty()) {
-            birthday = LocalDate.parse(birthdayParam);
+            try {
+                birthday = formatter.parse(birthdayParam);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }        String city = req.getParameter("city");
         String country = req.getParameter("country");
         String streetNo = req.getParameter("streetNo");

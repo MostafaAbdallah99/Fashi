@@ -34,7 +34,7 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
             entityManager.persist(entity);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class GenericRepositoryImpl<T, ID extends Serializable> implements Generi
             entityManager.merge(entity);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return false;
         }
     }

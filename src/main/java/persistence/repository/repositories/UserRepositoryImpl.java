@@ -1,7 +1,5 @@
 package persistence.repository.repositories;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import org.mindrot.jbcrypt.BCrypt;
 import persistence.entities.Customer;
@@ -23,16 +21,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Customer addCustomer(Customer customer) {
+    public boolean addCustomer(Customer customer) {
         try {
             TransactionUtil.doInTransactionWithoutResult(entityManager -> {
                 entityManager.persist(customer);
             });
             System.out.println("Customer ID in add customer function: " + customer.getId());
-            return customer;
+            return true;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            return null;
+            return false;
         }
     }
 

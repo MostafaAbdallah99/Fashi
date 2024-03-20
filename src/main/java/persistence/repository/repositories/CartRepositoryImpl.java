@@ -12,8 +12,8 @@ import persistence.repository.utils.TransactionUtil;
 import java.util.List;
 
 public class CartRepositoryImpl extends GenericRepositoryImpl<Cart, Integer> implements CartRepository {
-    public CartRepositoryImpl(Class<Cart> entityClass) {
-        super(entityClass);
+    public CartRepositoryImpl() {
+        super(Cart.class);
     }
 
 

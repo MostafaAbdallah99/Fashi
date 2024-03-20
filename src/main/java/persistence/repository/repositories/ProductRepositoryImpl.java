@@ -14,8 +14,8 @@ import java.util.List;
 
 
 public class ProductRepositoryImpl extends GenericRepositoryImpl<Product, Long> implements ProductRepository {
-    public ProductRepositoryImpl(Class<Product> entityClass) {
-        super(entityClass);
+    public ProductRepositoryImpl() {
+        super(Product.class);
     }
 
     @Override

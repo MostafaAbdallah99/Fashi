@@ -24,8 +24,8 @@ public class CartService {
     private final ProductRepositoryImpl productRepository;
 
     public CartService() {
-        this.cartRepository = new CartRepositoryImpl(Cart.class);
-        this.productRepository = new ProductRepositoryImpl(Product.class);
+        this.cartRepository = new CartRepositoryImpl();
+        this.productRepository = new ProductRepositoryImpl();
     }
 
 

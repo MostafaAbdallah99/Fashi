@@ -23,7 +23,7 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
         try (InputStream input = CustomPersistenceUnit.class.getClassLoader().getResourceAsStream("db.properties")) {
             dbProperties.load(input);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
         try {
             Class.forName(dbProperties.getProperty("database.driver"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         HikariDataSource dataSource = new HikariDataSource();
@@ -91,7 +91,6 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
                 "persistence.entities.CartItem",
                 "persistence.entities.CartItemId"
         );
-
     }
 
     @Override
@@ -116,7 +115,6 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.format_sql", "true");
-
         return properties;
     }
 

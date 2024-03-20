@@ -6,12 +6,6 @@ import jakarta.servlet.ServletContextListener;
 import persistence.repository.utils.CustomEntityManagerFactory;
 import persistence.repository.utils.CustomPersistenceUnit;
 import utils.FireStorageManager;
-
-
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.Map;
 
 public class AppContextListener implements ServletContextListener {
