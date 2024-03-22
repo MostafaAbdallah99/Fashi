@@ -7,14 +7,14 @@ window.onload = async function() {
 
             let productID = row.querySelector('.product-id').textContent;
 
-            let response = await fetch(`admin/product/?productID=${productID}`, {
-                method: 'GET',
+            let response = await fetch(`product?action=deleteProduct&productID=${productID}`, {
+                method: 'POST',
             });
 
             if (response.ok) {
                 row.remove();
             } else {
-                alert("HTTP-Error: " + response.status);
+                alert("Error deleting product");
             }
         });
     });
@@ -24,14 +24,16 @@ window.onload = async function() {
             event.preventDefault();
             let row = event.target.closest('tr');
             let productID = row.querySelector('.product-id').textContent;
-            window.location.href = `admin?action=update&productID=${productID}`;
+            window.location.href = `updateProduct?productID=${productID}`;
         });
     });
 }
 
 async function fetchProducts() {
     try {
-        const response = await fetch('admin/product');
+        let response = await fetch(`product`, {
+                method: 'POST',
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

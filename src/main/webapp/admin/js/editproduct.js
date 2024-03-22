@@ -1,18 +1,18 @@
 window.onload = async function() {
     let params = new URLSearchParams(window.location.search);
     let productID = params.get('productID');
-    let action = params.get('action');
     let form = document.getElementById('updateform');
-    let actionValue = "update";
-    form.action = `admin/product?action=${actionValue}&productID=${productID}`;
-    await fetchProduct(productID, action);
+    form.action = `updateProduct?productID=${productID}`;
+    await fetchProduct(productID);
 }
 
 
-async function fetchProduct(productID, action) {
+async function fetchProduct(productID) {
     try {
-        fetch(`admin/product/?action=${action}&productID=${productID}`)
-        .then(response => response.json())
+        fetch(`updateProduct?action=fetchProduct&productID=${productID}`,
+       {
+            method: 'POST',
+        }).then(response => response.json())
         .then(product => {
             document.getElementById('productName').value = product.productName;
             document.getElementById('productDescription').value = product.productDescription;

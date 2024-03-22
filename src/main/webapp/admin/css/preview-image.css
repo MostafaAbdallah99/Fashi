@@ -1,0 +1,5 @@
+.preview-image {
+    width: 357px;  
+    height: 240px; 
+    object-fit: cover; 
+}
