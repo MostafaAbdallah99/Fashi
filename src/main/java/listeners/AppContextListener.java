@@ -6,6 +6,11 @@ import jakarta.servlet.ServletContextListener;
 import persistence.repository.utils.CustomEntityManagerFactory;
 import persistence.repository.utils.CustomPersistenceUnit;
 import utils.FireStorageManager;
+
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.Map;
 
 public class AppContextListener implements ServletContextListener {
@@ -34,5 +39,18 @@ public class AppContextListener implements ServletContextListener {
         customEntityManagerFactory.close();
         FireStorageManager.getInstance().close();
         AbandonedConnectionCleanupThread.checkedShutdown();
+
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        Enumeration<Driver> drivers = DriverManager.getDrivers();
+        while (drivers.hasMoreElements()) {
+            Driver driver = drivers.nextElement();
+            if (driver.getClass().getClassLoader() == cl) {
+                try {
+                    DriverManager.deregisterDriver(driver);
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
     }
 }

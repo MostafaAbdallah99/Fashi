@@ -11,12 +11,14 @@ public class CustomEntityManagerFactory {
 
     private static EntityManagerFactory entityManagerFactory;
     private static CustomEntityManagerFactory instance;
+    private final CustomPersistenceUnit persistenceUnitInfo;
 
     private CustomEntityManagerFactory(CustomPersistenceUnit persistenceUnitInfo) {
         if (entityManagerFactory == null) {
             HibernatePersistenceProvider persistenceProvider = new HibernatePersistenceProvider();
             entityManagerFactory = persistenceProvider.createContainerEntityManagerFactory(persistenceUnitInfo, new HashMap<>());
         }
+        this.persistenceUnitInfo = persistenceUnitInfo;
     }
 
     public static CustomEntityManagerFactory getInstance(CustomPersistenceUnit persistenceUnitInfo) {
@@ -32,5 +34,6 @@ public class CustomEntityManagerFactory {
 
     public void close() {
         entityManagerFactory.close();
+        persistenceUnitInfo.getDataSource().close();
     }
 }

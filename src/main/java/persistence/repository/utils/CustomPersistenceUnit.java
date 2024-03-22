@@ -6,6 +6,7 @@ import jakarta.persistence.ValidationMode;
 import jakarta.persistence.spi.ClassTransformer;
 import jakarta.persistence.spi.PersistenceUnitInfo;
 import jakarta.persistence.spi.PersistenceUnitTransactionType;
+import lombok.Getter;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.util.Properties;
 public class CustomPersistenceUnit implements PersistenceUnitInfo {
 
     private final Properties dbProperties;
+    @Getter
+    private HikariDataSource dataSource;
 
     public CustomPersistenceUnit() {
         dbProperties = new Properties();
@@ -50,7 +53,7 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
             System.out.println(e.getMessage());
         }
 
-        HikariDataSource dataSource = new HikariDataSource();
+        dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(dbProperties.getProperty("database.url"));
         dataSource.setUsername(dbProperties.getProperty("database.username"));
         dataSource.setPassword(dbProperties.getProperty("database.password"));
@@ -115,6 +118,11 @@ public class CustomPersistenceUnit implements PersistenceUnitInfo {
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.format_sql", "true");
+        properties.put("hibernate.cache.use_second_level_cache", "true");
+        properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
+        properties.put("hibernate.javax.cache.provider", "com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider");
+        properties.put("hibernate.javax.cache.uri", "caffeine-config.conf");
+        properties.put("hibernate.javax.cache.missing_cache_strategy", "create");
         return properties;
     }
 
