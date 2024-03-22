@@ -48,7 +48,7 @@
 
                     </div>
                     <div class="ht-right">
-                        <a href="./login.jsp" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                        <a href="./login.jsp" class="login-panel" id="login-link"><i class="fa fa-user"></i><span>Login</span></a>
                         <div class="lan-selector">
                             <select class="language_drop" name="countries" id="countries" style="width:300px;">
                                 <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"

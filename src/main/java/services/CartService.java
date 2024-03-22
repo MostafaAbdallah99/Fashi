@@ -1,5 +1,7 @@
 package services;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import mappers.*;
 import persistence.dto.*;
 import persistence.entities.Cart;
@@ -14,7 +16,9 @@ import persistence.repository.utils.TransactionUtil;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +44,13 @@ public class CartService {
         return quantity;
     }
 
-    public boolean removeProductFromCart(CartDTO cartDTO, ProductDTO productDTO) {
-        Cart cart = CartMapper.INSTANCE.cartDTOToCart(cartDTO);
-        Product product = ProductMapper.INSTANCE.productDTOToProduct(productDTO);
+    public boolean removeProductFromCart(int cartID, int productID) {
+        return TransactionUtil.doInTransaction(entityManager -> {
+        Cart cart =cartRepository.findById( cartID, entityManager);
+        Product product = productRepository.findById((long) productID, entityManager);
         cart.removeProduct(product);
-        return TransactionUtil.doInTransaction(entityManager -> cartRepository.update(cart, entityManager));
+        return cartRepository.update(cart, entityManager);}
+        );
     }
 
     public List<CartItemDTO> getCartItems(int cartId) {
@@ -65,15 +71,20 @@ public class CartService {
     }
 
     public CartItemDTO createCartItemForGuest(int productId, int quantity) {
-        ProductService productService = new ProductService();
-        ProductDTO productDTO = productService.getProductById((long) productId);
+        if(!checkProductQuantity(productId, quantity)){
+            return null;
+        }
+        else {
+            ProductService productService = new ProductService();
+            ProductDTO productDTO = productService.getProductById((long) productId);
 
-        BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
+            BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
 
-        CartItemIdDTO cartItemIdDTO = new CartItemIdDTO(null, productId);
-        CartItemDTO cartItemDTO = new CartItemDTO(cartItemIdDTO, productDTO, quantity, totalPrice);
+            CartItemIdDTO cartItemIdDTO = new CartItemIdDTO(null, productId);
+            CartItemDTO cartItemDTO = new CartItemDTO(cartItemIdDTO, productDTO, quantity, totalPrice);
 
-        return cartItemDTO;
+            return cartItemDTO;
+        }
     }
 
 
@@ -87,18 +98,31 @@ public class CartService {
     }
 
     public CartItemDTO createCartItemForCustomer(Customer customer, int productId, int quantity) {
-        ProductService productService = new ProductService();
-        ProductDTO productDTO = productService.getProductById((long) productId);
-        BigDecimal totalPrice = productDTO.productPrice().multiply(new BigDecimal(quantity));
-//
-//        Cart cart = cartRepository.findById(customer.getId());
-//        System.out.println("**************************************************************************");
-//        System.out.println("this is the customer in the cart");
-//        cart.setCustomer(customer);
-//        System.out.println("Cart: " + cart.getCustomer().getId());
-//        addOrUpdateProductToCart(cart, ProductMapper.INSTANCE.productDTOToProduct(productDTO), quantity);
-        cartRepository.addToCart(customer.getId(), productId, quantity);
-        return new CartItemDTO(new CartItemIdDTO(customer.getId(), productId), productDTO, quantity, totalPrice);
+        if(!checkProductQuantity(productId, quantity)){
+            return null;
+        }
+        else {
+            addProductToCart(customer.getId(), productId, quantity);
+            ProductDTO productDTO = ProductMapper.INSTANCE.productToProductDTO(TransactionUtil.doInTransaction(entityManager -> productRepository.findById((long) productId, entityManager)));
+            return new CartItemDTO(new CartItemIdDTO(customer.getId(), productId), productDTO, quantity, productDTO.productPrice().multiply(new BigDecimal(quantity)));
+        }
 
+    }
+
+    public boolean addProductToCart(int cartId, int productId, int quantity) {
+        return TransactionUtil.doInTransaction(entityManager -> {
+            Cart cart = cartRepository.findById(cartId, entityManager);
+            Product product = productRepository.findById((long) productId, entityManager);
+            cart.addProduct(product, quantity, product.getProductPrice().multiply(new BigDecimal(quantity)));
+            return cartRepository.update(cart, entityManager);
+        });
+    }
+
+
+    public List<CartItemDTO> getCartItems(String cartItemsJson) {
+        System.out.println(cartItemsJson+"     cartItemsJson");
+        Type listType = new TypeToken<ArrayList<CartItemDTO>>(){}.getType();
+        List<CartItemDTO> cartItems = new Gson().fromJson(cartItemsJson, listType);
+        return cartItems;
     }
 }

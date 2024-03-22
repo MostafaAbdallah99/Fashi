@@ -32,6 +32,14 @@ public class Cart {
     private Set<CartItem> cartItems = new LinkedHashSet<>();
 
     public void addProduct(Product product, Integer quantity, BigDecimal amount) {
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getProduct().equals(product)) {
+                // If the product is already in the cart, update the quantity and amount
+                cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                cartItem.setAmount(cartItem.getAmount().add(amount));
+                return;
+            }
+        }
         CartItem cartItem = new CartItem(this, product, quantity, amount);
         cartItems.add(cartItem);
     }

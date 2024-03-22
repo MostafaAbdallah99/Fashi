@@ -1,7 +1,12 @@
 $(document).ready(function () {
     loadCategory('Women');
     loadCategory('Men');
-    getCartItems();
+    if(getCookie('user_login') === 'true' && localStorage.getItem('cart_retrieved') !== 'true') {
+        getCartItems();
+    } else {
+        // User is not logged in, do not retrieve the cart
+    }
+
 });
 
 function loadCategory(category) {

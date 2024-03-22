@@ -21,16 +21,16 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean addCustomer(Customer customer) {
+    public Customer addCustomer(Customer customer) {
         try {
             TransactionUtil.doInTransactionWithoutResult(entityManager -> {
                 entityManager.persist(customer);
             });
             System.out.println("Customer ID in add customer function: " + customer.getId());
-            return true;
+            return customer;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            return false;
+            return null;
         }
     }
 

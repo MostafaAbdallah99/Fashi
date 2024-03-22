@@ -6,7 +6,7 @@ import persistence.entities.Customer;
 public interface UserRepository {
     public Customer findUserByEmail(String email);
 
-    public boolean addCustomer(Customer customer);
+    public Customer addCustomer(Customer customer);
 
     boolean isEmailExists(String email);
 

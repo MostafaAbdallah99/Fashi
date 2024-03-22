@@ -1,8 +1,32 @@
 $(document).ready(function () {
 
 
-    // Call the function when the page loads
     updateCartDropdown();
+
+    if (getCookie('user_login') === 'true') {
+        // If it is, change the text and href of the login link
+        $('#login-link span').text('Logout');
+        $('#login-link').attr('href', '#'); // Change href to '#' to prevent page navigation
+
+        $('#login-link').on('click', function (e) {
+            e.preventDefault(); // Prevent the default action (navigation)
+            logout();
+
+
+        });
+
+    }
+
+    $('.cart-hover .select-items').on('click', '.si-close', function () {
+        // Get the table row for the product
+        var row = $(this).closest('tr');
+
+        // Get the product ID from a data attribute
+        var productId = row.data('product-id');
+
+        // Call the removeProduct function
+        removeProduct(productId, row);
+    });
 
     // Call the function whenever the cart items in the local storage change
     $(window).on('storage', function (e) {
@@ -44,6 +68,7 @@ function getCartItems() {
                             // Update the cart items in the local storage
                             console.log(cartDTO);
                             localStorage.setItem('cartItems', JSON.stringify(cartDTO));
+                            localStorage.setItem('cart_retrieved', 'true');
                             updateCartDropdown();
                         }
                     }
@@ -83,6 +108,7 @@ function updateCartDropdown() {
             '</tr>');
 
         // Append the created HTML elements to the cart dropdown
+        cartItem.data('product-id', item.product.id);
         $('.cart-hover .select-items tbody').append(cartItem);
 
         // Update totalQuantity and totalPrice
@@ -110,21 +136,21 @@ function addToCart(productId, quantity) {
 
             console.log('Product added to cart successfully:', response);
             var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-             // Check if a cart item with the given product ID already exists in the cart items
-                        var parts = productId.split("-");
-                        var i = parts[1];
-                        var existingCartItem = cartItems.find(function (item) {
-                            console.log(item.id.productId);
-                            return item.id.productId == i;
-                        });
+            // Check if a cart item with the given product ID already exists in the cart items
+            var parts = productId.split("-");
+            var i = parts[1];
+            var existingCartItem = cartItems.find(function (item) {
+                console.log(item.id.productId);
+                return item.id.productId == i;
+            });
 
-                        if (existingCartItem) {
-                            // If it does, increase its quantity by the given quantity
-                            existingCartItem.quantity += quantity;
-                        } else {
+            if (existingCartItem) {
+                // If it does, increase its quantity by the given quantity
+                existingCartItem.quantity += quantity;
+            } else {
 
-                            cartItems.push(response);
-                        }
+                cartItems.push(response);
+            }
             var event = new Event('cartUpdated');
             window.dispatchEvent(event);
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -134,4 +160,62 @@ function addToCart(productId, quantity) {
             console.log('Error adding product to cart:', error);
         }
     });
+}
+
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+
+function removeProduct(productId, row) {
+    // Remove the product from the cart in local storage
+    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems = cartItems.filter(function (item) {
+        return item.product.id !== productId;
+    });
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    // Remove the product row from the table
+    row.remove();
+
+    // Send an AJAX request to remove the product from the cart in the database
+    $.ajax({
+        url: 'remove-from-cart',  // Update this to the URL of your server-side script
+        method: 'POST',
+        data: {
+            productId: productId
+        },
+        success: function (response) {
+            // Handle the response from the server
+            updateCartDropdown();
+            console.log(response);
+        }
+    });
+}
+
+function logout() {
+    // Send a GET request to the logout servlet
+    $.ajax({
+        url: 'logout',
+        type: 'GET',
+        success: function () {
+            deleteCookie('user_login');
+            localStorage.removeItem('cartItems');
+            updateCartDropdown();
+            localStorage.setItem('cart_retrieved', 'false');
+            location.reload();
+        }
+    });
+}
+
+function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }

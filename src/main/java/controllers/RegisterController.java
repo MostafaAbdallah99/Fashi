@@ -2,12 +2,12 @@ package controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import persistence.dto.CartDTO;
+import persistence.dto.CartItemDTO;
 import persistence.dto.CustomerDTO;
+import persistence.entities.CartItem;
+import services.CartService;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
 
@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet("/register")
 public class RegisterController extends HttpServlet {
@@ -27,7 +28,7 @@ public class RegisterController extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("customer") != null) {
-            response.sendRedirect(request.getContextPath() + "/home.html");
+            response.sendRedirect(request.getContextPath() + "/home.jsp");
         } else {
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
@@ -43,9 +44,11 @@ public class RegisterController extends HttpServlet {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this pattern to match the format of the input date string
         Date birthday = null;
 //        Date birthday = Date.parse(request.getParameter("birthday"));
+        System.out.println(birthdayStr+" "+email+" "+customerName);
         try {
             birthday = formatter.parse(birthdayStr);
         } catch (ParseException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         String job = request.getParameter("job");
@@ -54,6 +57,8 @@ public class RegisterController extends HttpServlet {
         String streetNo = request.getParameter("streetNo");
         String streetName = request.getParameter("streetName");
         String interests = request.getParameter("interests");
+        String cartItemsJson = request.getParameter("cartItems");
+        List<CartItemDTO> cartItems = new CartService().getCartItems(cartItemsJson);
 
         if (password.equals(confirmPassword)) {
             BigDecimal creditLimit = BigDecimal.ZERO;
@@ -62,7 +67,7 @@ public class RegisterController extends HttpServlet {
 
 
             CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart);
-            CustomerDTO createdCustomer = customerService.signUp(customerDTO);
+            CustomerDTO createdCustomer = customerService.signUp(customerDTO, cartItems);
             if (createdCustomer != null) {
                 HttpSession oldSession = request.getSession(false);
                 if (oldSession != null) {
@@ -70,7 +75,10 @@ public class RegisterController extends HttpServlet {
                 }
                 HttpSession newSession = request.getSession(true);
                 newSession.setAttribute("customer", createdCustomer);
-                response.sendRedirect(request.getContextPath() + "/home.html");
+                Cookie loginCookie = new Cookie("user_login", "true");
+                loginCookie.setMaxAge(60 * 60 * 24 * 365);
+                response.addCookie(loginCookie);
+                response.sendRedirect(request.getContextPath() + "/home.jsp");
             } else {
                 request.setAttribute("registerFailed", true);
                 request.getRequestDispatcher("register.jsp").forward(request, response);
