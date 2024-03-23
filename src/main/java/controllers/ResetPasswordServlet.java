@@ -31,12 +31,14 @@ public class ResetPasswordServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("ResetPasswordServlet doPost");
         String token = req.getParameter("token");
         String newPassword = req.getParameter("password");
 
         boolean isPasswordReset = userService.resetPassword(token, newPassword);
 
         if (isPasswordReset) {
+            System.out.println("Password reset successfully");
             resp.sendRedirect("login.jsp");
         } else {
             req.setAttribute("error", "Failed to reset password");
