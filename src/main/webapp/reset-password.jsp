@@ -7,7 +7,7 @@
 <body>
 <h2>Reset Password</h2>
 <form action="reset-password" method="post">
-    <input type="hidden" id="token" name="token" value="${token}">
+    <input type="hidden" id="token" name="token" value="${param.token}">
     <div>
         <label for="newPassword">New Password *</label>
         <input type="password" id="newPassword" name="newPassword" required>

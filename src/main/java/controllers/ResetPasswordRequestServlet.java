@@ -30,7 +30,7 @@ public class ResetPasswordRequestServlet extends HttpServlet {
 
         String resetPasswordLink = "http://localhost:8085/iti_ecommerce_app/reset-password?token=" + token;
         emailHandler.sendEmail(email, "Reset Password", "Click the following link to reset your password: " + resetPasswordLink);
-        req.setAttribute("token", token);
-        req.getRequestDispatcher("reset-password.jsp").forward(req, resp);
+
+        resp.sendRedirect("reset-password-request.jsp");
     }
 }
