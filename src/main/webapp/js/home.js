@@ -19,6 +19,8 @@ function loadCategory(category) {
             priceMin: '$0',
             priceMax: '$5000',
             tag: '',
+            page: 1,
+            size: 6
         },
         success: function (data) {
             loadProducts(data, category);
@@ -34,7 +36,7 @@ function loadCategory(category) {
 function loadProducts(data, category) {
     console.log(data);
     var productHTML = '';
-    $.each(data, function (key, item) {
+    $.each(data.products, function (key, item) {
         productHTML += '<div class="product-item">';
         productHTML += '<div class="pi-pic">';
         productHTML += '<img src="' + item.productImage + '" alt="">';

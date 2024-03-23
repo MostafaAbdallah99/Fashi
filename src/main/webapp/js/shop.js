@@ -1,25 +1,9 @@
 //sending the request to get the data bafore the page loads
-$.ajax({
-    url: 'shop',
-    type: 'POST',
-    dataType: 'json',
-    data: {
-        json: 'true'
-    },
-    success: function (products) {
-        loadProducts(products);
-    },
-    error: function (error) {
-        console.log('Error: ', error);
-
-    }
-});
+getProducts(1, 6);
+var filtering = false;
 
 
-
-
-
-
+var currentPage = 1;
 $(document).ready(function () {
     $('#filter-btn').click(function (e) {
         e.preventDefault();
@@ -30,7 +14,8 @@ $(document).ready(function () {
         var selectedPriceMax = $('#maxamount').val();
         var selectedTag = $('input[name="tag"]:checked').next().text();
         console.log(selectedCategory + "this is the selected category");
-        filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag);
+        filtering = true;
+        filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag,1);
     });
 
 
@@ -53,8 +38,9 @@ $(document).ready(function () {
         }
 
         // Reload products
-        filter('', 0, 5000, '');
-
+        //        filter('', 0, 5000, '');
+        filtering = false;
+        getProducts(1, 6);
     });
 });
 
@@ -70,7 +56,7 @@ function loadProducts(data) {
     console.log(data);
     length = data.length;
     $('#NumberOfProducts').text("Show 01- " + length + " Of " + length + " Products");
-    $.each(data, function (key, item) {
+    $.each(data.products, function (key, item) {
         console.log(item);
         console.log(count);
         var tagName = item.tag ? item.tag.tagName : '';
@@ -81,14 +67,20 @@ function loadProducts(data) {
         productHTML += '<img src="' + item.productImage + '" alt="">';
         console.log(item.productImage);
         productHTML += '<div class="icon"><i class="icon_heart_alt"></i></div>';
-        productHTML += '<ul><li class="w-icon active"><a href="#" onclick="handleBagIconClick(' + item.id + '); return false;"><i class="icon_bag_alt"></i></a></li>'; productHTML += '<li class="quick-view"><a href="product?product=prdct-' + item.id + '" id="quick-view-' + item.id + '">+ Quick View</a></li>';
+        productHTML += '<ul><li class="w-icon active"><a href="#" onclick="handleBagIconClick(' + item.id + '); return false;"><i class="icon_bag_alt"></i></a></li>';
+        productHTML += '<li class="quick-view"><a href="product?product=prdct-' + item.id + '" id="quick-view-' + item.id + '">+ Quick View</a></li>';
         console.log(item.id);
         productHTML += '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li></ul>';
         productHTML += '</div>';
         productHTML += '<div class="pi-text">';
         productHTML += '<div class="catagory-name">' + tagName + '</div>';
         productHTML += '<a href="#"><h5>' + item.productName + '</h5></a>';
+        if (item.stockQuantity <= 0) {
+                    productHTML += '<div class="product-price" style="color:red;">Out of Stock</div>';
+        }
+        else{
         productHTML += '<div class="product-price">$' + item.productPrice + '</div>';
+        }
         productHTML += '</div></div></div>';
         count++;
     });
@@ -101,7 +93,7 @@ function loadProducts(data) {
 
 
 
-function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag) {
+function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag,pages) {
     $.ajax({
         url: 'shop', // replace with the path to your JSON file
         type: 'POST',
@@ -110,10 +102,15 @@ function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTa
             category: selectedCategory,
             priceMin: selectedPriceMin,
             priceMax: selectedPriceMax,
-            tag: selectedTag
+            tag: selectedTag,
+            page: pages,
+            size: 6
 
         },
-        success: loadProducts,
+        success: function (data) {
+            loadProducts(data);
+            updatePagination(data.totalPages);
+        },
         error: function (error) {
             console.log('Error in filtering:  ', error);
         }
@@ -125,4 +122,86 @@ function handleBagIconClick(productId) {
     var quantity = 1;
     product_id = "prdct-" + productId;
     addToCart(product_id, quantity);
+}
+
+function getProducts(pages, n) {
+    $.ajax({
+        url: 'shop',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            json: 'true',
+            page: pages,
+            size: n
+        },
+        success: function (products) {
+            loadProducts(products);
+            updatePagination(products.totalPages);
+        },
+        error: function (error) {
+            console.log('Error: ', error);
+
+        }
+    });
+}
+
+
+function updatePagination(totalPages) {
+    var paginationDiv = $('.pagination');
+    paginationDiv.empty(); // clear the existing pagination links
+
+    // Add the 'Previous' link
+    paginationDiv.append('<a href="#">&laquo; Previous</a>');
+
+    // Add the page links
+    for (var i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+            paginationDiv.append('<a href="#" class="active">' + i + '</a>');
+        } else {
+            paginationDiv.append('<a href="#">' + i + '</a>');
+        }
+    }
+
+    // Add the 'Next' link
+    paginationDiv.append('<a href="#">Next &raquo;</a>');
+
+    // Add click event listener to the page links
+    paginationDiv.find('a').click(function (event) {
+        event.preventDefault();
+        var pageNumberText = $(this).text();
+        var selectedCategory = $('input[name="category"]:checked').next().text();
+        var selectedPriceMin = $('#minamount').val();
+        var selectedPriceMax = $('#maxamount').val();
+        var selectedTag = $('input[name="tag"]:checked').next().text();
+        if (pageNumberText === 'Next »') {
+            if (currentPage < totalPages) {
+                currentPage++;
+                if(filtering){
+                filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
+                }
+                else{
+                    getProducts(currentPage, 6);
+                }
+            }
+        } else if (pageNumberText === '« Previous') {
+            if (currentPage > 1) {
+                currentPage--;
+                if(filtering){
+                filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
+                }
+                else{
+                    getProducts(currentPage, 6);
+                }
+            }
+        } else if (!isNaN(pageNumberText)) { // Check if the text is numeric
+            var pageNumber = parseInt(pageNumberText);
+                if(filtering){
+                filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
+                }
+                else{
+                    getProducts(currentPage, 6);
+                }
+            currentPage = pageNumber;
+        }
+    });
 }

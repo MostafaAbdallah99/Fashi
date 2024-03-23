@@ -10,6 +10,7 @@ import persistence.entities.CartItem;
 import services.CartService;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
+import utils.JsonResolver;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -61,30 +62,46 @@ public class RegisterController extends HttpServlet {
         List<CartItemDTO> cartItems = new CartService().getCartItems(cartItemsJson);
 
         if (password.equals(confirmPassword)) {
-            BigDecimal creditLimit = BigDecimal.ZERO;
-
-            CartDTO cart = null;
-
-
-            CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart);
-            CustomerDTO createdCustomer = customerService.signUp(customerDTO, cartItems);
-            if (createdCustomer != null) {
-                HttpSession oldSession = request.getSession(false);
-                if (oldSession != null) {
-                    oldSession.invalidate();
-                }
-                HttpSession newSession = request.getSession(true);
-                newSession.setAttribute("customer", createdCustomer);
-                Cookie loginCookie = new Cookie("user_login", "true");
-                loginCookie.setMaxAge(60 * 60 * 24 * 365);
-                response.addCookie(loginCookie);
-                response.sendRedirect(request.getContextPath() + "/home.jsp");
-            } else {
-                request.setAttribute("registerFailed", true);
-                request.getRequestDispatcher("register.jsp").forward(request, response);
+            if (customerService.isEmailExists(email)) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"emailError\":\"Email already exists\"}");
+            } else if (customerService.isUsernameExists(customerName)) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"customerError\":\"Name already exists\"}");
             }
+            else {
+
+                BigDecimal creditLimit = BigDecimal.ZERO;
+
+                CartDTO cart = null;
+
+
+                CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart);
+
+
+
+                CustomerDTO createdCustomer = customerService.signUp(customerDTO, cartItems);
+                if (createdCustomer != null) {
+                    HttpSession oldSession = request.getSession(false);
+                    if (oldSession != null) {
+                        oldSession.invalidate();
+                    }
+                    HttpSession newSession = request.getSession(true);
+                    newSession.setAttribute("customer", createdCustomer);
+                    Cookie loginCookie = new Cookie("user_login", "true");
+                    loginCookie.setMaxAge(60 * 60 * 24 * 365);
+                    response.addCookie(loginCookie);
+                    response.sendRedirect(request.getContextPath() + "/home.jsp");
+                } else {
+                    request.setAttribute("registerFailed", true);
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                }
+            }
+
         }
-
-
     }
 }

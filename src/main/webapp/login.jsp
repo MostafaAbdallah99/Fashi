@@ -43,7 +43,7 @@
                                     <input type="checkbox" id="save-pass">
                                     <span class="checkmark"></span>
                                 </label>
-                                <a href="#" class="forget-pass">Forget your Password</a>
+                                <a href="./reset-password-request.jsp" class="forget-pass">Forgot your Password ?</a>
                             </div>
                         </div>
                         <button type="submit" class="site-btn login-btn">Sign In</button>

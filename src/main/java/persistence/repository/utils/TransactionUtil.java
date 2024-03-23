@@ -23,6 +23,7 @@ public class TransactionUtil {
             return result;
         } catch (Exception e) {
             transaction.rollback();
+            e.printStackTrace();
             throw e;
         } finally {
             entityManager.close();

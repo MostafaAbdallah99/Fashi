@@ -52,11 +52,18 @@ function showProduct(product) {
     // Set the product title
     $('.pd-title h3').text(product.productName);
 
-    // Set the product price
-    $('.pd-desc h4').text('$' + product.productPrice);
+    if (product.stockQuantity <= 0) {
+        $('.pd-stock').text('Out of stock');
+        $('.pd-desc h4').text("<span style='color:red;'>Out of stock</span>");
+    } else {
+          $('.pd-desc h4').text('$' + product.productPrice);
+    }
+
+
 
     // Set the product description
     $('.pd-desc p').text(product.productDescription);
+    $('#tab-1 .product-content .row .col-lg-13 h5:contains("Introduction")').next('p').text(product.productDescription);
 
 
     $('.pd-size-choose .sc-item label').text(product.productSize);
