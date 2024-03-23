@@ -31,9 +31,18 @@ document.querySelector('form').addEventListener('submit', function (event) {
          // Handle the response
          window.location.href = 'home.jsp';
      },
-     error: function(error) {
-         // Handle the error
-     }
+    error: function(jqXHR) {
+        event.preventDefault();
+        if (jqXHR.status == 400) {
+            var error = JSON.parse(jqXHR.responseText);
+            if (error.hasOwnProperty('emailError')){
+                var errorElement = document.getElementById('emailError').innerHTML = error.emailError + '<br>';
+            }
+            else if (error.hasOwnProperty('customerError')){
+                var errorElement = document.getElementById('usernameError').innerHTML = error.customerError + '<br>';
+            }
+        }
+    }
  });
 });
 
