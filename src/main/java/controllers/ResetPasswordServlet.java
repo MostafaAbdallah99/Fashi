@@ -18,13 +18,13 @@ public class ResetPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String token = req.getParameter("token");
-
         Customer user = userService.getUserByResetPasswordToken(token);
-
         if (user != null) {
+            System.out.println("User: " + user);
             req.setAttribute("user", user);
             req.getRequestDispatcher("reset-password.jsp").forward(req, resp);
         } else {
+            System.out.println("Invalid password reset token");
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid password reset token");
         }
     }
@@ -33,7 +33,8 @@ public class ResetPasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ResetPasswordServlet doPost");
         String token = req.getParameter("token");
-        String newPassword = req.getParameter("password");
+        System.out.println("Token: " + token);
+        String newPassword = req.getParameter("newPassword");
 
         boolean isPasswordReset = userService.resetPassword(token, newPassword);
 

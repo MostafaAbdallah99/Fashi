@@ -2,12 +2,14 @@ package services.impl;
 
 import mappers.CustomerMapper;
 import org.mindrot.jbcrypt.BCrypt;
+import persistence.dto.CartItemDTO;
 import persistence.dto.CustomerDTO;
 import persistence.entities.Customer;
 import persistence.repository.interfaces.UserRepository;
 import persistence.repository.repositories.UserRepositoryImpl;
 import services.interfaces.CustomerService;
 
+import java.util.List;
 
 
 public class CustomerServiceImpl implements CustomerService {
@@ -24,6 +26,10 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
+    @Override
+    public CustomerDTO signUp(CustomerDTO customerDTO, List<CartItemDTO> cartItems) {
+        return null;
+    }
 
 
     public CustomerDTO signUp(CustomerDTO customerDTO) {
