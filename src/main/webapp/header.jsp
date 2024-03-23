@@ -161,15 +161,7 @@
                             <li class="active"><a href="./home.jsp">Home</a></li>
                             <li><a href="shop">Shop</a></li>
                             <li><a href="./contact.jsp">Contact Us</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                    <li><a href="shopping-cart.jsp">Shopping Cart</a></li>
-                                    <li><a href="./check-out.jsp">Checkout</a></li>
-                                    <li><a href="./faq.jsp">Faq</a></li>
-                                    <li><a href="./register.jsp">Register</a></li>
-                                    <li><a href="./login.jsp">Login</a></li>
-                                </ul>
+                            <li><a href="edit-profile">Profile</a>
                             </li>
                             <li><a href="./faq.jsp">FAQ</a></li>
                         </ul>

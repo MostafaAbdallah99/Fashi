@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "stock_quantity", nullable = false)
     private Integer stockQuantity;
 
-    @Column(name = "product_description")
+    @Column(name = "product_description", length = 700)
     private String productDescription;
 
     @Enumerated(EnumType.STRING)

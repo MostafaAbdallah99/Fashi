@@ -7,6 +7,7 @@ import persistence.repository.repositories.ProductRepositoryImpl;
 import persistence.repository.utils.TransactionUtil;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductService {
 
@@ -17,11 +18,14 @@ public class ProductService {
     }
 
 
-    public List<ProductDTO> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max) {
-        return TransactionUtil.doInTransaction(entityManager -> productRepository.getProductsByCategoryAndTagAndPriceRange(categoryName, tagName, min, max, entityManager)
-                .stream()
-                .map(ProductMapper.INSTANCE::productToProductDTO)
-                .toList());
+    public Map<String, Object> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max,int page, int size) {
+        return TransactionUtil.doInTransaction(entityManager -> {
+            Map<String, Object> result = productRepository.getProductsByCategoryAndTagAndPriceRange(categoryName, tagName, min, max, page, size, entityManager);
+            List<Product> products = (List<Product>) result.get("products");
+            List<ProductDTO> productDTOs = products.stream().map(ProductMapper.INSTANCE::productToProductDTO).toList();
+            result.put("products", productDTOs);
+            return result;
+        });
     }
 
     public boolean addProduct(ProductDTO productDTO) {
@@ -53,5 +57,16 @@ public class ProductService {
                 .stream()
                 .map(ProductMapper.INSTANCE::productToProductDTO)
                 .toList();
+    }
+
+    public List<ProductDTO> getProducts(int page, int size) {
+        return TransactionUtil.doInTransaction(entityManager -> productRepository.getProducts(page, size, entityManager)
+                .stream()
+                .map(ProductMapper.INSTANCE::productToProductDTO)
+                .toList());
+    }
+
+    public int getTotalPages(int size) {
+        return TransactionUtil.doInTransaction(entityManager -> productRepository.getTotalPages(size, entityManager));
     }
 }
