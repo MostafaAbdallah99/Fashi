@@ -8,8 +8,6 @@ import persistence.repository.interfaces.UserRepository;
 import persistence.repository.repositories.UserRepositoryImpl;
 import services.interfaces.CustomerService;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 
 public class CustomerServiceImpl implements CustomerService {
@@ -98,14 +96,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean resetPassword(String token, String newPassword) {
+        System.out.println("Customer is 0000");
+
         Customer customer = userRepository.findUserByResetPasswordToken(token);
         if (customer != null) {
-            String hashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-            customer.setPassword(hashedPassword);
+            customer.setPassword(newPassword);
             customer.setResetPasswordToken(null);
             userRepository.updateCustomer(customer);
             return true;
         }
+        System.out.println("Customer is null");
         return false;
     }
 
@@ -114,10 +114,5 @@ public class CustomerServiceImpl implements CustomerService {
         return userRepository.findUserByResetPasswordToken(token);
     }
 
-    public static void main(String[] args) {
-        CustomerServiceImpl customerService = new CustomerServiceImpl();
-        customerService.storeResetPasswordToken(
-               "AhmedHassan@yahoo.com", "token1234");
 
-    }
 }

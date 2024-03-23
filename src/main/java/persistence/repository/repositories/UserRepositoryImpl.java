@@ -90,6 +90,10 @@ public class UserRepositoryImpl implements UserRepository {
             if (customer.getResetPasswordToken() != null) {
                 existingCustomer.setResetPasswordToken(customer.getResetPasswordToken());
             }
+            if (customer.getPassword() != null) {
+                String hashed =  BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt());
+                existingCustomer.setPassword(hashed);
+            }
             entityManager.persist(existingCustomer);
             return true;
         });
