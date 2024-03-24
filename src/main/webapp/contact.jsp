@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:include page="header.jsp" />
+    <jsp:include page="header.jsp" />
     <!-- Header End -->
 
     <!-- Breadcrumb Section Begin -->
@@ -102,3 +102,13 @@
 
     <!-- Footer Section Begin -->
     <jsp:include page="footer.jsp" />
+    <script>
+        var pageName = './contact.jsp';
+
+        var navItems = $('.nav-menu ul li');
+        navItems.removeClass('active');
+
+        $('.nav-menu ul li a[href="' + pageName + '"]').parent().addClass('active');
+    </script>
+    <\body>
+        <\html>

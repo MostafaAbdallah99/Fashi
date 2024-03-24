@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<jsp:include page="header.jsp" />
 <%
     // Check if the session exists and the "customer" attribute is not null
     if (session == null || session.getAttribute("customer") == null) {
@@ -129,6 +130,8 @@
 <script type="text/javascript">
 
 </script>
+
+<jsp:include page="footer.jsp" />
 </body>
 
 </html>

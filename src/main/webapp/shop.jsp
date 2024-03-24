@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-text">
-                    <a href="#"><i class="fa fa-home"></i> Home</a>
+                    <a href="./home.jsp"><i class="fa fa-home"></i> Home</a>
                     <span>Shop</span>
                 </div>
             </div>
@@ -103,8 +103,8 @@
                         <input type="radio" name="tag" id="hat-tag">
                         <label for="hat-tag">Hat</label>
 
-                        <input type="radio" name="tag" id="blouse-tag">
-                        <label for="blouse-tag">Blouse</label>
+                        <input type="radio" name="tag" id="sweater-tag">
+                        <label for="sweater-tag">Sweater</label>
                     </div>
                 </div>
             </div>

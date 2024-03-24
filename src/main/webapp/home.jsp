@@ -80,11 +80,11 @@
             </div>
             <div class="col-lg-8 offset-lg-1">
                 <div class="filter-control">
-                    <ul>
-                        <li class="active">Dress</li>
+                    <ul id="womenSpad">
+                        <li class="active">Sweater</li>
                         <li>Bag</li>
                         <li>Shirt</li>
-                        <li>Accessories</li>
+                        <li>Pants</li>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel" id="Women">
@@ -189,11 +189,11 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="filter-control">
-                    <ul>
+                    <ul id="menSpad">
                         <li class="active">Shirt</li>
                         <li>Bag</li>
-                        <li>Shorts</li>
-                        <li>Accessories</li>
+                        <li>Hat</li>
+                        <li>Pants</li>
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel" id="Men">

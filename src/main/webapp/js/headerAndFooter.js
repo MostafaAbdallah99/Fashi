@@ -147,8 +147,8 @@ function addToCart(productId, quantity,isnew=true) {
             });
 
             if (existingCartItem) {
-                // If it does, increase its quantity by the given quantity
-                existingCartItem.quantity += quantity;
+                var quan =parseInt(existingCartItem.quantity)+ parseInt(quantity);
+                existingCartItem.quantity = quan;
             } else {
 
                 cartItems.push(response);

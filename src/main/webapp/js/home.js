@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    loadCategory('Women');
-    loadCategory('Men');
+    loadCategory('Women','Sweater');
+    loadCategory('Men','Shirt');
     if(getCookie('user_login') === 'true' && sessionStorage.getItem('cart_retrieved') !== 'true') {
         getCartItems();
     }
@@ -12,9 +12,28 @@ var pageName = './home.jsp'; // replace 'shop' with the name of your page
 
 $('.nav-menu ul li a[href="' + pageName + '"]').parent().addClass('active');
 
+var mCategoryItems = $('#menSpad li');
+
+// Add click event listener to each category item
+mCategoryItems.on('click', function() {
+    mCategoryItems.removeClass('active');
+    $(this).addClass('active');
+    var tag = $(this).text();
+    loadCategory('Men', tag);
+
 });
 
-function loadCategory(category) {
+var wCategoryItems = $('#womenSpad li');
+wCategoryItems.on('click', function() {
+    wCategoryItems.removeClass('active');
+    $(this).addClass('active');
+    var tag = $(this).text();
+    loadCategory('Women', tag);
+}
+);
+});
+
+function loadCategory(category,tags) {
     $.ajax({
         url: 'shop',
         type: 'POST',
@@ -23,7 +42,7 @@ function loadCategory(category) {
             category: category,
             priceMin: '$0',
             priceMax: '$5000',
-            tag: '',
+            tag: tags,
             page: 1,
             size: 6
         },
