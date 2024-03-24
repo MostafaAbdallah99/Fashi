@@ -31,7 +31,7 @@ public class OrderService {
             }
 
             Order order = new Order();
-            order.setOrderedAt(new Date().toInstant());
+            order.setOrderedAt(new Date());
             order.setCustomer(cart.getCustomer());
 
             List<Long> outOfStockProducts = new ArrayList<>();

@@ -37,14 +37,14 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("RegisterController doPost");
         String customerName = request.getParameter("customerName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
         String birthdayStr = request.getParameter("birthday");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // Adjust this pattern to match the format of the input date string
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = null;
-//        Date birthday = Date.parse(request.getParameter("birthday"));
         System.out.println(birthdayStr+" "+email+" "+customerName);
         try {
             birthday = formatter.parse(birthdayStr);
@@ -59,6 +59,7 @@ public class RegisterController extends HttpServlet {
         String streetName = request.getParameter("streetName");
         String interests = request.getParameter("interests");
         String cartItemsJson = request.getParameter("cartItems");
+        BigDecimal creditLimit = new BigDecimal(request.getParameter("cardLimit"));
         List<CartItemDTO> cartItems = new CartService().getCartItems(cartItemsJson);
 
         if (password.equals(confirmPassword)) {
@@ -74,17 +75,15 @@ public class RegisterController extends HttpServlet {
                 response.getWriter().write("{\"customerError\":\"Name already exists\"}");
             }
             else {
-
-                BigDecimal creditLimit = BigDecimal.ZERO;
-
                 CartDTO cart = null;
 
 
                 CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart);
 
 
-
+                System.out.println("customerDTO: " + customerDTO);
                 CustomerDTO createdCustomer = customerService.signUp(customerDTO, cartItems);
+                System.out.println("createdCustomer: " + createdCustomer);
                 if (createdCustomer != null) {
                     HttpSession oldSession = request.getSession(false);
                     if (oldSession != null) {

@@ -49,15 +49,6 @@
                     </div>
                     <div class="ht-right">
                         <a href="./login.jsp" class="login-panel" id="login-link"><i class="fa fa-user"></i><span>Login</span></a>
-                        <div class="lan-selector">
-                            <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                                <option value='yt' data-image="img/flag-1.jpg" data-imagecss="flag yt"
-                                    data-title="English">English</option>
-                                <option value='yu' data-image="img/flag-2.jpg" data-imagecss="flag yu"
-                                    data-title="Bangladesh">German </option>
-                            </select>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -82,12 +73,6 @@
                         </div>
                         <div class="col-lg-3 text-right col-md-3">
                             <ul class="nav-right">
-                                <li class="heart-icon">
-                                    <a href="#">
-                                        <i class="icon_heart_alt"></i>
-                                        <span>1</span>
-                                    </a>
-                                </li>
                                 <li class="cart-icon">
                                     <a href="shopping-cart.jsp">
                                         <i class="icon_bag_alt"></i>

@@ -7,7 +7,8 @@ public enum Views {
     ADD_PRODUCT("/add-product.html"),
     EDIT_PRODUCT("/edit-product.html"),
     VIEW_PRODUCT("/products.html"),
-    ERROR_PAGE("/error-404.jsp");
+    ERROR_PAGE("/error-404.jsp"),
+    LOGIN("login.jsp");
 
     private final String viewName;
 

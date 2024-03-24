@@ -1,12 +1,17 @@
 package services.impl;
 
 import mappers.CustomerMapper;
+import mappers.ProductMapper;
 import org.mindrot.jbcrypt.BCrypt;
 import persistence.dto.CartItemDTO;
 import persistence.dto.CustomerDTO;
+import persistence.entities.Cart;
 import persistence.entities.Customer;
+import persistence.entities.Product;
 import persistence.repository.interfaces.UserRepository;
+import persistence.repository.repositories.CartRepositoryImpl;
 import persistence.repository.repositories.UserRepositoryImpl;
+import persistence.repository.utils.TransactionUtil;
 import services.interfaces.CustomerService;
 
 import java.util.List;
@@ -28,7 +33,45 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO signUp(CustomerDTO customerDTO, List<CartItemDTO> cartItems) {
-        return null;
+        String hashedPassword = BCrypt.hashpw(customerDTO.password(), BCrypt.gensalt());
+
+        CustomerDTO hashedCustomerDTO = new CustomerDTO(
+                customerDTO.id(),
+                customerDTO.customerName(),
+                customerDTO.birthday(),
+                hashedPassword, // use the hashed password here
+                customerDTO.job(),
+                customerDTO.email(),
+                customerDTO.creditLimit(),
+                customerDTO.city(),
+                customerDTO.country(),
+                customerDTO.streetNo(),
+                customerDTO.streetName(),
+                customerDTO.interests(),
+                customerDTO.cart()
+        );
+
+        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(hashedCustomerDTO);
+        customer = userRepository.addCustomer(customer);
+        System.out.println("Customer ID: " + customer.getId());
+        Cart cart = new Cart();
+        cart.setCustomer(customer);
+        cart.setId(customer.getId());
+        TransactionUtil.doInTransaction(entityManager -> {
+                    new CartRepositoryImpl().save(cart, entityManager);
+                    System.out.println(cartItems);
+                    if(cartItems != null) {
+                        for (CartItemDTO cartItemDTO : cartItems) {
+                            System.out.println(cartItemDTO);
+                            Product product = ProductMapper.INSTANCE.productDTOToProduct(cartItemDTO.product());
+                            cart.addProduct(product, cartItemDTO.quantity(), cartItemDTO.amount());
+
+                        }
+                    }
+                    return new CartRepositoryImpl().update(cart, entityManager);
+                }
+        );
+        return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
     }
 
 

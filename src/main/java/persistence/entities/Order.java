@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,7 +25,8 @@ public class Order {
     private Customer customer;
 
     @Column(name = "ordered_at", nullable = false)
-    private Instant orderedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date orderedAt;
 
     @OneToMany(
             mappedBy = "order",

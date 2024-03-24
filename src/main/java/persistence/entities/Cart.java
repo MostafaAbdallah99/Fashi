@@ -15,7 +15,6 @@ import java.util.Set;
 @Table(name = "carts")
 public class Cart {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 

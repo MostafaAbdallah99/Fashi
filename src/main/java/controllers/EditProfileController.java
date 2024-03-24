@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.mapping.Views;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,9 +33,13 @@ public class EditProfileController extends HttpServlet {
             CustomerDTO customerDTOFromDB = customerService.getCustomerById(customerDTO.id());
             session.setAttribute("customer", customerDTOFromDB);
             System.out.println("User: " + customerDTOFromDB.customerName());
+            req.getRequestDispatcher("edit-profile.jsp").forward(req, resp);
+
+        }
+        else {
+            req.getRequestDispatcher(Views.LOGIN.getViewName()).forward(req, resp);
         }
 
-        req.getRequestDispatcher("edit-profile.jsp").forward(req, resp);
     }
 
     @Override
