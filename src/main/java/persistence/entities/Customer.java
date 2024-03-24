@@ -65,6 +65,8 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders = new LinkedHashSet<>();
 
+    @Column(name = "isAdmin", nullable = false, columnDefinition = "boolean default false")
+    private Boolean isAdmin;
 
     @Column(name = "reset_password_token")
     private String resetPasswordToken;

@@ -49,7 +49,8 @@ public class CustomerServiceImpl implements CustomerService {
                 customerDTO.streetNo(),
                 customerDTO.streetName(),
                 customerDTO.interests(),
-                customerDTO.cart()
+                customerDTO.cart(),
+                null
         );
 
         Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(hashedCustomerDTO);

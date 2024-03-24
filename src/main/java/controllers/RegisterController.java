@@ -6,17 +6,14 @@ import jakarta.servlet.http.*;
 import persistence.dto.CartDTO;
 import persistence.dto.CartItemDTO;
 import persistence.dto.CustomerDTO;
-import persistence.entities.CartItem;
-import services.CartService;
+import services.impl.CartService;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
-import utils.JsonResolver;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -79,8 +76,7 @@ public class RegisterController extends HttpServlet {
 
                 CartDTO cart = null;
 
-
-                CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart);
+                CustomerDTO customerDTO = new CustomerDTO(null, customerName, birthday, password, job, email, creditLimit, city, country, streetNo, streetName, interests, cart, false);
 
 
 
