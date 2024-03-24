@@ -1,11 +1,16 @@
 $(document).ready(function () {
     loadCategory('Women');
     loadCategory('Men');
-    if(getCookie('user_login') === 'true' && localStorage.getItem('cart_retrieved') !== 'true') {
+    if(getCookie('user_login') === 'true' && sessionStorage.getItem('cart_retrieved') !== 'true') {
         getCartItems();
-    } else {
-        // User is not logged in, do not retrieve the cart
     }
+
+var pageName = './home.jsp'; // replace 'shop' with the name of your page
+
+    var navItems = $('.nav-menu ul li');
+        navItems.removeClass('active');
+
+$('.nav-menu ul li a[href="' + pageName + '"]').parent().addClass('active');
 
 });
 

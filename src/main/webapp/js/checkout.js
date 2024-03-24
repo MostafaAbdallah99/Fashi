@@ -47,7 +47,7 @@ function checkout() {
         success: function (response) {
             console.log('Order placed successfully.');
             $('.place-order').empty();
-            $('.checkout-content').append('<p>Order Placed Successfully!</p>');
+            $('.checkout-content').append('<h3>Order Placed Successfully!</h3>');
             localStorage.removeItem('cartItems');
             updateCartDropdown();
 
@@ -89,6 +89,5 @@ function handleOutOfStock(response) {
 
 function handleInsufficientCredit(response) {
     var creditAvailable = response.creditAvailable;
-    $('.order-table').append('<li class="fw-normal">Insufficient credit, remove some items from the cart to proceed. Credit Available: $' + creditAvailable + '</li>');
-    $('.place-btn').hide();
+    $('.order-table').append('<li class="fw-normal" style="color: red;">Insufficient credit, remove some items from the cart to proceed. Credit Available: $' + creditAvailable + '</li>'); $('.place-btn').hide();
 }

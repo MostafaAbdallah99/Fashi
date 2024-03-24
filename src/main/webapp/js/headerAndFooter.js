@@ -41,6 +41,8 @@ $(document).ready(function () {
             updateCartDropdown();
         });
     }, 0);
+
+
 });
 
 
@@ -68,7 +70,7 @@ function getCartItems() {
                             // Update the cart items in the local storage
                             console.log(cartDTO);
                             localStorage.setItem('cartItems', JSON.stringify(cartDTO));
-                            localStorage.setItem('cart_retrieved', 'true');
+                            sessionStorage.setItem('cart_retrieved', 'true');
                             updateCartDropdown();
                         }
                     }
@@ -123,7 +125,7 @@ function updateCartDropdown() {
 }
 
 
-function addToCart(productId, quantity) {
+function addToCart(productId, quantity,isnew=true) {
     // Make the AJAX POST request to the cart servlet
     $.ajax({
         url: 'cart',  // Update this to the URL of your cart servlet
@@ -153,6 +155,9 @@ function addToCart(productId, quantity) {
             }
             var event = new Event('cartUpdated');
             window.dispatchEvent(event);
+            if(isnew){
+            $('#popup').html("Added to cart Successfully").fadeIn().delay(3000).fadeOut();
+            }
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
             updateCartDropdown();
         },
@@ -161,6 +166,8 @@ function addToCart(productId, quantity) {
         }
     });
 }
+
+
 
 
 function getCookie(name) {
@@ -210,7 +217,7 @@ function logout() {
             deleteCookie('user_login');
             localStorage.removeItem('cartItems');
             updateCartDropdown();
-            localStorage.setItem('cart_retrieved', 'false');
+            sessionStorage.setItem('cart_retrieved', 'false');
             location.reload();
         }
     });

@@ -1,9 +1,15 @@
-//sending the request to get the data bafore the page loads
-getProducts(1, 6);
+
+var pageName = 'shop'; // replace 'shop' with the name of your page
+
+var navItems = $('.nav-menu ul li');
+navItems.removeClass('active');
+
+$('.nav-menu ul li a[href="' + pageName + '"]').parent().addClass('active');
 var filtering = false;
-
-
 var currentPage = 1;
+
+
+
 $(document).ready(function () {
     $('#filter-btn').click(function (e) {
         e.preventDefault();
@@ -15,8 +21,20 @@ $(document).ready(function () {
         var selectedTag = $('input[name="tag"]:checked').next().text();
         console.log(selectedCategory + "this is the selected category");
         filtering = true;
-        filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag,1);
+        filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, 1);
     });
+
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('category')) {
+        var category = urlParams.get('category');
+        filter(category, '$0', '$5000', '', 1);
+        filtering = true;
+        var specificCategoryInput = $('input[name="category"][value="' + category + '"]');
+        specificCategoryInput.prop('checked', true);
+    }
+    else {
+        getProducts(1, 6);
+    }
 
 
 
@@ -54,8 +72,8 @@ function loadProducts(data) {
     var productHTML = '';
     var count = 0;
     console.log(data);
-    length = data.length;
-    $('#NumberOfProducts').text("Show 01- " + length + " Of " + length + " Products");
+    length = data.products.length;
+    $('#NumberOfProducts').text("Show 01- " + length + " Of " + (data.totalPages * 6) + " Products");
     $.each(data.products, function (key, item) {
         console.log(item);
         console.log(count);
@@ -76,10 +94,10 @@ function loadProducts(data) {
         productHTML += '<div class="catagory-name">' + tagName + '</div>';
         productHTML += '<a href="#"><h5>' + item.productName + '</h5></a>';
         if (item.stockQuantity <= 0) {
-                    productHTML += '<div class="product-price" style="color:red;">Out of Stock</div>';
+            productHTML += '<div class="product-price" style="color:red;">Out of Stock</div>';
         }
-        else{
-        productHTML += '<div class="product-price">$' + item.productPrice + '</div>';
+        else {
+            productHTML += '<div class="product-price">$' + item.productPrice + '</div>';
         }
         productHTML += '</div></div></div>';
         count++;
@@ -93,7 +111,7 @@ function loadProducts(data) {
 
 
 
-function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag,pages) {
+function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, pages) {
     $.ajax({
         url: 'shop', // replace with the path to your JSON file
         type: 'POST',
@@ -176,31 +194,31 @@ function updatePagination(totalPages) {
         if (pageNumberText === 'Next »') {
             if (currentPage < totalPages) {
                 currentPage++;
-                if(filtering){
-                filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
+                if (filtering) {
+                    filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
                 }
-                else{
+                else {
                     getProducts(currentPage, 6);
                 }
             }
         } else if (pageNumberText === '« Previous') {
             if (currentPage > 1) {
                 currentPage--;
-                if(filtering){
-                filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
+                if (filtering) {
+                    filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
                 }
-                else{
+                else {
                     getProducts(currentPage, 6);
                 }
             }
         } else if (!isNaN(pageNumberText)) { // Check if the text is numeric
             var pageNumber = parseInt(pageNumberText);
-                if(filtering){
+            if (filtering) {
                 filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, currentPage);
-                }
-                else{
-                    getProducts(currentPage, 6);
-                }
+            }
+            else {
+                getProducts(currentPage, 6);
+            }
             currentPage = pageNumber;
         }
     });

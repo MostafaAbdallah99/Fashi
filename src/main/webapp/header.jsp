@@ -149,10 +149,9 @@
                             <i class="ti-menu"></i>
                             <span>All departments</span>
                             <ul class="depart-hover">
-                                <li class="active"><a href="#">Women's Clothing</a></li>
-                                <li><a href="#">Men’s Clothing</a></li>
-                                <li><a href="#">Kid's Clothing</a></li>
-
+                                <li class="active"><a href="./shop.jsp?category=Women">Women's Clothing</a></li>
+                                <li><a href="./shop.jsp?category=Men">Men’s Clothing</a></li>
+                                <li><a href="./shop.jsp?category=Kids">Kid's Clothing</a></li>
                             </ul>
                         </div>
                     </div>
@@ -170,4 +169,5 @@
                 </div>
             </div>
         </header>
+        <div id="popup" style="display: none;">Item added to cart Successfully!</div>
         <!-- Header End -->

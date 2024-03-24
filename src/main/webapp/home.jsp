@@ -14,7 +14,7 @@
                         <p>Step into our world of beautiful dresses. From casual day dresses to stunning
                             evening wear, find your perfect dress for any occasion. Enjoy our special offers
                             and free shipping on your first order.</p>
-                        <a href="#" class="primary-btn">Shop Now</a>
+                        <a href="shop" class="primary-btn">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                         <span>Kids</span>
                         <h1>Playful Styles</h1>
                         <p>Discover our colorful and comfortable range of kids' clothing. Perfect for playtime, school, and special occasions. Enjoy our special offers and free shipping on your first order.</p>
-                        <a href="#" class="primary-btn">Shop Now</a>
+                        <a href="shop" class="primary-btn">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
             <div class="col-lg-3">
                 <div class="product-large set-bg" data-setbg="img/products/women-large.jpg">
                     <h2>Women’s</h2>
-                    <a href="#">Discover More</a>
+                    <a href="./shop.jsp?category=Women">Discover More</a>
                 </div>
             </div>
             <div class="col-lg-8 offset-lg-1">
@@ -290,7 +290,7 @@
             <div class="col-lg-3 offset-lg-1">
                 <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg">
                     <h2>Men’s</h2>
-                    <a href="#">Discover More</a>
+                    <a href="./shop.jsp?category=Men">Discover More</a>
                 </div>
             </div>
         </div>

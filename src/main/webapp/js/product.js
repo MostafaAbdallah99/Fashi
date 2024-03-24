@@ -54,9 +54,9 @@ function showProduct(product) {
 
     if (product.stockQuantity <= 0) {
         $('.pd-stock').text('Out of stock');
-        $('.pd-desc h4').text("<span style='color:red;'>Out of stock</span>");
+        $('.pd-desc h4').html("<span style='color:red;'>Out of stock</span>");
     } else {
-          $('.pd-desc h4').text('$' + product.productPrice);
+        $('.pd-desc h4').text('$' + product.productPrice);
     }
 
 

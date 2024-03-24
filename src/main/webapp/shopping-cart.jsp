@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./index.jsp"><i class="fa fa-home"></i> Home</a>
+                        <a href="./home.jsp"><i class="fa fa-home"></i> Home</a>
                         <a href="./shop.jsp">Shop</a>
                         <span>Shopping Cart</span>
                     </div>
@@ -90,14 +90,6 @@
                         <div class="col-lg-4">
                             <div class="cart-buttons">
                                 <a href="shop" class="primary-btn continue-shop">Continue shopping</a>
-                                <a href="#" class="primary-btn up-cart">Update cart</a>
-                            </div>
-                            <div class="discount-coupon">
-                                <h6>Discount Codes</h6>
-                                <form action="#" class="coupon-form">
-                                    <input type="text" placeholder="Enter your codes">
-                                    <button type="submit" class="site-btn coupon-btn">Apply</button>
-                                </form>
                             </div>
                         </div>
                         <div class="col-lg-4 offset-lg-4">

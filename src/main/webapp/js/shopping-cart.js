@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -8,12 +8,12 @@ $(document).ready(function() {
     // Clear the table body
     tableBody.empty();
 
-var totalPrice = 0.0;
-    $.each(cartItems, function(index, item) {
+    var totalPrice = 0.0;
+    $.each(cartItems, function (index, item) {
         // Create a new table row
         var row = $('<tr></tr>');
         row.data('product-id', item.product.id);
-        console.log(item.product.id+" "+row.data('product-id')+"_________");
+        console.log(item.product.id + " " + row.data('product-id') + "_________");
 
         // Create and append the table data cells
         var imgCell = $('<td class="cart-pic"><img src="' + item.product.productImage + '" alt=""></td>');
@@ -45,18 +45,18 @@ var totalPrice = 0.0;
     // If you want to display the same total cost in the element with class `subtotal span`
     $(".subtotal span").text('$' + totalPrice.toFixed(2));
 
-        // Add click event handler for the "X" sign
-        $('.ti-close').on('click', function() {
-            // Get the table row for the product
-            var row = $(this).closest('tr');
+    // Add click event handler for the "X" sign
+    $('.ti-close').on('click', function () {
+        // Get the table row for the product
+        var row = $(this).closest('tr');
 
-            // Get the product ID from a data attribute
-            var productId = row.data('product-id');
-            console.log(productId+" "+row);
+        // Get the product ID from a data attribute
+        var productId = row.data('product-id');
+        console.log(productId + " " + row);
 
-            // Call the removeProduct function
-            removeProduct(productId, row);
-        });
+        // Call the removeProduct function
+        removeProduct(productId, row);
+    });
 
 
 
@@ -65,34 +65,27 @@ var totalPrice = 0.0;
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         var newVal;
+        // Get the product ID from a data attribute
+        var productId = $button.closest('tr').data('product-id');
         if ($button.hasClass('inc')) {
             newVal = parseFloat(oldValue) + 1;
+            $button.parent().find('input').val(newVal);
+            addToCart("prdct-" + productId, 1, false);
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
                 newVal = parseFloat(oldValue) - 1;
+                $button.parent().find('input').val(newVal);
+                addToCart("prdct-" + productId, -1, false);
             } else {
+                var row = $(this).closest('tr');
                 newVal = 0;
+                removeProduct(productId, row);
+
             }
         }
-        $button.parent().find('input').val(newVal);
 
-        // Get the product ID from a data attribute
-        var productId = $button.closest('tr').data('product-id');
 
-        // Send an AJAX request to update the quantity in the database
-        $.ajax({
-            url: '/update-cart',  // Update this to the URL of your server-side script
-            method: 'POST',
-            data: {
-                productId: productId,
-                quantity: newVal
-            },
-            success: function(response) {
-                updateCartDropdown();
-                console.log(response);
-            }
-        });
     });
 
 });

@@ -48,10 +48,10 @@
                     <div class="footer-widget">
                         <h5>My Account</h5>
                         <ul>
-                            <li><a href="#">My Account</a></li>
+                            <li><a href="edit-profile">My Account</a></li>
                             <li><a href="./contact.jsp">Contact</a></li>
-                            <li><a href="shopping-cart.html">Shopping Cart</a></li>
-                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="shopping-cart.jsp">Shopping Cart</a></li>
+                            <li><a href="shop">Shop</a></li>
                         </ul>
                     </div>
                 </div>
