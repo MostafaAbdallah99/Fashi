@@ -28,6 +28,14 @@ public class AdminRepoImpl implements AdminRepo {
         });
     }
 
+    public List<Order> getOrdersByUsername(String username) {
+        return TransactionUtil.doInTransaction(entityManager -> {
+            TypedQuery<Order> query = entityManager.createQuery(
+                    "SELECT o FROM Order o WHERE o.customer.customerName = :username", Order.class);
+            query.setParameter("username", username);
+            return query.getResultList();
+        });
+    }
 
 
 

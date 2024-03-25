@@ -17,11 +17,11 @@ import java.util.List;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getSession().getAttribute("customer") == null) {
+        if (req.getSession().getAttribute("customer") == null) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Product is out of stock");
         } else {
-            CustomerDTO customerDTO=(CustomerDTO) req.getSession().getAttribute("customer");
-            System.out.println("customerDTO: "+customerDTO);
+            CustomerDTO customerDTO = (CustomerDTO) req.getSession().getAttribute("customer");
+            System.out.println("customerDTO: " + customerDTO);
             new JsonResolver().render(customerDTO, req, resp);
         }
     }
