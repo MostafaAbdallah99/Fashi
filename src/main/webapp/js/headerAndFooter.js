@@ -69,7 +69,7 @@ function getCartItems() {
                         if (cartDTO) {
                             // Update the cart items in the local storage
                             console.log(cartDTO);
-                            localStorage.setItem('cartItems', JSON.stringify(cartDTO));
+                            sessionStorage.setItem('cartItems', JSON.stringify(cartDTO));
                             sessionStorage.setItem('cart_retrieved', 'true');
                             updateCartDropdown();
                         }
@@ -87,8 +87,13 @@ function updateCartDropdown() {
     $('.cart-hover .select-items tbody').empty();
 
     // Retrieve the cart items from the local storage
-    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
+    var cartItems;
+    if (getCookie('user_login') === 'true') {
+        cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+    }
+    else {
+        cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    }
     // Initialize totalQuantity and totalPrice
     var totalQuantity = 0;
     var totalPrice = 0.0;
@@ -125,7 +130,7 @@ function updateCartDropdown() {
 }
 
 
-function addToCart(productId, quantity,isnew=true) {
+function addToCart(productId, quantity, isnew = true) {
     // Make the AJAX POST request to the cart servlet
     $.ajax({
         url: 'cart',  // Update this to the URL of your cart servlet
@@ -137,7 +142,13 @@ function addToCart(productId, quantity,isnew=true) {
         success: function (response) {
 
             console.log('Product added to cart successfully:', response);
-            var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            var cartItems;
+            if (getCookie('user_login') === 'true') {
+                cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            }
+            else {
+                cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+            }
             // Check if a cart item with the given product ID already exists in the cart items
             var parts = productId.split("-");
             var i = parts[1];
@@ -147,7 +158,7 @@ function addToCart(productId, quantity,isnew=true) {
             });
 
             if (existingCartItem) {
-                var quan =parseInt(existingCartItem.quantity)+ parseInt(quantity);
+                var quan = parseInt(existingCartItem.quantity) + parseInt(quantity);
                 existingCartItem.quantity = quan;
             } else {
 
@@ -155,10 +166,15 @@ function addToCart(productId, quantity,isnew=true) {
             }
             var event = new Event('cartUpdated');
             window.dispatchEvent(event);
-            if(isnew){
-            $('#popup').html("Added to cart Successfully").fadeIn().delay(3000).fadeOut();
+            if (isnew) {
+                $('#popup').html("Added to cart Successfully").fadeIn().delay(3000).fadeOut();
             }
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            if (getCookie('user_login') === 'true') {
+                sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+            }
+            else {
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            }
             updateCartDropdown();
         },
         error: function (error) {
@@ -184,11 +200,21 @@ function getCookie(name) {
 
 function removeProduct(productId, row) {
     // Remove the product from the cart in local storage
-    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    if(getCookie('user_login') === 'true'){
+        var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+    }
+    else{
+        var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    }
     cartItems = cartItems.filter(function (item) {
         return item.product.id !== productId;
     });
+    if(getCookie('user_login') === 'true'){
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
+    else{
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
 
     // Remove the product row from the table
     row.remove();
@@ -215,7 +241,7 @@ function logout() {
         type: 'GET',
         success: function () {
             deleteCookie('user_login');
-            localStorage.removeItem('cartItems');
+            sessionStorage.removeItem('cartItems');
             updateCartDropdown();
             sessionStorage.setItem('cart_retrieved', 'false');
             location.reload();

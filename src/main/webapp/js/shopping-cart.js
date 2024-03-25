@@ -1,7 +1,10 @@
 $(document).ready(function () {
-
+if (getCookie('user_login') === 'true') {
+    var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+}
+else {
     var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
+}
     // Get the table body where the cart items will be displayed
     var tableBody = $('.cart-table tbody');
 
@@ -67,22 +70,46 @@ $(document).ready(function () {
         var newVal;
         // Get the product ID from a data attribute
         var productId = $button.closest('tr').data('product-id');
+        var priceCell = $button.closest('tr').find('.p-price');
+        var totalCell = $button.closest('tr').find('.total-price');
+        var cartTotal = $('.cart-total span');
+        var subtotal = $('.subtotal span');
+        var totalPrice = parseFloat(cartTotal.text().replace('$', ''));
+
         if ($button.hasClass('inc')) {
             newVal = parseFloat(oldValue) + 1;
             $button.parent().find('input').val(newVal);
             addToCart("prdct-" + productId, 1, false);
+            var price = parseFloat(priceCell.text().replace('$', ''));
+            totalCell.text('$' + (price * newVal).toFixed(2));
+            totalPrice += price;
+            cartTotal.text('$' + totalPrice.toFixed(2));
+            subtotal.text('$' + totalPrice.toFixed(2));
+
         } else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
                 newVal = parseFloat(oldValue) - 1;
                 $button.parent().find('input').val(newVal);
                 addToCart("prdct-" + productId, -1, false);
+                var price = parseFloat(priceCell.text().replace('$', ''));
+                totalCell.text('$' + (price * newVal).toFixed(2));
+                totalPrice -= price;
+                cartTotal.text('$' + totalPrice.toFixed(2));
+                subtotal.text('$' + totalPrice.toFixed(2));
+
+
             } else {
                 var row = $(this).closest('tr');
                 newVal = 0;
+                totalPrice -= parseFloat(totalCell.text().replace('$', ''));
                 removeProduct(productId, row);
 
+                cartTotal.text('$' + totalPrice.toFixed(2));
+
             }
+
+
         }
 
 

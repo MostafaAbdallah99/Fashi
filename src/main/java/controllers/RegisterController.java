@@ -92,7 +92,6 @@ public class RegisterController extends HttpServlet {
                     HttpSession newSession = request.getSession(true);
                     newSession.setAttribute("customer", createdCustomer);
                     Cookie loginCookie = new Cookie("user_login", "true");
-                    loginCookie.setMaxAge(60 * 60 * 24 * 365);
                     response.addCookie(loginCookie);
                     response.sendRedirect(request.getContextPath() + "/home.jsp");
                 } else {

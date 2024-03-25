@@ -45,6 +45,7 @@ function showProduct(product) {
     $('.product-big-img').attr('src', product.productImage);
     $('.pt').attr('data-imgbigurl', product.productImage);
     $('.pt img').attr('src', product.productImage);
+    $('.pd-title span').text(product.categoryName);
 
     $('.product-pic-zoom').trigger('zoom.destroy'); // remove the zoom effect
     $('.product-pic-zoom').zoom(); // add the zoom effect back
