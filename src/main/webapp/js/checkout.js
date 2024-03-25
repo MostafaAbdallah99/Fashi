@@ -1,7 +1,11 @@
 $(document).ready(function () {
 
+if (getCookie('user_login') === 'true') {
+    var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+}
+else {
     var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
+}
     // Initialize totalQuantity and totalPrice
     var totalQuantity = 0;
     var totalPrice = 0.0;
