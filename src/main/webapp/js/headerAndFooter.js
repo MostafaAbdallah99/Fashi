@@ -102,12 +102,11 @@ function updateCartDropdown() {
     $('.cart-hover .select-items tbody').empty();
 
     // Retrieve the cart items from the local storage
-    var cartItems;
     if (getCookie('user_login') === 'true') {
-        cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+        var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
     }
     else {
-        cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+       var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     }
     // Initialize totalQuantity and totalPrice
     var totalQuantity = 0;
@@ -157,12 +156,12 @@ function addToCart(productId, quantity, isnew = true) {
         success: function (response) {
 
             console.log('Product added to cart successfully:', response);
-            var cartItems;
             if (getCookie('user_login') === 'true') {
-                cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                var cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+                console.log(cartItems);
             }
             else {
-                cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+                var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
             }
             // Check if a cart item with the given product ID already exists in the cart items
             var parts = productId.split("-");
@@ -175,8 +174,9 @@ function addToCart(productId, quantity, isnew = true) {
             if (existingCartItem) {
                 var quan = parseInt(existingCartItem.quantity) + parseInt(quantity);
                 existingCartItem.quantity = quan;
+                console.log(existingCartItem+"existing");
             } else {
-
+                console.log(response);
                 cartItems.push(response);
             }
             var event = new Event('cartUpdated');
@@ -184,12 +184,15 @@ function addToCart(productId, quantity, isnew = true) {
             if (isnew) {
                 $('#popup').html("Added to cart Successfully").fadeIn().delay(3000).fadeOut();
             }
+
             if (getCookie('user_login') === 'true') {
                 sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+                console.log(sessionStorage.getItem('cartItems'));
             }
             else {
                 localStorage.setItem('cartItems', JSON.stringify(cartItems));
             }
+
             updateCartDropdown();
         },
         error: function (error) {
@@ -234,15 +237,14 @@ function removeProduct(productId, row) {
     // Remove the product row from the table
     row.remove();
 
-    // Send an AJAX request to remove the product from the cart in the database
+   
     $.ajax({
-        url: 'remove-from-cart',  // Update this to the URL of your server-side script
+        url: 'remove-from-cart', 
         method: 'POST',
         data: {
             productId: productId
         },
         success: function (response) {
-            // Handle the response from the server
             updateCartDropdown();
             console.log(response);
         }
