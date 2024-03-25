@@ -1,4 +1,4 @@
-package services;
+package services.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -8,13 +8,9 @@ import persistence.entities.Cart;
 import persistence.entities.CartItem;
 import persistence.entities.Customer;
 import persistence.entities.Product;
-import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.repositories.CartRepositoryImpl;
 import persistence.repository.repositories.ProductRepositoryImpl;
-import persistence.repository.repositories.UserRepositoryImpl;
 import persistence.repository.utils.TransactionUtil;
-import services.impl.CustomerServiceImpl;
-import services.interfaces.CustomerService;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;

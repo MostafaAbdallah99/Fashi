@@ -13,6 +13,4 @@ public interface AdminRepo {
     List<Order> getOrderHistoryByUsername(String username);
 
     List<Customer> getUsersWithOrders();
-
-    public List<Order> getOrdersByUsername(String username);
 }

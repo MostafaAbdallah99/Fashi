@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.mapping.URLMapping;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import persistence.dto.CustomerDTO;
@@ -31,10 +32,16 @@ public class LoginController extends HttpServlet {
         if (customerDTO != null) {
             HttpSession session = request.getSession(true);
             session.setAttribute("customer", customerDTO);
-            // Create a new cookie
-            Cookie loginCookie = new Cookie("user_login", "true");
-            response.addCookie(loginCookie);
-            response.sendRedirect(request.getContextPath() + "/home.jsp");
+            if(customerDTO.isAdmin()) {
+                response.sendRedirect(request.getContextPath() + URLMapping.ADMIN_PRODUCT.getUrl());
+            }
+            else {
+                // Create a new cookie
+                Cookie loginCookie = new Cookie("user_login", "true");
+                response.addCookie(loginCookie);
+                response.sendRedirect(request.getContextPath() + "/home.jsp");
+            }
+
         } else {
             response.sendRedirect(request.getContextPath() + "/login.jsp?message=wrong");
         }

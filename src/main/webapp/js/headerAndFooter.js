@@ -58,7 +58,7 @@ var searchInput = document.getElementById('advanced_search');
 
 
 function performSearch(query) {
-    window.href = 'shop.jsp?search=' + query;
+    window.location.href = './shop.jsp?search=' + query;
     console.log('Searching for: ' + query);
 }
 

@@ -64,6 +64,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7">
                             <div class="advanced-search">
+                            <button type="button" class="category-btn">All Categories</button>
                                 <div class="input-group">
                                     <input type="text" id="advanced_search" placeholder="What do you need?">
                                     <button type="button"><i class="ti-search"></i></button>

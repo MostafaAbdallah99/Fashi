@@ -20,7 +20,7 @@ public class Order {
     @Column(name = "order_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
@@ -50,4 +50,6 @@ public class Order {
             }
         }
     }
+
+
 }

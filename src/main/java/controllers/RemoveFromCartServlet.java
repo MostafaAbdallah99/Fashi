@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import persistence.dto.CustomerDTO;
-import services.CartService;
+import services.impl.CartService;
 
 import java.io.IOException;
 

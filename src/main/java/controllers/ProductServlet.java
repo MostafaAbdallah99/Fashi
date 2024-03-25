@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import persistence.dto.ProductDTO;
-import services.ProductService;
+import services.impl.ProductService;
 
 import java.io.IOException;
 

@@ -23,19 +23,11 @@ public class AdminRepoImpl implements AdminRepo {
     public List<Customer> getUsersWithOrders() {
         return TransactionUtil.doInTransaction(entityManager -> {
             TypedQuery<Customer> query = entityManager.createQuery(
-                    "SELECT DISTINCT c FROM Customer c JOIN FETCH c.orders", Customer.class);
+                    "SELECT c FROM Customer c", Customer.class);
             return query.getResultList();
         });
     }
 
-    public List<Order> getOrdersByUsername(String username) {
-        return TransactionUtil.doInTransaction(entityManager -> {
-            TypedQuery<Order> query = entityManager.createQuery(
-                    "SELECT o FROM Order o WHERE o.customer.customerName = :username", Order.class);
-            query.setParameter("username", username);
-            return query.getResultList();
-        });
-    }
 
 
 

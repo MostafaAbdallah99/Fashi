@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import persistence.repository.utils.EmailHandler;
-import services.*;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
 

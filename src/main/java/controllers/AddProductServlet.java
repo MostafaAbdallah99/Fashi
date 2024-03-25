@@ -14,7 +14,7 @@ import persistence.dto.CategoryDTO;
 import persistence.dto.ProductDTO;
 import persistence.dto.TagDTO;
 import persistence.entities.ProductSize;
-import services.ProductService;
+import services.impl.ProductService;
 import utils.ByteStreamConverter;
 import utils.FireStorageManager;
 

@@ -6,6 +6,8 @@ import persistence.entities.Customer;
 import persistence.repository.interfaces.UserRepository;
 import persistence.repository.utils.TransactionUtil;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -148,4 +150,9 @@ public class UserRepositoryImpl implements UserRepository {
         });
     }
 
+    public static void main(String[] args) {
+        UserRepositoryImpl userRepository = new UserRepositoryImpl();
+        Customer customer = userRepository.findUserByEmail("john@example.com");
+        System.out.println(customer.getIsAdmin());
+    }
 }

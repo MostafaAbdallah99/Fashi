@@ -48,7 +48,8 @@ public class CustomerServiceImpl implements CustomerService {
                 customerDTO.streetNo(),
                 customerDTO.streetName(),
                 customerDTO.interests(),
-                customerDTO.cart()
+                customerDTO.cart(),
+                customerDTO.isAdmin()
         );
 
         Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(hashedCustomerDTO);
@@ -75,29 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-    public CustomerDTO signUp(CustomerDTO customerDTO) {
-        String hashedPassword = BCrypt.hashpw(customerDTO.password(), BCrypt.gensalt());
 
-        CustomerDTO hashedCustomerDTO = new CustomerDTO(
-                customerDTO.id(),
-                customerDTO.customerName(),
-                customerDTO.birthday(),
-                hashedPassword, // use the hashed password here
-                customerDTO.job(),
-                customerDTO.email(),
-                customerDTO.creditLimit(),
-                customerDTO.city(),
-                customerDTO.country(),
-                customerDTO.streetNo(),
-                customerDTO.streetName(),
-                customerDTO.interests(),
-                customerDTO.cart()
-        );
-
-        Customer customer = CustomerMapper.INSTANCE.customerDTOToCustomer(hashedCustomerDTO);
-        userRepository.addCustomer(customer);
-        return CustomerMapper.INSTANCE.customerToCustomerDTO(customer);
-    }
 
     public boolean isEmailExists(String email) {
         return userRepository.isEmailExists(email);

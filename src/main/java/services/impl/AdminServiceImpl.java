@@ -4,11 +4,10 @@ import persistence.entities.Customer;
 import persistence.entities.Order;
 import persistence.repository.interfaces.AdminRepo;
 import persistence.repository.repositories.AdminRepoImpl;
-import services.interfaces.AdminService;
 
 import java.util.List;
 
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl {
 
 
     private final AdminRepo adminRepo;

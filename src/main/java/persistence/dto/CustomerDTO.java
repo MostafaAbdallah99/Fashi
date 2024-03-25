@@ -19,5 +19,7 @@ public record CustomerDTO(
         String streetNo,
         String streetName,
         String interests,
-        CartDTO cart
-) {}
+        CartDTO cart,
+        Boolean isAdmin
+) {
+}

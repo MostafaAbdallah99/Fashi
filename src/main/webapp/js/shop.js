@@ -178,7 +178,7 @@ function getProducts(pages, n) {
         },
         success: function (products) {
             loadProducts(products);
-            updatePagination(products.totalPages);
+            updatePagination(products.totalPagesCount.totalPages);
         },
         error: function (error) {
             console.log('Error: ', error);

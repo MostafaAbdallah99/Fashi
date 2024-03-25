@@ -78,7 +78,8 @@ public class EditProfileController extends HttpServlet {
                 streetNo,
                 streetName,
                 customer.interests(),
-                customer.cart()
+                customer.cart(),
+                false
         );
 
         boolean isUpdated = customerService.updateCustomer(updatedCustomer);
