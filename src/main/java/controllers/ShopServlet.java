@@ -18,7 +18,6 @@ import java.util.Map;
 public class ShopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("ShopServlet: doGet");
         req.getRequestDispatcher("/shop.jsp").forward(req, resp);
     }
 
@@ -30,8 +29,8 @@ public class ShopServlet extends HttpServlet {
             int page = Integer.parseInt(req.getParameter("page"));
             int size = Integer.parseInt(req.getParameter("size"));
             List<ProductDTO> products = new ProductService().getProducts(page, size);
-            int totalPages = new ProductService().getTotalPages(size);
-            Map<String, Object> map = Map.of("products", products, "totalPages", totalPages);
+            Map<String, Object> totalPages = new ProductService().getTotalPages(size);
+            Map<String, Object> map = Map.of("products", products, "totalPagesCount", totalPages);
             new JsonResolver().render(map, req, resp);
             return;
         }
@@ -44,7 +43,8 @@ public class ShopServlet extends HttpServlet {
         String tag = req.getParameter("tag");
         int page = Integer.parseInt(req.getParameter("page"));
         int size = Integer.parseInt(req.getParameter("size"));
-        Map<String, Object> products  = new ProductService().getProductsByCategoryAndTagAndPriceRange(category, tag, Double.parseDouble(priceMin), Double.parseDouble(priceMax), page, size);
+        String searchQuery = req.getParameter("searchQuery");
+        Map<String, Object> products  = new ProductService().getProductsByCategoryAndTagAndPriceRange(category, tag, Double.parseDouble(priceMin), Double.parseDouble(priceMax), page, size, searchQuery);
         System.out.println("got the products");
         System.out.println(products);
         new JsonResolver().render(products, req, resp);

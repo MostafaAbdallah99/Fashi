@@ -68,6 +68,7 @@ public class UpdateProductServlet extends HttpServlet {
             BigDecimal productPrice = new BigDecimal(request.getParameter("productPrice"));
             ProductSize productSize = ProductSize.valueOf(request.getParameter("productSize"));
             Integer productQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
+            String isDeleted = request.getParameter("isDeleted");
 
             Part filePart = request.getPart("fileInput");
             String fileName = filePart.getSubmittedFileName();
@@ -81,7 +82,7 @@ public class UpdateProductServlet extends HttpServlet {
                 imagePath = productDTO.productImage();
             }
 
-            ProductDTO updatedProductDTO = new ProductDTO(productId, productName, imagePath, productQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName());
+            ProductDTO updatedProductDTO = new ProductDTO(productId, productName, imagePath, productQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName(), isDeleted.equalsIgnoreCase("true"));
 
             if (productService.updateProduct(updatedProductDTO)) {
                 response.sendRedirect(request.getContextPath() + URLMapping.ADMIN_PRODUCT.getUrl());

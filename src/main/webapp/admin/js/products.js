@@ -1,7 +1,7 @@
 window.onload = async function() {
     await fetchProducts();
 
-    document.querySelectorAll('#deleteIcon').forEach((deleteIcon) => {
+ /*   document.querySelectorAll('#deleteIcon').forEach((deleteIcon) => {
         deleteIcon.addEventListener('click', async (event) => {
             let row = event.target.closest('tr');
 
@@ -18,7 +18,7 @@ window.onload = async function() {
             }
         });
     });
-
+*/
     document.querySelectorAll('.update').forEach(function(icon) {
         icon.addEventListener('click', function(event) {
             event.preventDefault();
@@ -50,11 +50,7 @@ async function fetchProducts() {
                 <td>${product.categoryName}</td>
                 <td>${product.tag.tagName}</td>
                 <td>${product.productSize}</td>
-                <td>
-                  <a id="deleteIcon" class="tm-product-delete-link">
-                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                  </a>
-                </td>
+                <td>${product.isDeleted}</td>
                 <td>
                     <a id="updateIcon" class="tm-product-delete-link update">
                       <i class="fas fa-pen tm-product-delete-icon"></i>

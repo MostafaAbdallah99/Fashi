@@ -22,6 +22,11 @@ async function fetchProduct(productID) {
             document.getElementById('tag').value = product.tag.tagName;
             document.getElementById('productSize').value = product.productSize;
             document.getElementById('previewImage').src = product.productImage;
+            if(product.isDeleted == 1){
+                document.getElementById('isDeleted').checked = true;
+            } else {
+                document.getElementById('isDeleted').checked = false;
+            }
         });
     } catch (error) {
         console.error('Error:', error);

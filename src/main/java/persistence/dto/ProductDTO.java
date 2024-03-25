@@ -14,6 +14,7 @@ public record ProductDTO(
         ProductSize productSize,
         CategoryDTO category,
         TagDTO tag,
-        String categoryName
+        String categoryName,
+        Boolean isDeleted
 ) {
 }

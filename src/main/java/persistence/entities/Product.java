@@ -51,5 +51,7 @@ public class Product {
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted;
 
 }

@@ -6,5 +6,5 @@ import jakarta.persistence.EntityManager;
 import java.util.Map;
 
 public interface ProductRepository {
-    public Map<String, Object> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max, int page, int size, EntityManager entityManager);
+    public Map<String, Object> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max, int page, int size, String query, EntityManager entityManager);
 }

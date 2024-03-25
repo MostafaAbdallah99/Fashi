@@ -32,6 +32,11 @@ $(document).ready(function () {
         var specificCategoryInput = $('input[name="category"][value="' + category + '"]');
         specificCategoryInput.prop('checked', true);
     }
+    else if(urlParams.has('search')) {
+        var search = urlParams.get('search');
+        filter('', '$0', '$5000', '', 1, search);
+        filtering = true;
+    }
     else {
         getProducts(1, 6);
     }
@@ -91,7 +96,7 @@ function loadProducts(data) {
     var count = 0;
     console.log(data);
     length = data.products.length;
-    $('#NumberOfProducts').text("Show 01- " + length + " Of " + (data.totalPages * 6) + " Products");
+    $('#NumberOfProducts').text("Show 01- " + length + " Of " + (data.totalPagesCount.totalCount) + " Products");
     $.each(data.products, function (key, item) {
         console.log(item);
         console.log(count);
@@ -129,7 +134,7 @@ function loadProducts(data) {
 
 
 
-function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, pages) {
+function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTag, pages, searchQuery) {
     $.ajax({
         url: 'shop', // replace with the path to your JSON file
         type: 'POST',
@@ -140,12 +145,13 @@ function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTa
             priceMax: selectedPriceMax,
             tag: selectedTag,
             page: pages,
-            size: 6
+            size: 6,
+            searchQuery: searchQuery
 
         },
         success: function (data) {
             loadProducts(data);
-            updatePagination(data.totalPages);
+            updatePagination(data.totalPagesCount.totalPages);
         },
         error: function (error) {
             console.log('Error in filtering:  ', error);

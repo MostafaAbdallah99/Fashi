@@ -57,16 +57,15 @@
                     <div class="row">
                         <div class="col-lg-2 col-md-2">
                             <div class="logo">
-                                <a href="./index.jsp">
+                                <a href="home.jsp">
                                     <img src="img/logo.png" alt="">
                                 </a>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-7">
                             <div class="advanced-search">
-                                <button type="button" class="category-btn">All Categories</button>
                                 <div class="input-group">
-                                    <input type="text" placeholder="What do you need?">
+                                    <input type="text" id="advanced_search" placeholder="What do you need?">
                                     <button type="button"><i class="ti-search"></i></button>
                                 </div>
                             </div>

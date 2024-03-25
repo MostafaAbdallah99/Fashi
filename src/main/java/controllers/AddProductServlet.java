@@ -66,7 +66,7 @@ public class AddProductServlet extends HttpServlet {
         byte[] fileBytes = ByteStreamConverter.getInstance().convertToByteArray(fileContent);
         imagePath = FireStorageManager.getInstance().uploadFileToStorage(fileBytes, fileName);
 
-        ProductDTO productDTO = new ProductDTO(null, productName, imagePath, productQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName());
+        ProductDTO productDTO = new ProductDTO(null, productName, imagePath, productQuantity, productDescription, productPrice, productSize, categoryDTO, tagDTO, categoryDTO.categoryName(), false);
 
         if(productService.addProduct(productDTO)) {
             response.sendRedirect(request.getContextPath() + URLMapping.ADMIN_PRODUCT.getUrl());

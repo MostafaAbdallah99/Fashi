@@ -18,9 +18,9 @@ public class ProductService {
     }
 
 
-    public Map<String, Object> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max,int page, int size) {
+    public Map<String, Object> getProductsByCategoryAndTagAndPriceRange(String categoryName, String tagName, double min, double max,int page, int size, String searchQuery) {
         return TransactionUtil.doInTransaction(entityManager -> {
-            Map<String, Object> result = productRepository.getProductsByCategoryAndTagAndPriceRange(categoryName, tagName, min, max, page, size, entityManager);
+            Map<String, Object> result = productRepository.getProductsByCategoryAndTagAndPriceRange(categoryName, tagName, min, max, page, size, searchQuery, entityManager);
             List<Product> products = (List<Product>) result.get("products");
             List<ProductDTO> productDTOs = products.stream().map(ProductMapper.INSTANCE::productToProductDTO).toList();
             result.put("products", productDTOs);
@@ -66,7 +66,7 @@ public class ProductService {
                 .toList());
     }
 
-    public int getTotalPages(int size) {
+    public Map<String, Object> getTotalPages(int size) {
         return TransactionUtil.doInTransaction(entityManager -> productRepository.getTotalPages(size, entityManager));
     }
 }

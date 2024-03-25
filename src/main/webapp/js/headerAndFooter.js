@@ -1,5 +1,16 @@
 $(document).ready(function () {
+var searchInput = document.getElementById('advanced_search');
+    var searchButton = searchInput.nextElementSibling;
 
+    searchButton.addEventListener('click', function() {
+        performSearch(searchInput.value);
+    });
+
+    searchInput.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+            performSearch(searchInput.value);
+        }
+    });
 
     updateCartDropdown();
 
@@ -46,6 +57,10 @@ $(document).ready(function () {
 });
 
 
+function performSearch(query) {
+    window.href = 'shop.jsp?search=' + query;
+    console.log('Searching for: ' + query);
+}
 
 function getCartItems() {
     // Send a GET request to the server-side endpoint that returns the CustomerDTO from the session
