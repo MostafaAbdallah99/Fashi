@@ -113,7 +113,7 @@
                 <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                     <h2 class="tm-block-title">List of Users</h2>
                     <p class="text-white">Users</p>
-                    <select class="custom-select">
+                    <select class="custom-select" id="custom-select">
                         <option value="0">Select account</option>
                         <c:forEach var="user" items="${usersWithOrders}">
                             <option value="${user.id}">${user.customerName}</option>
@@ -123,34 +123,16 @@
             </div>
         </div>
         <!-- row -->
-        <div class="row tm-content-row">
-            <div class="tm-block-col tm-col-avatar">
-                <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-                    <h2 class="tm-block-title">Change Avatar</h2>
-                    <div class="tm-avatar-container">
-                        <img
-                                src="img/avatar.png"
-                                alt="Avatar"
-                                class="tm-avatar img-fluid mb-4"
-                        />
-                        <a href="#" class="tm-avatar-delete-link">
-                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                        </a>
-                    </div>
-                    <button class="btn btn-primary btn-block text-uppercase">
-                        Upload New Photo
-                    </button>
-                </div>
-            </div>
+        <div class="row tm-content-row" >
             <div class="tm-block-col tm-col-account-settings">
                 <div class="tm-bg-primary-dark tm-block tm-block-settings">
                     <h2 class="tm-block-title">Account Settings</h2>
                     <form action="" class="tm-signup-form row">
                         <div class="form-group col-lg-6">
-                            <label for="name">Account Name</label>
+                            <label for="username">Account Name</label>
                             <input
-                                    id="name"
-                                    name="name"
+                                    id="username"
+                                    name="username"
                                     type="text"
                                     class="form-control validate"
                             />
@@ -165,53 +147,87 @@
                             />
                         </div>
                         <div class="form-group col-lg-6">
-                            <label for="password">Password</label>
+                            <label for="creditLimit">Credit Limit</label>
                             <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
+                                    id="creditLimit"
+                                    name="creditLimit"
+                                    type="number"
                                     class="form-control validate"
                             />
                         </div>
                         <div class="form-group col-lg-6">
-                            <label for="password2">Re-enter Password</label>
+                            <label for="birthday">Birthday</label>
                             <input
-                                    id="password2"
-                                    name="password2"
-                                    type="password"
+                                    id="birthday"
+                                    name="birthday"
+                                    type="text"
                                     class="form-control validate"
                             />
                         </div>
                         <div class="form-group col-lg-6">
-                            <label for="phone">Phone</label>
+                            <label for="job">Job</label>
                             <input
-                                    id="phone"
-                                    name="phone"
-                                    type="tel"
+                                    id="job"
+                                    name="job"
+                                    type="text"
                                     class="form-control validate"
                             />
                         </div>
                         <div class="form-group col-lg-6">
-                            <label class="tm-hide-sm">&nbsp;</label>
-                            <button
-                                    type="submit"
-                                    class="btn btn-primary btn-block text-uppercase"
-                            >
-                                Update Your Profile
-                            </button>
+                            <label for="country">Country</label>
+                            <input
+                                    id="country"
+                                    name="country"
+                                    type="text"
+                                    class="form-control validate"
+                            />
                         </div>
-                        <div class="col-12">
-                            <button
-                                    type="submit"
-                                    class="btn btn-primary btn-block text-uppercase"
-                            >
-                                Delete Your Account
-                            </button>
+                       <div class="form-group col-lg-6">
+                            <label for="address">Address</label>
+                            <input
+                                    id="address"
+                                    name="address"
+                                    type="text"
+                                    class="form-control validate"
+                            />
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <div class="col-12 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                        <h2 class="tm-block-title">Orders List</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ORDER NO.</th>
+                                    <th scope="col">STATUS</th>
+                                    <th scope="col">OPERATORS</th>
+                                    <th scope="col">LOCATION</th>
+                                    <th scope="col">DISTANCE</th>
+                                    <th scope="col">START DATE</th>
+                                    <th scope="col">EST DELIVERY DUE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><b>#122349</b></th>
+                                    <td>
+                                        <div class="tm-status-circle moving">
+                                        </div>Moving
+                                    </td>
+                                    <td><b>Oliver Trag</b></td>
+                                    <td><b>London, UK</b></td>
+                                    <td><b>485 km</b></td>
+                                    <td>16:00, 12 NOV 2018</td>
+                                    <td>08:00, 18 NOV 2018</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
     </div>
     <footer class="tm-footer row tm-mt-small">
         <div class="col-12 font-weight-light">
@@ -225,6 +241,7 @@
 </div>
 
 <script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/user_orders.js"></script>
 <!-- https://jquery.com/download/ -->
 <script src="js/bootstrap.min.js"></script>
 <!-- https://getbootstrap.com/ -->

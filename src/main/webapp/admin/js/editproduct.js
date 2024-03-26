@@ -6,14 +6,13 @@ window.onload = async function() {
     await fetchProduct(productID);
 }
 
-
 async function fetchProduct(productID) {
     try {
-        fetch(`updateProduct?action=fetchProduct&productID=${productID}`,
-       {
-            method: 'POST',
-        }).then(response => response.json())
-        .then(product => {
+        let response = await fetch(`updateProduct?action=fetchProduct&productID=${productID}`, { method: 'POST' });
+
+        let contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            let product = await response.json();
             document.getElementById('productName').value = product.productName;
             document.getElementById('productDescription').value = product.productDescription;
             document.getElementById('productPrice').value = product.productPrice;
@@ -27,10 +26,11 @@ async function fetchProduct(productID) {
             } else {
                 document.getElementById('isDeleted').checked = false;
             }
-        });
+        } else {
+            window.location.href = 'product';
+        }
     } catch (error) {
-        console.error('Error:', error);
+        console.log('Error:', error);
     }
 }
-
 

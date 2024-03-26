@@ -50,7 +50,7 @@ public class UpdateProductServlet extends HttpServlet {
         ProductDTO productDTO = productService.getProductById(Long.parseLong(request.getParameter("productID")));
 
         if(productDTO == null) {
-            response.sendRedirect(request.getContextPath() + URLMapping.ADMIN_PRODUCT.getUrl());
+            response.sendRedirect(request.getContextPath() + Views.ERROR_PAGE.getViewName());
         }
         else if(action != null && action.equalsIgnoreCase("fetchProduct")) {
             JsonResolver.render(productDTO, response);
