@@ -6,7 +6,7 @@
 
         <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-        <link rel="stylesheet" href="css/error.css">
+        <link rel="stylesheet" href="/iti_ecommerce_app/css/error.css">
 
         <title>Responsive 404 website - Bedimcode</title>
     </head>
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="home__img">
-                        <img src="img/ghost-img.png" alt="">
+                        <img src="/iti_ecommerce_app/img/ghost-img.png" alt="">
                         <div class="home__shadow"></div>
                     </div>
                 </div>
@@ -70,8 +70,8 @@
             </section>
         </main>
 
-        <script src="js/scrollreveal.min.js"></script>
+        <script src="/iti_ecommerce_app/js/scrollreveal.min.js"></script>
 
-        <script src="js/error.js"></script>
+        <script src="/iti_ecommerce_app/js/error.js"></script>
     </body>
 </html>

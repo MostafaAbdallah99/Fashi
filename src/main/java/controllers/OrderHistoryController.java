@@ -7,11 +7,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import persistence.dto.CustomerDTO;
+import persistence.dto.CustomerOrderDTO;
+import persistence.dto.OrderTotalAmountDTO;
 import persistence.entities.Customer;
 import persistence.repository.interfaces.AdminRepo;
 import persistence.repository.repositories.AdminRepoImpl;
 import services.impl.AdminServiceImpl;
 import services.impl.CustomerServiceImpl;
+import services.impl.OrderService;
 import utils.JsonResolver;
 
 import java.io.IOException;
@@ -38,7 +41,11 @@ public class OrderHistoryController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("userId");
         CustomerServiceImpl customerService = new CustomerServiceImpl();
+        OrderService orderService = new OrderService();
         CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(userId));
-        JsonResolver.render(customerDTO, resp);
+        List<OrderTotalAmountDTO> orderTotalAmounts = orderService.findTotalOrderAmount(Integer.parseInt(userId));
+
+        CustomerOrderDTO customerOrderDTO = new CustomerOrderDTO(customerDTO, orderTotalAmounts);
+        JsonResolver.render(customerOrderDTO, resp);
     }
 }

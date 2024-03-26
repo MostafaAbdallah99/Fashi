@@ -1,8 +1,10 @@
 package services.impl;
 
 import jakarta.persistence.LockModeType;
+import persistence.dto.OrderTotalAmountDTO;
 import persistence.entities.*;
 import persistence.repository.repositories.CartRepositoryImpl;
+import persistence.repository.repositories.OrderRepositoryImpl;
 import persistence.repository.repositories.ProductRepositoryImpl;
 import persistence.repository.utils.TransactionUtil;
 
@@ -12,10 +14,12 @@ import java.util.*;
 public class OrderService {
     private final CartRepositoryImpl cartRepository;
     private final ProductRepositoryImpl productRepository;
+    private final OrderRepositoryImpl orderRepository;
 
     public OrderService() {
         this.cartRepository = new CartRepositoryImpl();
         this.productRepository = new ProductRepositoryImpl();
+        this.orderRepository = new OrderRepositoryImpl();
     }
 
     public Map<String, Object> checkout(int cartId) {
@@ -93,6 +97,10 @@ public class OrderService {
             System.out.println(totalCost);
             return totalCost;
         });
+    }
+
+    public List<OrderTotalAmountDTO> findTotalOrderAmount(Integer orderId) {
+        return TransactionUtil.doInTransaction(entityManager -> orderRepository.findTotalOrderAmount(orderId, entityManager));
     }
 }
 

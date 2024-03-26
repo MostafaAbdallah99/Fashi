@@ -56,7 +56,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link active" href="order_history">
-                            <i class="far fa-user"></i> Orders
+                            <i class="far fa-user"></i> Customers Profiles
                         </a>
                     </li>
 <%--                    <li class="nav-item dropdown">--%>
@@ -81,7 +81,7 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link d-block" href="login.html">
+                        <a class="nav-link d-block" href="/iti_ecommerce_app/logout">
                             Admin, <b>Logout</b>
                         </a>
                     </li>
