@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 })
                 .then(response => response.json())
                 .then(data => {
+                    const tableBody = document.querySelector('.table tbody');
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                                    <td>${product.id}</td>
+                                    <td>${product.productDescription}</td>
+                                    <td>${product.productPrice}</td>
+                                `;
+                   tableBody.appendChild(row);
                     document.getElementById('username').value = data.customerName;
                     document.getElementById('email').value = data.email;
                     document.getElementById('creditLimit').value = data.creditLimit;

@@ -203,27 +203,11 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ORDER NO.</th>
-                                    <th scope="col">STATUS</th>
-                                    <th scope="col">OPERATORS</th>
-                                    <th scope="col">LOCATION</th>
-                                    <th scope="col">DISTANCE</th>
-                                    <th scope="col">START DATE</th>
-                                    <th scope="col">EST DELIVERY DUE</th>
+                                    <th scope="col">ORDERED AT</th>
+                                    <th scope="col">TOTAL AMOUNT</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><b>#122349</b></th>
-                                    <td>
-                                        <div class="tm-status-circle moving">
-                                        </div>Moving
-                                    </td>
-                                    <td><b>Oliver Trag</b></td>
-                                    <td><b>London, UK</b></td>
-                                    <td><b>485 km</b></td>
-                                    <td>16:00, 12 NOV 2018</td>
-                                    <td>08:00, 18 NOV 2018</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
