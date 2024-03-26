@@ -21,9 +21,9 @@
                             <a href="#"><img src="img/footer-logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Address: Smart Villages Company, by Cairo / Alexandria Desert, B148 KM 28, Kerdasa, Giza Governorate 12563</li>
                             <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello.colorlib@gmail.com</li>
+                            <li>Email: itijets@gmail.com</li>
                         </ul>
                         <div class="footer-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -37,7 +37,7 @@
                     <div class="footer-widget">
                         <h5>Information</h5>
                         <ul>
-                            <li><a href="#">About Us</a></li>
+                            <li><a href="./contact.jsp">About Us</a></li>
                             <li><a href="./check-out.jsp">Checkout</a></li>
                             <li><a href="./contact.jsp">Contact Us</a></li>
                             
