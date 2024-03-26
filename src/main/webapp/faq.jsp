@@ -24,47 +24,50 @@
                     <div class="faq-accordin">
                         <div class="accordion" id="accordionExample">
                             <div class="card">
-                                <div class="card-heading active">
-                                    <a class="active" data-toggle="collapse" data-target="#collapseOne">
-                                        Is There Anything I Should Bring?
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFour">
+                                        What is your return policy?
                                     </a>
                                 </div>
-                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                <div id="collapseFour" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.</p>
+                                        <p>We accept returns within 30 days of the purchase date. Items must be in new, unworn condition with all original tags attached.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseTwo">
-                                        Where Can I Find Market Research Reports?
+                                    <a data-toggle="collapse" data-target="#collapseFive">
+                                        How long does shipping take?
                                     </a>
                                 </div>
-                                <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                <div id="collapseFive" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.</p>
+                                        <p>Standard shipping typically takes 5-7 business days. We also offer expedited shipping options at checkout.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseThree">
-                                        Where Can I Find The Wall Street Journal?
+                                    <a data-toggle="collapse" data-target="#collapseSix">
+                                        How do I know what size to order?
                                     </a>
                                 </div>
-                                <div id="collapseThree" class="collapse" data-parent="#accordionExample">
+                                <div id="collapseSix" class="collapse" data-parent="#accordionExample">
                                     <div class="card-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat.</p>
+                                        <p>We provide a detailed size guide on each product page. If you're still unsure, our customer service team would be happy to assist you.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseSeven">
+                                        Can I change or cancel my order?
+                                    </a>
+                                </div>
+                                <div id="collapseSeven" class="collapse" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p>Orders can be changed or cancelled within 1 hour of placing the order by contacting our customer service. After this time, we cannot guarantee any changes or cancellations as the order may have already been processed.</p>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +88,15 @@
         navItems.removeClass('active');
 
         $('.nav-menu ul li a[href="' + pageName + '"]').parent().addClass('active');
+
+        $(document).ready(function() {
+            $('.card-heading a').click(function() {
+                var target = $(this).attr('data-target');
+                $(target).collapse('toggle');
+            });
+        });
     </script>
+
     </body>
 
     </html>

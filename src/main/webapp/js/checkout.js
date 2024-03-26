@@ -10,29 +10,29 @@ else {
     var totalQuantity = 0;
     var totalPrice = 0.0;
 
-    // Clear the current items in the checkout
+
     $('.order-table').empty();
 
-    // Add header to the order table
+
     $('.order-table').append('<li>Product <span>Total</span></li>');
 
     // Loop through each cart item
     cartItems.forEach(function (item) {
-        // Create the HTML elements for the cart item
+
         var cartItem = '<li class="fw-normal" data-product-id="' + item.product.id + '">' + item.product.productName + ' x ' + item.quantity +
             '<span>$' + (item.product.productPrice * item.quantity).toFixed(2) + '</span></li>';
-        // Append the created HTML elements to the checkout
+
         $('.order-table').append(cartItem);
 
-        // Update totalQuantity and totalPrice
+
         totalQuantity += item.quantity;
         totalPrice += item.product.productPrice * item.quantity;
     });
 
-    // Add subtotal to the order table
+
     $('.order-table').append('<li class="fw-normal">Subtotal <span>$' + totalPrice.toFixed(2) + '</span></li>');
 
-    // Add total to the order table
+
     $('.order-table').append('<li class="total-price">Total <span>$' + totalPrice.toFixed(2) + '</span></li>');
 
     $('.place-btn').click(function (event) {
@@ -51,8 +51,8 @@ function checkout() {
         success: function (response) {
             console.log('Order placed successfully.');
             $('.place-order').empty();
-            $('.checkout-content').append('<h3>Order Placed Successfully!</h3>');
-            localStorage.removeItem('cartItems');
+            $('.checkout-content').html('<h3>Your Order Has Been Placed Successfully!</h3>');
+            sessionStorage.removeItem('cartItems');
             updateCartDropdown();
 
         },

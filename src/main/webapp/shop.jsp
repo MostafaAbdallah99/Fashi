@@ -67,8 +67,8 @@
                         <a href="#" class="filter-btn" id="clear-filter">Clear Filters</a>
                     </div>
                 </div>
-                <div class="filter-widget">
-                    <h4 class="fw-title">Size</h4>
+                <div class="filter-widget" style="opacity: 0;">
+                    <h4 class="fw-title"></h4>
                     <div class="fw-size-choose">
                         <div class="sc-item">
                             <input type="radio" id="s-size">

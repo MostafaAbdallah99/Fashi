@@ -41,7 +41,7 @@ $(document).ready(function () {
 });
 
 function showProduct(product) {
-    // Set the product image
+
     $('.product-big-img').attr('src', product.productImage);
     $('.pt').attr('data-imgbigurl', product.productImage);
     $('.pt img').attr('src', product.productImage);
@@ -62,7 +62,7 @@ function showProduct(product) {
 
 
 
-    // Set the product description
+
     $('.pd-desc p').text(product.productDescription);
     $('#tab-1 .product-content .row .col-lg-13 h5:contains("Introduction")').next('p').text(product.productDescription);
 
@@ -72,17 +72,16 @@ function showProduct(product) {
     // Set the product quantity in cart ? if the user already has the product in the cart this might need some work
     //    $('.pro-qty input').val(product.stockQuantity);
 
-    // Set the product category
+
     $('.pd-tags li:first-child').text('CATEGORIES: ' + product.categoryName);
 
-    // Set the product tags
+
     $('.pd-tags li:last-child').text('TAGS: ' + product.tag.tagName);
 
 
     $('.p-price').text('$' + product.productPrice);
     $('.p-stock').text(product.stockQuantity + ' in stock');
-    //    $('.p-weight').text(product.weight);
     $('.p-size').text(product.productSize);
-    //    $('.p-code').text(product.sku);
+
 
 }

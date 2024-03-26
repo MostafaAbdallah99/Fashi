@@ -65,9 +65,8 @@ function loadProducts(data, category) {
         productHTML += '<div class="pi-pic">';
         productHTML += '<img src="' + item.productImage + '" alt="">';
         productHTML += '<div class="icon"><i class="icon_heart_alt"></i></div>';
-        productHTML += '<ul><li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>';
-        productHTML += '<li class="quick-view"><a href="#">+ Quick View</a></li>';
-        productHTML += '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li></ul>';
+        productHTML += '<ul><li class="w-icon active"><a href="#" onclick="handleBagIconClick(' + item.id + '); return false;"><i class="icon_bag_alt"></i></a></li>';
+        productHTML += '<li class="quick-view"><a href="product?product=prdct-' + item.id + '" id="quick-view-' + item.id + '">+ Quick View</a></li>';        productHTML += '<li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li></ul>';
         productHTML += '</div>';
         productHTML += '<div class="pi-text">';
         productHTML += '<div class="catagory-name">' + item.tag.tagName + '</div>';

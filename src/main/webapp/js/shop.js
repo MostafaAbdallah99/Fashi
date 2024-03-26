@@ -160,11 +160,6 @@ function filter(selectedCategory, selectedPriceMin, selectedPriceMax, selectedTa
 }
 
 
-function handleBagIconClick(productId) {
-    var quantity = 1;
-    product_id = "prdct-" + productId;
-    addToCart(product_id, quantity);
-}
 
 function getProducts(pages, n) {
     $.ajax({
