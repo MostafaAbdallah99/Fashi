@@ -127,8 +127,80 @@ public class EmailHandler {
 
     public static void main(String[] args) {
         EmailHandler emailHandler = new EmailHandler();
-        emailHandler.sendEmail("maher.naser.gh@gmail.com", "Join me on Chat App", "Maher");
+//        emailHandler.sendEmail("maher.naser.gh@gmail.com", "Join me on Chat App", "Maher");
+        emailHandler.sendEmailContact("nada.mahmoud200002.nm@gmail.com","Contact Form Submission from nada", "Hello, I am Nada. I would like to contact you.");
 
     }
 
-}
+
+    private MimeMessage ContactUsDraft(String fromEmail, String toEmail, String subject, String message) {
+        MimeMessage mimeMessage = new MimeMessage(session);
+        try {
+            mimeMessage.setFrom(new InternetAddress(fromEmail)); // set the "from" address to the customer's email
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail)); // set the "to" address to the host's email
+            mimeMessage.setSubject(subject);
+            mimeMessage.setContent(getContactUsHtmlContent(fromEmail,message), "text/html");
+        } catch (MessagingException e) {
+            throw new RuntimeException("Error drafting email", e);
+        }
+        return mimeMessage;
+    }
+
+    public void sendEmailContact(String fromEmail, String subject, String message) {
+        MimeMessage mimeMessage = ContactUsDraft(fromEmail, "itijets@gmail.com", subject, message);
+
+        String emailHost = "smtp.gmail.com";
+        Transport transport = null;
+
+        try {
+            transport = session.getTransport("smtp");
+            transport.connect(emailHost, email, password);
+            transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+        } catch (MessagingException e) {
+        } finally {
+            try {
+                if (transport != null) {
+                    transport.close();
+                }
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+        private static String getContactUsHtmlContent(String customerEmail, String message) {
+            return "<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<head>\n" +
+                    "    <meta charset=\"UTF-8\">\n" +
+                    "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                    "    <style>\n" +
+                    "        body {\n" +
+                    "            font-family: 'Arial', sans-serif;\n" +
+                    "            background-color: #f4f4f4;\n" +
+                    "            margin: 0;\n" +
+                    "            padding: 0;\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        .email-container {\n" +
+                    "            max-width: 600px;\n" +
+                    "            margin: 20px auto;\n" +
+                    "            background-color: #ffffff;\n" +
+                    "            padding: 20px;\n" +
+                    "            border-radius: 10px;\n" +
+                    "            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n" +
+                    "        }\n" +
+                    "    </style>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "    <div class=\"email-container\">\n" +
+                    "        <h1>Contact Form Submission</h1>\n" +
+                    "        <p><strong>From:</strong> " + customerEmail + "</p>\n" +
+                    "        <p><strong>Message:</strong></p>\n" +
+                    "        <p>" + message + "</p>\n" +
+                    "    </div>\n" +
+                    "</body>\n" +
+                    "</html>";
+        }
+    }
+

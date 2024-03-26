@@ -9,7 +9,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
                         <a href="./home.jsp"><i class="fa fa-home"></i> Home</a>
-                        <a href="./shop.jsp">Shop</a>
+                        <a href="shop">Shop</a>
                         <span>Check Out</span>
                     </div>
                 </div>
