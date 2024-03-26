@@ -71,6 +71,10 @@
                                     <label class="form-label">Date</label>
                                     <input type="date" class="form-control" name="birthday" value="${sessionScope.customer.birthday()}">
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label">Credit Limit</label>
+                                    <input type="number" step="0.01" class="form-control" name="creditLimit" value="${sessionScope.customer.creditLimit()}">
+                                </div>
                                 <button type="submit" class="btn btn-primary">Update General</button>
                             </form>
                         </div>

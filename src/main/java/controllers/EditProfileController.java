@@ -12,6 +12,7 @@ import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,10 +55,16 @@ public class EditProfileController extends HttpServlet {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-        }        String city = req.getParameter("city");
+        }
+        String city = req.getParameter("city");
         String country = req.getParameter("country");
         String streetNo = req.getParameter("streetNo");
         String streetName = req.getParameter("streetName");
+        String creditLimitParam = req.getParameter("creditLimit");
+        BigDecimal creditLimit = null;
+        if (creditLimitParam != null && !creditLimitParam.isEmpty()) {
+            creditLimit = new BigDecimal(creditLimitParam);
+        }
 
         HttpSession session = req.getSession();
         CustomerDTO customer = (CustomerDTO) session.getAttribute("customer");
@@ -70,7 +77,7 @@ public class EditProfileController extends HttpServlet {
                 customer.password(),
                 job,
                 email,
-                customer.creditLimit(),
+                creditLimit, // updated creditLimit
                 city,
                 country,
                 streetNo,
