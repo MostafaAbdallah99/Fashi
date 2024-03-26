@@ -1,6 +1,5 @@
 package controllers;
 
-import dispatcher.resolver.types.JsonResolver;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import persistence.dto.ProductDTO;
 import services.impl.ProductService;
+import utils.JsonResolver;
 
 import java.io.IOException;
 
@@ -30,7 +30,7 @@ public class ProductServlet extends HttpServlet {
         System.out.println("this is the data after the split "+p);
         long productId = Long.parseLong(p);
         ProductDTO product = new ProductService().getProductById(productId);
-        new JsonResolver().render(product, req, resp);
+        JsonResolver.render(product, resp);
 
     }
 }

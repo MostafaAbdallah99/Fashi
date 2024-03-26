@@ -10,8 +10,6 @@ import persistence.dto.CustomerDTO;
 import persistence.dto.CustomerOrderDTO;
 import persistence.dto.OrderTotalAmountDTO;
 import persistence.entities.Customer;
-import persistence.repository.interfaces.AdminRepo;
-import persistence.repository.repositories.AdminRepoImpl;
 import services.impl.AdminServiceImpl;
 import services.impl.CustomerServiceImpl;
 import services.impl.OrderService;

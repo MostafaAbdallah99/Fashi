@@ -8,14 +8,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import persistence.dto.CustomerDTO;
-import persistence.repository.repositories.UserRepositoryImpl;
 import services.impl.CustomerServiceImpl;
 import services.interfaces.CustomerService;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 @WebServlet("/edit-profile")
