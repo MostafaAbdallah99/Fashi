@@ -28,6 +28,12 @@ public class CartService {
         this.productRepository = new ProductRepositoryImpl();
     }
 
+    // Add this constructor
+    public CartService(CartRepositoryImpl cartRepository, ProductRepositoryImpl productRepository) {
+        this.cartRepository = cartRepository;
+        this.productRepository = productRepository;
+    }
+
 
     private int checkProductQuantityInCart(Cart cart, Product product, int quantity) {
         for (CartItem cartItem : cart.getCartItems()) {

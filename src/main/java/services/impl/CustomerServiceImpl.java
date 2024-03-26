@@ -19,8 +19,18 @@ import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
 
-    private final UserRepository userRepository = new UserRepositoryImpl();
+    private final UserRepository userRepository;
+    private final CartRepositoryImpl cartRepository;
 
+    public CustomerServiceImpl() {
+        this.userRepository = new UserRepositoryImpl();
+        this.cartRepository = new CartRepositoryImpl();
+    }
+
+    public CustomerServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+        this.cartRepository = new CartRepositoryImpl();
+    }
     public CustomerDTO login(String email, String password) {
         Customer customer = userRepository.findUserByEmail(email);
         if (customer != null) {
