@@ -22,9 +22,11 @@ async function fetchProduct(productID) {
             document.getElementById('productSize').value = product.productSize;
             document.getElementById('previewImage').src = product.productImage;
             if(product.isDeleted == 1){
-                document.getElementById('isDeleted').checked = true;
+                document.getElementById('isDeleted').value = "True";
+                document.querySelector('#isDeleted option[value="True"]').textContent = "True";
             } else {
-                document.getElementById('isDeleted').checked = false;
+                document.getElementById('isDeleted').value = "False";
+                document.querySelector('#isDeleted option[value="False"]').textContent = "False";
             }
         } else {
             window.location.href = 'product';
