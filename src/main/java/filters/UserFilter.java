@@ -13,7 +13,7 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((jakarta.servlet.http.HttpServletRequest) request).getSession(false);
         if (session != null && session.getAttribute("customer") != null) {
-            ((jakarta.servlet.http.HttpServletResponse) response).sendRedirect(((jakarta.servlet.http.HttpServletRequest) request).getContextPath() + "/home.jsp");
+            ((jakarta.servlet.http.HttpServletResponse) response).sendRedirect(((jakarta.servlet.http.HttpServletRequest) request).getContextPath() + "/home.jsp ");
         } else {
             chain.doFilter(request, response);
         }

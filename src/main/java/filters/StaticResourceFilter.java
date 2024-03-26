@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StaticResourceFilter implements Filter {
+public class
+StaticResourceFilter implements Filter {
     private Set<String> STATIC_RESOURCE_EXTENSIONS;
     @Override
     public void init(FilterConfig filterConfig) {

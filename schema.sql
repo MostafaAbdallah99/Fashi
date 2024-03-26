@@ -1,5 +1,3 @@
-8
-
 create table customer (
                           customer_id int primary key AUTO_INCREMENT,
                           customer_name VARCHAR(255) NOT NULL,
