@@ -22,7 +22,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
                     <h2>Register</h2>
-                    <form action="register" method="post" onsubmit="return validateForm()">
+                    <form action="register" method="post" onsubmit="return validateEmailAndUsername() && validateForm()">
                         <div class="group-input">
                             <label for="customerName">User Name *</label>
                             <input type="text" id="customerName" name="customerName" required>
