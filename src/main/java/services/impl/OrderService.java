@@ -1,5 +1,6 @@
 package services.impl;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import persistence.dto.OrderTotalAmountDTO;
 import persistence.entities.*;
@@ -34,10 +35,6 @@ public class OrderService {
                 throw new InsufficientCreditException(customer.getCreditLimit());
             }
 
-            Order order = new Order();
-            order.setOrderedAt(new Date());
-            order.setCustomer(cart.getCustomer());
-
             List<Long> outOfStockProducts = new ArrayList<>();
             for (CartItem cartItem : cartItems) {
                 Product product = productRepository.findById(Long.valueOf(cartItem.getProduct().getId()), entityManager);
@@ -51,36 +48,45 @@ public class OrderService {
                 throw new OutOfStockException(outOfStockProducts);
             }
 
-            for (CartItem cartItem : cartItems) {
-                Product product = productRepository.findById(Long.valueOf(cartItem.getProduct().getId()), entityManager);
-                OrderItem orderItem = new OrderItem(order, product, cartItem.getQuantity(), cartItem.getAmount());
-                order.getOrderItems().add(orderItem);
-                product.setStockQuantity(product.getStockQuantity() - cartItem.getQuantity());
-                productRepository.update(product, entityManager);
-            }
+            Order order = orderRepository.createOrder(cart, entityManager);
 
-            customer.setCreditLimit(customer.getCreditLimit().subtract(totalCost));
-            entityManager.merge(customer);
-            entityManager.persist(order);
-            // Clear the cart
+            updateProductStockAndCreateOrderItems(cartItems, order, entityManager);
 
-            // Clear the cart
-            List<CartItem> itemsToRemove = new ArrayList<>();
-            for (CartItem item : cartItems) {
-                itemsToRemove.add(item);
-            }
-            for (CartItem item : itemsToRemove) {
-                cart.removeProduct(item.getProduct());
-                entityManager.remove(item);
-            }
-            cartRepository.update(cart, entityManager);
+            updateCustomerCreditAndClearCart(customer, totalCost, cart, entityManager);
 
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);
             return response;
         });
-
     }
+
+
+
+    private void updateProductStockAndCreateOrderItems(Set<CartItem> cartItems, Order order, EntityManager entityManager) {
+        for (CartItem cartItem : cartItems) {
+            Product product = productRepository.findById(Long.valueOf(cartItem.getProduct().getId()), entityManager);
+            entityManager.lock(product, LockModeType.PESSIMISTIC_WRITE);
+            if (product.getStockQuantity() < cartItem.getQuantity()) {
+                throw new OutOfStockException(Collections.singletonList(Long.valueOf(product.getId())));
+            }
+            OrderItem orderItem = new OrderItem(order, product, cartItem.getQuantity(), cartItem.getAmount());
+            order.getOrderItems().add(orderItem);
+            product.setStockQuantity(product.getStockQuantity() - cartItem.getQuantity());
+            productRepository.update(product, entityManager);
+        }
+    }
+
+    private void updateCustomerCreditAndClearCart(Customer customer, BigDecimal totalCost, Cart cart, EntityManager entityManager) {
+        customer.setCreditLimit(customer.getCreditLimit().subtract(totalCost));
+        entityManager.merge(customer);
+
+        for (CartItem item : cart.getCartItems()) {
+            entityManager.remove(item);
+        }
+        cart.getCartItems().clear();
+        cartRepository.update(cart, entityManager);
+    }
+
 
 
     public BigDecimal calculateTotalCartCost(int cartId) {

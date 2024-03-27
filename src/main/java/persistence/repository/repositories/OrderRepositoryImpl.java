@@ -3,10 +3,12 @@ package persistence.repository.repositories;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import persistence.dto.OrderTotalAmountDTO;
+import persistence.entities.Cart;
 import persistence.entities.Order;
 import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.interfaces.OrderRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderRepositoryImpl extends GenericRepositoryImpl<Order, Integer> implements OrderRepository {
@@ -32,6 +34,16 @@ public class OrderRepositoryImpl extends GenericRepositoryImpl<Order, Integer> i
         query.setParameter("customerId", customerId);
         return query.getResultList();
     }
+
+    public Order createOrder(Cart cart, EntityManager entityManager) {
+        Order order = new Order();
+        order.setOrderedAt(new Date());
+        order.setCustomer(cart.getCustomer());
+        entityManager.persist(order);
+        return order;
+    }
+
+
 
 
 }
