@@ -1,7 +1,7 @@
 
 <div align="center">
 
-  <img src="src/main/webapp/img/footer-logo.png" alt="logo" width="89" height="23" />
+  <img src="src/main/webapp/img/footer-logo.png" alt="logo" width="200" height="auto" />
   <h1>Fashi E-commerce</h1>
 
   <p>
