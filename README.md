@@ -142,11 +142,11 @@ mvn -v
 
 This project requires Apache Tomcat 10. Make sure you have it installed on your system. You can check by running the following command in your terminal:
 
-Please note that the `catalina version` command will only work if the `CATALINA_HOME` environment variable is set to the directory where Tomcat is installed, and the `bin` directory of Tomcat is added to the `PATH` environment variable.
-
 ```bash
 catalina version
 ```
+
+Please note that the `catalina version` command will only work if the `CATALINA_HOME` environment variable is set to the directory where Tomcat is installed, and the `bin` directory of Tomcat is added to the `PATH` environment variable.
 
 <!-- Run Locally -->
 ### :running: Run Locally
