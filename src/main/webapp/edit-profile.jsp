@@ -58,6 +58,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
                                     <input type="text" class="form-control mb-1" name="customerName" value="${sessionScope.customer.customerName()}">
+                                    <label class="form-label">${usernameExists}</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Job</label>
@@ -66,6 +67,7 @@
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
                                     <input type="text" class="form-control mb-1" name="email" value="${sessionScope.customer.email()}">
+                                    <label class="form-label">${emailExists}</label>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Date</label>

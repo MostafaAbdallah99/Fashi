@@ -3,7 +3,7 @@ package controllers;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import persistence.repository.utils.EmailHandler;
+import utils.EmailHandler;
 
 import java.io.IOException;
 

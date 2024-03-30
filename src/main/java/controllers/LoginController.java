@@ -33,6 +33,8 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("customer", customerDTO);
             if(customerDTO.isAdmin()) {
+                Cookie loginCookie = new Cookie("user_login", "true");
+                response.addCookie(loginCookie);
                 response.sendRedirect(request.getContextPath() + URLMapping.ADMIN_PRODUCT.getUrl());
             }
             else {

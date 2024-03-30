@@ -4,7 +4,7 @@ import mappers.ProductMapper;
 import persistence.dto.ProductDTO;
 import persistence.entities.Product;
 import persistence.repository.repositories.ProductRepositoryImpl;
-import persistence.repository.utils.TransactionUtil;
+import persistence.repository.TransactionUtil;
 
 import java.util.List;
 import java.util.Map;

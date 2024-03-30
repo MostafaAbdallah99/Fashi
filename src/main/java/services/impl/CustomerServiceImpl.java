@@ -11,7 +11,7 @@ import persistence.entities.Product;
 import persistence.repository.interfaces.UserRepository;
 import persistence.repository.repositories.CartRepositoryImpl;
 import persistence.repository.repositories.UserRepositoryImpl;
-import persistence.repository.utils.TransactionUtil;
+import persistence.repository.TransactionUtil;
 import services.interfaces.CustomerService;
 
 import java.util.List;

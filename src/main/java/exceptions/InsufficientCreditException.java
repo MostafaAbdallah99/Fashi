@@ -1,4 +1,4 @@
-package services.impl;
+package exceptions;
 
 import java.math.BigDecimal;
 

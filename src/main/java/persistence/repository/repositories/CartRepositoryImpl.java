@@ -7,7 +7,7 @@ import persistence.entities.CartItemId;
 import persistence.entities.Product;
 import persistence.repository.generic.GenericRepositoryImpl;
 import persistence.repository.interfaces.CartRepository;
-import persistence.repository.utils.TransactionUtil;
+import persistence.repository.TransactionUtil;
 
 import java.util.List;
 

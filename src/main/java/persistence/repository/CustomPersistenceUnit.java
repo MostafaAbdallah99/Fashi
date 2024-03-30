@@ -1,4 +1,4 @@
-package persistence.repository.utils;
+package persistence.repository;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;

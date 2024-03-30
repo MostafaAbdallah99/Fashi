@@ -1,5 +1,7 @@
 package services.impl;
 
+import exceptions.InsufficientCreditException;
+import exceptions.OutOfStockException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import persistence.dto.OrderTotalAmountDTO;
@@ -7,7 +9,7 @@ import persistence.entities.*;
 import persistence.repository.repositories.CartRepositoryImpl;
 import persistence.repository.repositories.OrderRepositoryImpl;
 import persistence.repository.repositories.ProductRepositoryImpl;
-import persistence.repository.utils.TransactionUtil;
+import persistence.repository.TransactionUtil;
 
 import java.math.BigDecimal;
 import java.util.*;

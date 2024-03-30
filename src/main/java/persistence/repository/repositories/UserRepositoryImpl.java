@@ -4,10 +4,8 @@ import jakarta.persistence.TypedQuery;
 import org.mindrot.jbcrypt.BCrypt;
 import persistence.entities.Customer;
 import persistence.repository.interfaces.UserRepository;
-import persistence.repository.utils.TransactionUtil;
+import persistence.repository.TransactionUtil;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -25,9 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Customer addCustomer(Customer customer) {
         try {
-            TransactionUtil.doInTransactionWithoutResult(entityManager -> {
-                entityManager.persist(customer);
-            });
+            TransactionUtil.doInTransactionWithoutResult(entityManager -> entityManager.persist(customer));
             System.out.println("Customer ID in add customer function: " + customer.getId());
             return customer;
         } catch (Exception ex) {
@@ -134,9 +130,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Customer findUserById(Integer id) {
-        return TransactionUtil.doInTransaction(entityManager -> {
-            return entityManager.find(Customer.class, id);
-        });
+        return TransactionUtil.doInTransaction(entityManager -> entityManager.find(Customer.class, id));
     }
 
 
@@ -148,11 +142,5 @@ public class UserRepositoryImpl implements UserRepository {
             List<Customer> customers = query.getResultList();
             return customers.isEmpty() ? null : customers.get(0);
         });
-    }
-
-    public static void main(String[] args) {
-        UserRepositoryImpl userRepository = new UserRepositoryImpl();
-        Customer customer = userRepository.findUserByEmail("john@example.com");
-        System.out.println(customer.getIsAdmin());
     }
 }

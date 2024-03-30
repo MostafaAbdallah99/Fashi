@@ -1,4 +1,4 @@
-package persistence.repository.utils;
+package persistence.repository;
 
 import jakarta.persistence.EntityManager;
 
@@ -23,7 +23,6 @@ public class TransactionUtil {
             return result;
         } catch (Exception e) {
             transaction.rollback();
-            e.printStackTrace();
             throw e;
         } finally {
             entityManager.close();

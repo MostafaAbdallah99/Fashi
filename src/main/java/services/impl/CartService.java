@@ -10,7 +10,7 @@ import persistence.entities.Customer;
 import persistence.entities.Product;
 import persistence.repository.repositories.CartRepositoryImpl;
 import persistence.repository.repositories.ProductRepositoryImpl;
-import persistence.repository.utils.TransactionUtil;
+import persistence.repository.TransactionUtil;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;

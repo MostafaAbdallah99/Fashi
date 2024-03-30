@@ -6,9 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import persistence.dto.CustomerDTO;
-import services.impl.InsufficientCreditException;
+import exceptions.InsufficientCreditException;
 import services.impl.OrderService;
-import services.impl.OutOfStockException;
+import exceptions.OutOfStockException;
 import utils.JsonResolver;
 
 import java.io.IOException;

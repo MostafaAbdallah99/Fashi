@@ -87,13 +87,22 @@ public class EditProfileController extends HttpServlet {
                 false
         );
 
-        boolean isUpdated = customerService.updateCustomer(updatedCustomer);
-
-        if (isUpdated) {
-            session.setAttribute("customer", updatedCustomer);
-            resp.sendRedirect("update-success.html");
+        if(customerService.isEmailExists(email) && !email.equals(customer.email())) {
+            req.setAttribute("emailExists", "Email already exists. Please use another email.");
+            req.getRequestDispatcher("edit-profile.jsp").forward(req, resp);
+        }
+        else if(customerService.isUsernameExists(customerName) && !customerName.equals(customer.customerName())) {
+            req.setAttribute("usernameExists", "Username already exists. Please use another username.");
+            req.getRequestDispatcher("edit-profile.jsp").forward(req, resp);
         } else {
-            resp.sendRedirect("error.jsp");
+            boolean isUpdated = customerService.updateCustomer(updatedCustomer);
+
+            if (isUpdated) {
+                session.setAttribute("customer", updatedCustomer);
+                resp.sendRedirect("update-success.html");
+            } else {
+                resp.sendRedirect("error.jsp");
+            }
         }
     }
 }
