@@ -97,8 +97,7 @@ Admin Features:
 - Deleting products
 - Review customer's profile
 - Review customer's orders history
-
-### :dart: Features
+  
 Customer Features:
 - Searching for products
 - Filtering products by price, category & tags
