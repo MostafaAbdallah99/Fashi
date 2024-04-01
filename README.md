@@ -50,8 +50,8 @@
   <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
 </div>
 
-
-## 👾 Tech Stack
+<!-- Tech Stack -->
+## :space_invader: Tech Stack
 
 <details>
   <summary>🌐 <h3>Frontend</h3></summary>
@@ -79,6 +79,10 @@
     <a href="https://www.mysql.com/"><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"></a><br>  
 </details>
 
+
+<!-- Database Diagram -->
+## :floppy_disk: Database Diagram
+![Database Diagram](https://github.com/mahernasser/Fashi/assets/68343331/57c1fff7-753e-4230-910c-9764ef64bae3)
 
 <!-- Features -->
 ## :dart: Features
