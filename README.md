@@ -31,15 +31,11 @@
     * [Screenshots](#camera-screenshots)
     * [Tech Stack](#space_invader-tech-stack)
     * [Features](#dart-features)
-    * [Color Reference](#art-color-reference)
-    * [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
     * [Prerequisites](#bangbang-prerequisites)
-    * [Installation](#gear-installation)
     * [Run Locally](#running-run-locally)
 - [Contributing](#wave-contributing)
 - [Contact](#handshake-contact)
-- [Acknowledgements](#gem-acknowledgements)
 
 
 
@@ -79,6 +75,7 @@
     <li><a href="https://www.digitalocean.com/community/tutorials/javamail-example-send-mail-in-java-smtp">Jakarta Mail</a></li>
     <li><a href="https://mapstruct.org/">Map Struct</a></li>
     <li><a href="https://firebase.google.com/">Firebase</a></li>
+    <li><a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a></li>
   </ul>
 </details>
 
