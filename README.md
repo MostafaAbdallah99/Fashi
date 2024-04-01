@@ -18,6 +18,12 @@
   <a href="https://github.com/mahernasser/iti_ecommerce_app/stargazers">
     <img src="https://img.shields.io/github/stars/mahernasser/iti_ecommerce_app" alt="stars" />
   </a>
+
+  
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/mahernasser/Fashi)
+![Github Created At](https://img.shields.io/github/created-at/mahernasser/Fashi)
+![GitHub last commit](https://img.shields.io/github/last-commit/mahernasser/Fashi)
+![GitHub repo size](https://img.shields.io/github/repo-size/mahernasser/Fashi)
 </p>
 
 </div>
