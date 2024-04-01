@@ -1,7 +1,7 @@
 
 <div align="center">
 
-  <img src="src/main/webapp/img/logo.png" alt="logo" width="200" height="auto" />
+  <img src="src/main/webapp/img/logo.png" alt="logo" width="352" height="92" />
   <h1>Fashi E-commerce</h1>
 
   <p>
@@ -51,10 +51,7 @@
 ### :camera: Screenshots
 
 <div align="center"> 
-   <video width="auto" height="auto" controls>
-    <source src="Fashi_Demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
 </div>
 
 
