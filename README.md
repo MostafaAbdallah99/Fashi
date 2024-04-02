@@ -184,19 +184,10 @@ catalina version
 > To stop the Tomcat server, press `Ctrl + C` in the terminal where the server is running.
 
 
-<!-- Contributing -->
-## :wave: Contributing
-
-<a href="https://github.com/mahernasser/iti_ecommerce_app/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=mahernasser/iti_ecommerce_app"  alt="Contributors"/>
-</a>
-
 <!-- Contact -->
 ## :handshake: Contact
 
 [![Nada Mahmoud](https://img.shields.io/badge/Nada_Mahmoud-Profile-blue?style=for-the-badge&logo=linkedin)]()
-
-[![Maher Nasser](https://img.shields.io/badge/Maher_Nasser-Profile-blue?style=for-the-badge&logo=linkedin)]()
 
 [![Mostafa Abdallah](https://img.shields.io/badge/Mostafa_Abdallah-Profile-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/mostafa-abdallah-a35130151/)
 
