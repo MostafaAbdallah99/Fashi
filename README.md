@@ -5,7 +5,7 @@
   <h1>Fashi E-commerce</h1>
 
   <p>
-    An E-commerce web application that  .
+    Where Fashion Meets Convenience  .
   </p>
 
 
@@ -53,7 +53,14 @@
 ## :camera: Screenshots
 
 <div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/8cc12f20-d1f8-4ecf-a97d-346cbd3829e6" alt="1" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/1cc6fd02-95db-4795-b897-015480034e7a" alt="8" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/cb5f7dfb-4908-44f1-96ef-d5ace82228a8" alt="7" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/f0630058-a4a6-4534-b683-3402950afaae" alt="6" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/f48c7e10-ed69-4a08-95f1-bf9a3d9ccd91" alt="5" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/8d4fb1f6-00cf-4b10-9e0f-a359ddd2523c" alt="4" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/63090c2f-e423-40a9-9552-a9f2c639aaf7" alt="3" width="300">
+  <img src="https://github.com/mahernasser/Fashi/assets/68343331/da1d7287-6f46-4dbd-94b0-d1aa102099dd" alt="2" width="300">
 </div>
 
 <!-- Tech Stack -->
